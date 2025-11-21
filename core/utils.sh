@@ -17,3 +17,7 @@ print_error() {
     local message=$1
     echo -e "$message"
 }
+
+print_empty_line() {
+    echo ""
+}

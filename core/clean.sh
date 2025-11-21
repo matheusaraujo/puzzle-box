@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# TODO: @matheusaraujo - improve this, reading ignore patterns from .gitignore file
+# TODO: improve this, reading ignore patterns from .gitignore file
 
 aoc_clean() {
   declare -a patterns=(
@@ -26,7 +26,7 @@ aoc_clean() {
     "*.pl.ERR"
     "__pycache__/"
   )
-  
+
   for pattern in "${patterns[@]}"; do
     matches=$(find . -type f -name "${pattern}" -o -type d -name "${pattern}" 2>/dev/null)
     if [[ -n "$matches" ]]; then

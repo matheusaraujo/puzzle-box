@@ -135,7 +135,7 @@ execute_solution_script() {
     elif (( $(echo "$elapsed_time < 60000000000" | bc -l) )); then
         elapsed="${elapsed_s}s"
     else
-        elapsed="${elapsed_min}min" # TODO: @matheusaraujo - fix this
+        elapsed="${elapsed_min}min" # TODO: fix this
     fi
 
     if [ $script_exit_code -ne 0 ]; then

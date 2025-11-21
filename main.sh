@@ -2,24 +2,25 @@
 
 YEARS=$(seq -w 2015 2035)
 DAYS=$(seq -w 1 25)
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source lib/aoc/check.sh
-source lib/aoc/clean.sh
-source lib/aoc/commit.sh
-source lib/aoc/configure_hooks.sh
-source lib/aoc/create.sh
-source lib/aoc/format.sh
-source lib/aoc/generate_input.sh
-source lib/aoc/help.sh
-source lib/aoc/langs.sh
-source lib/aoc/langs_stats.sh
-source lib/aoc/parse_args.sh
-source lib/aoc/progress.sh
-source lib/aoc/extract_answers.sh
-source lib/aoc/run.sh
-source lib/aoc/utils.sh
-source lib/aoc/validate_args.sh
-source lib/aoc/version.sh
+source $ROOT/core/check.sh
+source $ROOT/core/clean.sh
+source $ROOT/core/commit.sh
+source $ROOT/core/configure_hooks.sh
+source $ROOT/core/create.sh
+source $ROOT/core/format.sh
+source $ROOT/core/generate_input.sh
+source $ROOT/core/help.sh
+source $ROOT/core/langs.sh
+source $ROOT/core/langs_stats.sh
+source $ROOT/core/parse_args.sh
+source $ROOT/core/progress.sh
+source $ROOT/core/extract_answers.sh
+source $ROOT/core/run.sh
+source $ROOT/core/utils.sh
+source $ROOT/core/validate_args.sh
+source $ROOT/core/version.sh
 
 # COMMAND: help: Show help message
 help() {
@@ -89,7 +90,7 @@ check() {
 
 # COMMAND: version: Show versions of all tools
 version() {
-    aoc_version
+    pb_version
 }
 
 # COMMAND: check-all: Run validations for all solutions
