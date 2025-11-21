@@ -4,21 +4,24 @@ YEARS=$(seq -w 2015 2035)
 DAYS=$(seq -w 1 25)
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+source $ROOT/core/_utils.sh
+
+source $ROOT/challenges/challenges.sh
+source $ROOT/langs/langs.sh
+
 source $ROOT/core/check.sh
 source $ROOT/core/clean.sh
 source $ROOT/core/commit.sh
-source $ROOT/core/configure_hooks.sh
 source $ROOT/core/create.sh
 source $ROOT/core/format.sh
 source $ROOT/core/generate_input.sh
 source $ROOT/core/help.sh
-source $ROOT/core/langs.sh
 source $ROOT/core/langs_stats.sh
 source $ROOT/core/parse_args.sh
 source $ROOT/core/progress.sh
 source $ROOT/core/extract_answers.sh
 source $ROOT/core/run.sh
-source $ROOT/core/utils.sh
+source $ROOT/core/setup_git.sh
 source $ROOT/core/validate_args.sh
 source $ROOT/core/version.sh
 
@@ -27,9 +30,9 @@ help() {
     aoc_help
 }
 
-# COMMAND: configure_hooks: Configure git hooks
-configure_hooks() {
-    aoc_configure_hooks
+# COMMAND: setup_git: Configure git hooks and .gitignore
+setup_git() {
+    pb_setup_git
 }
 
 # COMMAND: create: Create a new solution for the given year, day, and lang
@@ -171,7 +174,7 @@ main() {
         parse_args "$@"
         case "$cmd" in
             help) help ;;
-            configure_hooks) configure_hooks ;;
+            setup_git) setup_git ;;
             create) create ;;
             run) run ;;
             run-all) run_all ;;
