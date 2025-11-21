@@ -1,6 +1,6 @@
 #!/bin/bash
 
-aoc_validate() {
+aoc_validate_year_day() {
     day_num=$((10#$day))
 
     declare -A days=(
@@ -26,4 +26,11 @@ aoc_validate() {
 
     print_error "${RED}[Advent of Code] Invalid year ($year) or day ($day).${NC}"
     exit 1
+}
+
+aoc_validate_directory() {
+    if [ ! -d "advent-of-code/$year/day$day" ]; then
+        print_error "${RED}[Advent of Code] Directory does not exist for $year, day $day.${NC}"
+        exit 1
+    fi
 }

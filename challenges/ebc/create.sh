@@ -1,16 +1,16 @@
 #!/bin/bash
 
 ebc_create() {
-    ext=${languages_extensions[$lang]}
-    ec="everybody.codes"
-    mkdir -p $ec/$year/quest$day/data
-    if [ -e $ec/$year/quest$day/part1.$ext ] || [ -e $ec/$year/quest$day/part2.$ext ] || [ -e $ec/$year/quest$day/part3.$ext ] ; then
-        print_error "Error: part1.$ext or part2.$ext already exists in $aoc/$year/day$day"
+    local ext=${languages_extensions[$lang]}
+    local dir=$(ebc_directory)
+    mkdir -p $dir/data
+    if [ -e $dir/part1.$ext ] || [ -e $dir/part2.$ext ] || [ -e $dir/part3.$ext ]; then
+        print_error "[Everybody.Codes] Error: part1.$ext, part2.$ext or part3.$ext already exists in $aoc/$year/day$day"
         exit 1
     fi
-    cp -r $ROOT/langs/$lang/template/part1.$ext $ec/$year/quest$day
-    cp -r $ROOT/langs/$lang/template/part2.$ext $ec/$year/quest$day
-    cp -r $ROOT/langs/$lang/template/part3.$ext $ec/$year/quest$day
-    print_success "$ec/$year/quest$day created using $lang! ${GREEN}✔${NC}"
+    cp -r $ROOT/langs/$lang/template/part1.$ext $dir
+    cp -r $ROOT/langs/$lang/template/part2.$ext $dir
+    cp -r $ROOT/langs/$lang/template/part3.$ext $dir
+    print_success "[Everybody.Codes] $dir created using $lang! ${GREEN}✔${NC}"
     print_success "Great coding! 💻"
 }

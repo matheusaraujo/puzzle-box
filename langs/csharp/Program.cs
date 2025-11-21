@@ -1,4 +1,4 @@
-﻿namespace aoc;
+﻿namespace PuzzleBox;
 
 public class Program
 {

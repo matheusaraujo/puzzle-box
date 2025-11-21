@@ -1,11 +1,12 @@
 #!/bin/bash
 
-year=$1
-day=$2
-part=$3
-input_file=$4
+dir=$1
+year=$2
+day=$3
+part=$4
+input_file=$5
 
-curr_dir=$(pwd)
+# curr_dir=$(pwd)
 
 part2_arg=""
 ln -sf $curr_dir/$year/day$day/part1.go $curr_dir/lib/go/part1.go

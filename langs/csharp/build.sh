@@ -1,24 +1,32 @@
 #!/bin/bash
 
-year=$1
-day=$2
+dir="$1"
 
-additional_files="../../$year/day$day/part1.cs"
-if [ -f "$year/day$day/part2.cs" ]; then
-    additional_files="$additional_files;../../$year/day$day/part2.cs"
+target_path="$(realpath "$dir")"
+base_path="$(realpath "$ROOT/langs/csharp")"
+relative_dir="$(realpath --relative-to="$base_path" "$target_path")"
+
+additional_files="$relative_dir/part1.cs"
+if [ -f "$relative_dir/part2.cs" ]; then
+    additional_files="$additional_files;$relative_dir/part2.cs"
 fi
-if [ -f "$year/day$day/helpers.cs" ]; then
-    additional_files="$additional_files;../../$year/day$day/helpers.cs"
+if [ -f "$relative_dir/part3.cs" ]; then
+    additional_files="$additional_files;$relative_dir/part3.cs"
+fi
+if [ -f "$relative_dir/helpers.cs" ]; then
+    additional_files="$additional_files;$relative_dir/helpers.cs"
 fi
 
-dotnet clean lib/csharp/aoc.csproj --verbosity=quiet > /dev/null 2>&1
+csproj="$ROOT/langs/csharp/pb.csproj"
+
+dotnet clean "$csproj" --verbosity=quiet > /dev/null 2>&1
 if [ $? -ne 0 ]; then
-    dotnet clean lib/csharp/aoc.csproj
+    dotnet clean "$csproj"
     exit 1
 fi
 
-dotnet build lib/csharp/aoc.csproj /p:AdditionalFiles="\"$additional_files\"" --verbosity=quiet > /dev/null 2>&1
+dotnet build "$csproj" /p:AdditionalFiles="\"$additional_files\"" --verbosity=quiet > /dev/null 2>&1
 if [ $? -ne 0 ]; then
-    dotnet build lib/csharp/aoc.csproj /p:AdditionalFiles="\"$additional_files\""
+    dotnet build "$csproj" /p:AdditionalFiles="\"$additional_files\""
     exit 1
 fi

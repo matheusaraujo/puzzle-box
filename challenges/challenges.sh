@@ -1,9 +1,15 @@
 #!/bin/bash
 
+source $ROOT/challenges/aoc/_util.sh
+source $ROOT/challenges/aoc/answers.sh
 source $ROOT/challenges/aoc/create.sh
+source $ROOT/challenges/aoc/input_file.sh
 source $ROOT/challenges/aoc/validate.sh
 
+source $ROOT/challenges/ebc/_util.sh
+source $ROOT/challenges/ebc/answers.sh
 source $ROOT/challenges/ebc/create.sh
+source $ROOT/challenges/ebc/input_file.sh
 source $ROOT/challenges/ebc/validate.sh
 
 available_challenges=(aoc ebc)

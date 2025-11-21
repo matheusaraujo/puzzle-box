@@ -1,9 +1,13 @@
 #!/bin/bash
 
-aoc_run() {
-    validate_year_day_directory
-    ensure_input_file_exists
-    try_to_extract_answers_from_website
+pb_run() {
+    validate_challenge
+    validate_year
+    validate_day
+
+    ${challenge}_validate_directory
+    ${challenge}_ensure_input_file_exists
+    ${challenge}_try_to_extract_answers_from_website
 
     if [ "$watch_mode" == "true" ]; then
         run_watch_mode
@@ -12,40 +16,8 @@ aoc_run() {
     fi
 }
 
-ensure_input_file_exists() {
-    input_file="$year/day$day/data/input.txt"
-    if [ ! -f "$input_file" ] || [ ! -s "$input_file" ]; then
-        mkdir -p "$(dirname "$input_file")"
-        curl -s -b session=$(cat session.cookie) https://adventofcode.com/$year/day/$(echo $day | sed 's/^0*//')/input -o "$input_file"
-        if [ ! -s "$input_file" ]; then
-            echo "Failed to fetch input file or file is empty."
-        fi
-    fi
-}
-
-try_to_extract_answers_from_website() {
-    curl -s -b session=$(cat session.cookie) https://adventofcode.com/$year/day/$(echo $day | sed 's/^0*//') -o $year/day$day/_readme1.html
-
-    if [ -f "$year/day$day/_readme1.html" ]; then
-
-        answers=($(grep -oP '<p>Your puzzle answer was <code>\K[^<]+' $year/day$day/_readme1.html))
-        if [ ${#answers[@]} -ne 0 ]; then
-            mkdir -p $year/day$day/data
-
-            printf "%s" "${answers[0]}" > $year/day$day/data/output.part1.txt
-            if [ ${#answers[@]} -eq 2 ]; then
-                printf "%s" "${answers[1]}" > $year/day$day/data/output.part2.txt
-            fi
-
-        fi
-
-        rm -rf $year/day$day/_readme*.html
-
-    fi
-}
-
 run_watch_mode() {
-    local watch_dir="$year/day$day"
+    local watch_dir="$(${challenge}_directory)"
     print_error "${GREEN}Running $watch_dir in watch mode...\nPress Ctrl+C to stop.${NC}"
     (run_full_puzzle) || true
 
@@ -58,53 +30,57 @@ run_watch_mode() {
 }
 
 run_full_puzzle() {
-    for lang in "${available_languages[@]}"; do
+    if [[ -n "$lang" ]]; then
         process_language_puzzle "$lang"
-    done
+    else
+        for l in "${available_languages[@]}"; do
+            process_language_puzzle "$l"
+        done
+    fi
 }
 
 process_language_puzzle() {
     local lang=$1
     local ext=${languages_extensions[$lang]}
+    local dir="$(${challenge}_directory)"
+    local title="$(${challenge}_title)"
 
-    if [ -f "$year/day$day/part1.$ext" ]; then
-        print_success "$lang: AoC $year - Day $day"
+    if [ -f "$dir/part1.$ext" ]; then
+        print_success "$title [$lang]"
 
-        if [ -f "lib/$lang/build.sh" ]; then
-            lib/$lang/build.sh "$year" "$day"
+        if [ -f "$ROOT/langs/$lang/build.sh" ]; then
+            $ROOT/langs/$lang/build.sh "$dir"
 
             if [ $? -ne 0 ]; then
                 exit 1
             fi
         fi
 
-        process_language_part "$lang" "part1"
-
-        if [ -f "$year/day$day/part2.$ext" ]; then
-            process_language_part "$lang" "part2"
-        fi
+        process_language_part "$dir" "$lang" "part1"
+        [ -f "$dir/part2.$ext" ] && process_language_part "$dir" "$lang" "part2"
+        [ -f "$dir/part3.$ext" ] && process_language_part "$dir" "$lang" "part3"
     fi
 }
 
 process_language_part() {
-    local lang=$1
-    local part=$2
+    local dir=$1
+    local lang=$2
+    local part=$3
 
-    for input_file in "$year/day$day/data/input.$part"*; do
+    for input_file in "$dir/data/input.$part"*; do
         [ -f "$input_file" ] || continue
 
         local output_file="${input_file/input/output}"
         validate_output_file "$output_file"
-
         execute_solution_script "$lang" "$year" "$day" "$part" "$input_file" "$output_file"
     done
 
-    local input_file="$year/day$day/data/input.txt"
-    local output_file="$year/day$day/data/output.$part.txt"
+    local input_file="$dir/data/input.txt"
+    local output_file="$dir/data/output.$part.txt"
     if [ -f "$output_file" ]; then
-        execute_solution_script "$lang" "$year" "$day" "$part" "$year/day$day/data/input.txt" $output_file
+        execute_solution_script "$lang" "$year" "$day" "$part" "$dir/data/input.txt" $output_file
     else
-        execute_solution_script "$lang" "$year" "$day" "$part" "$year/day$day/data/input.txt"
+        execute_solution_script "$lang" "$year" "$day" "$part" "$dir/data/input.txt"
     fi
 }
 
@@ -120,7 +96,7 @@ execute_solution_script() {
 
     /usr/bin/time -f "Max Memory: %M KB\nCPU Usage: %P" \
         -o /tmp/resource_usage.txt -- \
-        lib/$lang/run.sh "$year" "$day" "$part" "$input_file" > /tmp/script_output.txt 2>&1
+        $ROOT/langs/$lang/run.sh "$year" "$day" "$part" "$input_file" > /tmp/script_output.txt 2>&1
     local script_exit_code=$?
     local end_time=$(date +%s%N)
 
@@ -148,7 +124,6 @@ execute_solution_script() {
     local resource_usage=$(cat /tmp/resource_usage.txt)
     local max_memory_kb=$(echo "$resource_usage" | grep "Max Memory" | awk '{print $3}')
     local cpu_usage=$(echo "$resource_usage" | grep "CPU Usage" | awk '{print $3}')
-
 
     local max_memory=""
     if [ "$max_memory_kb" -ge 1048576 ]; then

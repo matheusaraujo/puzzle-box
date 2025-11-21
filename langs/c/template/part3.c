@@ -1,6 +1,6 @@
-#include "aoc_helpers.h"
+#include "pb_helpers.h"
 
 char *part3(char *puzzle_input, int size) {
   int result = 0;
-  return aoc_int_to_str(result);
+  return pb_int_to_str(result);
 }

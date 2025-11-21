@@ -1,22 +1,34 @@
 #!/bin/bash
 
-year=$1
-day=$2
+set -e
+
+dir="$1"
 
 helpers_file=""
-if [ -f "$year/day$day/helpers.c" ]; then
-    helpers_file="$year/day$day/helpers.c"
+if [ -f "$dir/helpers.c" ]; then
+    helpers_file="$dir/helpers.c"
 fi
 
-part2_file=""
-if [ -f "$year/day$day/part2.c" ]; then
-    part2_file="$year/day$day/part2.c"
+if [ -f "$dir/part2.c" ]; then
+    part2_file="$dir/part2.c"
+else
+    part2_file="$ROOT/langs/c/template/part2.c"
 fi
 
-gcc -o lib/c/run \
-    -Ilib/c \
+if [ -f "$dir/part3.c" ]; then
+    part3_file="$dir/part3.c"
+else
+    part3_file="$ROOT/langs/c/template/part3.c"
+fi
+
+if ! gcc -o "$ROOT/langs/c/run" \
+    -I"$ROOT/langs/c" \
     $helpers_file \
-    lib/c/aoc_helpers.c \
-    $year/day$day/part1.c \
-    $part2_file \
-    lib/c/main.c
+    "$ROOT/langs/c/pb_helpers.c" \
+    "$dir/part1.c" \
+    "$part2_file" \
+    "$part3_file" \
+    "$ROOT/langs/c/main.c"; then
+    echo "Build failed."
+    exit 1
+fi

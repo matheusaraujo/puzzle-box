@@ -1,0 +1,9 @@
+# os
+.DS_Store
+
+# c
+langs/c/run
+
+# csharp
+langs/csharp/bin
+langs/csharp/obj

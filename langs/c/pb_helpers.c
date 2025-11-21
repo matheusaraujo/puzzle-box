@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *aoc_int_to_str(int num) {
+char *pb_int_to_str(int num) {
   char *result = (char *)malloc(20 * sizeof(char));
   if (result == NULL)
     return NULL;
@@ -12,7 +12,7 @@ char *aoc_int_to_str(int num) {
   return result;
 }
 
-void aoc_scanf(const char *input, const char *format, ...) {
+void pb_scanf(const char *input, const char *format, ...) {
   va_list args;
   va_start(args, format);
 
@@ -29,15 +29,15 @@ void aoc_scanf(const char *input, const char *format, ...) {
   }
 }
 
-void aoc_memset(void *ptr, int value, size_t num) {
+void pb_memset(void *ptr, int value, size_t num) {
   if (ptr == NULL) {
-    fprintf(stderr, "Error: NULL pointer passed to aoc_memset\n");
+    fprintf(stderr, "Error: NULL pointer passed to pb_memset\n");
     return;
   }
 
   memset(ptr, value, num);
 }
 
-int aoc_cmp_asc(const void *a, const void *b) {
+int pb_cmp_asc(const void *a, const void *b) {
   return (*(int *)a - *(int *)b);
 }

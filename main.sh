@@ -1,8 +1,8 @@
 #!/bin/bash
 
-YEARS=$(seq -w 2015 2035)
+YEARS=$(seq -w 2015 2025)
 DAYS=$(seq -w 1 25)
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source $ROOT/core/_utils.sh
 
@@ -22,7 +22,7 @@ source $ROOT/core/progress.sh
 source $ROOT/core/extract_answers.sh
 source $ROOT/core/run.sh
 source $ROOT/core/setup_git.sh
-source $ROOT/core/validate_args.sh
+source $ROOT/core/validate.sh
 source $ROOT/core/version.sh
 
 # COMMAND: help: Show help message
@@ -42,7 +42,7 @@ create() {
 
 # COMMAND: run: Execute the solution for given year and day
 run() {
-    aoc_run
+    pb_run
 }
 
 # COMMAND: generate-input: Generate sample input for given year, day, and part
