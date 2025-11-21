@@ -2,15 +2,15 @@ aoc_lang_stats() {
     README_FILE="README.md"
     declare -A lang_count
     
-    for lang in "${!language_extensions[@]}"; do
+    for lang in "${!languages_extensions[@]}"; do
         lang_count[$lang]=0
     done
     
     for ((y=START_YEAR; y<=END_YEAR; y++)); do
         for d in $(seq -f "%02g" 1 25); do
             if [ -d "$y/day$d" ]; then
-                for lang in "${!language_extensions[@]}"; do
-                    ext="${language_extensions[$lang]}"
+                for lang in "${!languages_extensions[@]}"; do
+                    ext="${languages_extensions[$lang]}"
                     if ls "$y/day$d"/*.$ext &>/dev/null; then
                         lang_count[$lang]=$((lang_count[$lang] + 1))
                     fi

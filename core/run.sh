@@ -65,7 +65,7 @@ run_full_puzzle() {
 
 process_language_puzzle() {
     local lang=$1
-    local ext=${language_extensions[$lang]}
+    local ext=${languages_extensions[$lang]}
 
     if [ -f "$year/day$day/part1.$ext" ]; then
         print_success "$lang: AoC $year - Day $day"

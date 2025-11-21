@@ -9,8 +9,8 @@ Follow these steps to add support for a new language.
 1. **Register the Language in `lib/aoc/langs.sh`**
 Update the following sections of the script:
 - Add the language to the `available_languages` array.
-- Define its file extensions in the `language_extensions` array.
-- Add any alternative names or abbreviations in the `language_aliases` array.
+- Define its file extensions in the `languages_extensions` array.
+- Add any alternative names or abbreviations in the `languages_aliases` array.
 
 2. **Create a Setup Script**
 - `lib/lang/setup.sh`
@@ -18,7 +18,7 @@ Update the following sections of the script:
 - Remember to update `Dockerfile` to run this file
 
 3. **Create the Main Program File**
-- `lib/lang/main.lang`. 
+- `lib/lang/main.lang`.
 - This file should:
     - Read input from **standard input (_stdin_)**.
     - Print the puzzle solution to **standard output (_stdout_)**.

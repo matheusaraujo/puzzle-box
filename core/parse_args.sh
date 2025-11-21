@@ -1,16 +1,16 @@
 #!/bin/bash
 
-update_aoc_env() {
+update_pb_env() {
     local key="$1"
     local value="$2"
 
-    if [[ ! -f .aoc-env ]]; then
-        echo "$key=$value" >> .aoc-env
+    if [[ ! -f .pb-env ]]; then
+        echo "$key=$value" >> .pb-env
     else
-        if grep -q "^$key=" .aoc-env; then
-            sed -i "/^$key=/c\\$key=$value" .aoc-env
+        if grep -q "^$key=" .pb-env; then
+            sed -i "/^$key=/c\\$key=$value" .pb-env
         else
-            echo "$key=$value" >> .aoc-env
+            echo "$key=$value" >> .pb-env
         fi
     fi
 }
@@ -27,17 +27,20 @@ infer_year_day(){
 
 parse_args() {
     while [[ $# -gt 0 ]]; do
-        if [[ $1 =~ ^[2][0][1-9][5-9]$ || $1 =~ ^[2][0][2][0-4]$ ]]; then
+        if [[ " ${!challenges_aliases[@]} " =~ " $1 " ]]; then
+            challenge="${challenges_aliases[$1]}"
+            update_pb_env "challenge" "$challenge"
+        elif [[ $1 =~ ^[0-9]{4}$ ]]; then
             year="$1"
-            update_aoc_env "year" "$year"
+            update_pb_env "year" "$year"
         elif [[ $1 =~ ^([1-9]|0[0-9]|1[0-9]|2[0-5])$  ]]; then
             arg=$(echo "$1" | sed 's/^0*//')
             day=$(printf "%02d" "$arg")
-            update_aoc_env "day" "$day"
-        elif [[ $1 == "part1" || $1 == "part2" ]]; then
+            update_pb_env "day" "$day"
+        elif [[ $1 == "part1" || $1 == "part2" || $1 == "part3" ]]; then
             part="$1"
-        elif [[ " ${!language_aliases[@]} " =~ " $1 " ]]; then
-            lang="${language_aliases[$1]}"
+        elif [[ " ${!languages_aliases[@]} " =~ " $1 " ]]; then
+            lang="${languages_aliases[$1]}"
         elif [[ $1 == "--watch" || $1 == "-w" ]]; then
             watch_mode="true"
         else
@@ -47,7 +50,7 @@ parse_args() {
         shift
     done
 
-    if [[ -z "$year" && -z "$day" && -f ".aoc-env" ]]; then
-        source .aoc-env
+    if [[ -z "$challenge" && -z "$year" && -z "$day" && -f ".pb-env" ]]; then
+        source .pb-env
     fi
 }

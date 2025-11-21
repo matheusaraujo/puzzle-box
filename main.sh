@@ -35,9 +35,9 @@ setup_git() {
     pb_setup_git
 }
 
-# COMMAND: create: Create a new solution for the given year, day, and lang
+# COMMAND: create: Create a new solution for the given challenge, year, day, and lang
 create() {
-    aoc_create
+    pb_create
 }
 
 # COMMAND: run: Execute the solution for given year and day

@@ -4,7 +4,7 @@ aoc_format() {
     validate_year_day_directory
 
     for lang in "${available_languages[@]}"; do
-        local ext=${language_extensions[$lang]}
+        local ext=${languages_extensions[$lang]}
 
         if [ -f "$year/day$day/part1.$ext" ]; then
             print_success "format($lang): AoC $year - Day $day"

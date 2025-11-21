@@ -3,8 +3,8 @@
 # Languages
 available_languages=(c csharp go java javascript python perl)
 
-declare -A language_extensions
-language_extensions=(
+declare -A languages_extensions
+languages_extensions=(
     ["c"]="c"
     ["csharp"]="cs"
     ["go"]="go"
@@ -14,8 +14,8 @@ language_extensions=(
     ["python"]="py"
 )
 
-declare -A language_aliases
-language_aliases=(
+declare -A languages_aliases
+languages_aliases=(
     ["c"]="c"
     ["clang"]="c"
     ["csharp"]="csharp"
