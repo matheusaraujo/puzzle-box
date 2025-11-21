@@ -1,19 +1,18 @@
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
-COPY . /usr/local/aoc
+COPY . /usr/local/puzzle-box
 
-RUN /usr/local/aoc/aoc/setup.sh
-RUN /usr/local/aoc/c/setup.sh
-RUN /usr/local/aoc/csharp/setup.sh
-RUN /usr/local/aoc/go/setup.sh
-RUN /usr/local/aoc/java/setup.sh
-RUN /usr/local/aoc/javascript/setup.sh
-RUN /usr/local/aoc/perl/setup.sh
-RUN /usr/local/aoc/python/setup.sh
-RUN /usr/local/aoc/aoc/post_setup.sh
+RUN /usr/local/puzzle-box/core/setup.sh
+RUN /usr/local/puzzle-box/langs/c/setup.sh
+RUN /usr/local/puzzle-box/langs/csharp/setup.sh
+RUN /usr/local/puzzle-box/langs/go/setup.sh
+RUN /usr/local/puzzle-box/langs/java/setup.sh
+RUN /usr/local/puzzle-box/langs/javascript/setup.sh
+RUN /usr/local/puzzle-box/langs/perl/setup.sh
+RUN /usr/local/puzzle-box/langs/python/setup.sh
+RUN /usr/local/puzzle-box/core/post_setup.sh
 
 CMD ["/bin/sh", "-c", "source /home/vscode/.bashrc && exec /bin/sh"]
 
-# TODO: @matheusaraujo - move it somewhere else
 USER vscode
-RUN dotnet tool install -g csharpier
+RUN /usr/local/puzzle-box/langs/csharp/post_setup_vscode_user.sh
