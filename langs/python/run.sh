@@ -1,12 +1,17 @@
 #/bin/bash
 
-year=$1
-day=$2
-part=$3
-input_file=$4
+dir=$1
+year=$2
+day=$3
+part=$4
+input_file=$5
 
-if [ -f "$year/day$day/requirements.txt" ]; then
-    pip install -q -r "$year/day$day/requirements.txt"
+target_path="$(realpath "$dir")"
+base_path="$(realpath "$ROOT/langs/javascript")"
+relative_dir="$(realpath --relative-to="$base_path" "$target_path")"
+
+if [ -f "$dir/requirements.txt" ]; then
+    pip install -q -r "$dir/requirements.txt"
 fi
 
-python3 ./lib/python/main.py $year $day $part < $input_file
+python3 $ROOT/langs/python/main.py $relative_dir $year $day $part < $input_file

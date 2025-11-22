@@ -1,14 +1,16 @@
 import sys
 
-year, day, part = sys.argv[1], sys.argv[2], sys.argv[3]
+solution_path, year, day, part = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
 
-solution_path = f"./{year}/day{day}"
+# solution_path = f"./{year}/day{day}"
 sys.path.append(solution_path)
 
 if part == "part1":
     from part1 import part1 as func
-else:
+elif part == "part2":
     from part2 import part2 as func
+elif part == "part3":
+    from part3 import part2 as func
 
 
 def main():
