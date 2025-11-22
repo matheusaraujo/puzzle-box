@@ -12,7 +12,7 @@ pb_format() {
         execute_lang_format_sh "$dir" "$year" "$day" "$lang" "$title"
     else
         for l in "${available_languages[@]}"; do
-            execute_lang_format_sh "$dir" "$year" "$day" "$lang" "$title"
+            execute_lang_format_sh "$dir" "$year" "$day" "$l" "$title"
         done
     fi
 }

@@ -1,3 +1,5 @@
-# advent-of-code lib
+# puzzle-box
 
-This is supposed to be migrated to another repo and provided via docker image for devcontainer.
+![logo.png](docs/logo.png)
+
+This is a README

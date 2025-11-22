@@ -13,3 +13,6 @@ langs/go/part*.go
 
 # java
 langs/java/*.class
+
+# javascript
+langs/javascript/node_modules/

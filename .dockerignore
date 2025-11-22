@@ -1,3 +1,22 @@
 .dockerignore
 Dockerfile
 README.md
+
+# os
+.DS_Store
+
+# c
+langs/c/run
+
+# csharp
+langs/csharp/bin
+langs/csharp/obj
+
+# golang
+langs/go/part*.go
+
+# java
+langs/java/*.class
+
+# javascript
+langs/javascript/node_modules/

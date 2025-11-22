@@ -1,18 +1,19 @@
 #!/bin/bash
 
-source lib/aoc/utils.sh
+source $ROOT/core/_utils.sh
 
-year=$1
-day=$2
+dir=$1
+year=$2
+day=$3
 
-files=("part1.js" "part2.js" "helpers.js")
+files=("part1.js" "part2.js" "part3.js" "helpers.js")
 
-npm --silent --prefix lib/javascript/ install lib/javascript/
+npm --silent --prefix $ROOT/langs/javascript/ install $ROOT/langs/javascript/
 
 for file in "${files[@]}"; do
-    if [ -f "$year/day$day/$file" ]; then
-        if prettier "$year/day$day/$file" --write --log-level silent; then
-            print_success "prettier $year/day$day/$file \033[32m✔\033[0m"
+    if [ -f "$dir/$file" ]; then
+        if prettier "$dir/$file" --write --log-level silent; then
+            print_success "prettier $dir/$file \033[32m✔\033[0m"
         else
             exit 1
         fi
