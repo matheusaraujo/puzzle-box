@@ -72,31 +72,32 @@ process_language_part() {
 
         local output_file="${input_file/input/output}"
         validate_output_file "$output_file"
-        execute_solution_script "$lang" "$year" "$day" "$part" "$input_file" "$output_file"
+        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" "$input_file" "$output_file"
     done
 
     local input_file="$dir/data/input.txt"
     local output_file="$dir/data/output.$part.txt"
     if [ -f "$output_file" ]; then
-        execute_solution_script "$lang" "$year" "$day" "$part" "$dir/data/input.txt" $output_file
+        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" "$dir/data/input.txt" $output_file
     else
-        execute_solution_script "$lang" "$year" "$day" "$part" "$dir/data/input.txt"
+        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" "$dir/data/input.txt"
     fi
 }
 
-execute_solution_script() {
-    local lang=$1
-    local year=$2
-    local day=$3
-    local part=$4
-    local input_file=$5
-    local output_file=$6
+execute_lang_run_sh() {
+    local dir=$1
+    local lang=$2
+    local year=$3
+    local day=$4
+    local part=$5
+    local input_file=$6
+    local output_file=$7
 
     local start_time=$(date +%s%N)
 
     /usr/bin/time -f "Max Memory: %M KB\nCPU Usage: %P" \
         -o /tmp/resource_usage.txt -- \
-        $ROOT/langs/$lang/run.sh "$year" "$day" "$part" "$input_file" > /tmp/script_output.txt 2>&1
+        $ROOT/langs/$lang/run.sh "$dir" "$year" "$day" "$part" "$input_file" > /tmp/script_output.txt 2>&1
     local script_exit_code=$?
     local end_time=$(date +%s%N)
 

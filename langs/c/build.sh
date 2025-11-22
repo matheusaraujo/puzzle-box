@@ -4,6 +4,8 @@ set -e
 
 dir="$1"
 
+part1_file="$dir/part1.c"
+
 helpers_file=""
 if [ -f "$dir/helpers.c" ]; then
     helpers_file="$dir/helpers.c"
@@ -25,7 +27,7 @@ if ! gcc -o "$ROOT/langs/c/run" \
     -I"$ROOT/langs/c" \
     $helpers_file \
     "$ROOT/langs/c/pb_helpers.c" \
-    "$dir/part1.c" \
+    "$part1_file" \
     "$part2_file" \
     "$part3_file" \
     "$ROOT/langs/c/main.c"; then

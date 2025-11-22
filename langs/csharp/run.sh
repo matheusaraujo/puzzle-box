@@ -1,9 +1,9 @@
 #!/bin/bash
 
-year=$1
-day=$2
-part=$3
-input_file=$4
+year=$2
+day=$3
+part=$4
+input_file=$5
 
 csproj="$ROOT/langs/csharp/pb.csproj"
 

@@ -7,3 +7,6 @@ langs/c/run
 # csharp
 langs/csharp/bin
 langs/csharp/obj
+
+# golang
+langs/go/part*.go

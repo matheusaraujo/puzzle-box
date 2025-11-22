@@ -24,5 +24,7 @@ func main() {
 		fmt.Println(part1(puzzleInput))
 	} else if part == "part2" {
 		fmt.Println(part2(puzzleInput))
+	} else if part == "part3" {
+		fmt.Println(part3(puzzleInput))
 	}
 }
