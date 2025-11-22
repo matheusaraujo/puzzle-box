@@ -1,15 +1,42 @@
 #!/bin/bash
 
-year=$1
-day=$2
+source $ROOT/core/_utils.sh
 
-dotnet new console -n check -o $year/day$day --force --verbosity quiet
+dir=$1
+year=$2
+day=$3
+debug=0
 
-dotnet add $year/day$day/check.csproj package Microsoft.CodeAnalysis.NetAnalyzers
+output=$(dotnet new console -n check -o "$dir" --force --verbosity quiet 2>&1)
+if [ $? -ne 0 ]; then
+    print_line "${PURPLE}dotnet new${GRAY_ITALIC} $dir ${CHECK_ERROR}"
+    print_line "$output"
+    exit 1
+elif [ $debug -eq 1 ]; then
+    print_line "${PURPLE}dotnet new${GRAY_ITALIC} $dir ${CHECK_SUCCESS}"
+fi
+
+output=$(dotnet add "$dir/check.csproj" package Microsoft.CodeAnalysis.NetAnalyzers 2>&1)
+if [ $? -ne 0 ]; then
+    print_line "${PURPLE}dotnet add package${GRAY_ITALIC} $dir/check.csproj ${CHECK_ERROR}"
+    print_line "$output"
+    exit 1
+elif [ $debug -eq 1 ]; then
+    print_line "${PURPLE}dotnet add package${GRAY_ITALIC} $dir/check.csproj ${CHECK_SUCCESS}"
+fi
 
 sed -i '/<\/PropertyGroup>/i \
-  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>' $year/day$day/check.csproj
+  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>' "$dir/check.csproj"
 
-dotnet build $year/day$day/check.csproj --verbosity quiet
+if [ $debug -eq 1 ]; then
+  print_line "${PURPLE}update csproj${GRAY_ITALIC} $dir/check.csproj ${CHECK_SUCCESS}"
+fi
 
-
+build_output=$(dotnet build "$dir/check.csproj" --verbosity quiet 2>&1)
+if [ $? -ne 0 ]; then
+    print_line "${PURPLE}dotnet build${GRAY_ITALIC} $dir/check.csproj ${CHECK_ERROR}"
+    print_line "$build_output"
+    exit 1
+else
+    print_line "${PURPLE}dotnet build${GRAY_ITALIC} $dir/check.csproj ${CHECK_SUCCESS}"
+fi
