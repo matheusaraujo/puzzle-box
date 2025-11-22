@@ -1,12 +1,23 @@
 #!/bin/bash
 
-year=$1
-day=$2
+source $ROOT/core/_utils.sh
 
-files=("part1.pl" "part2.pl" "helpers.pl")
+dir=$1
+year=$2
+day=$3
+
+files=("part1.pl" "part2.pl" "part3.pl" "helpers.pl")
 
 for file in "${files[@]}"; do
-    if [ -f "$year/day$day/$file" ]; then
-        perlcritic -b $year/day$day/$file --profile lib/perl/.perlcriticrc || exit 1
+    path="$dir/$file"
+    if [ -f "$path" ]; then
+        output=$(perlcritic -b "$path" --profile "$ROOT/langs/perl/.perlcriticrc" 2>&1)
+        if [ $? -ne 0 ]; then
+            print_line "${PURPLE}perlcritic${GRAY_ITALIC} $path ${CHECK_ERROR}"
+            print_line "$output"
+            exit 1
+        else
+            print_line "${PURPLE}perlcritic${GRAY_ITALIC} $path ${CHECK_SUCCESS}"
+        fi
     fi
 done
