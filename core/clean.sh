@@ -1,38 +1,40 @@
 #!/bin/bash
 
-# TODO: improve this, reading ignore patterns from .gitignore file
-
-aoc_clean() {
+pb_clean() {
   declare -a patterns=(
     "**/_readme*.html"
-    "**/data/*"
     "helpers.sh"
-    "lib/c/run"
     "*.plist"
-    "lib/csharp/Part1.cs"
-    "lib/csharp/Part2.cs"
-    "lib/csharp/obj/"
-    "lib/csharp/bin/"
-    "**/bin/"
-    "**/obj/"
+    "**/bin"
+    "**/obj"
     "**/check.csproj"
-    "**/day**/Program.cs"
-    "lib/go/part1.go"
-    "lib/go/part2.go"
+    "**/Program.cs"
     "*.class"
-    "node_modules/"
+    "node_modules"
     "*.pl.bak"
     "*.pl.tdy"
     "*.pl.ERR"
-    "__pycache__/"
+    "**/__pycache__"
   )
 
   for pattern in "${patterns[@]}"; do
-    matches=$(find . -type f -name "${pattern}" -o -type d -name "${pattern}" 2>/dev/null)
-    if [[ -n "$matches" ]]; then
-      rm -rf $matches
+    if [[ "$pattern" == */ ]]; then
+      dir_pattern="${pattern%/}"
+    else
+      dir_pattern="$pattern"
     fi
+
+    # directories
+    while IFS= read -r -d '' dir; do
+      rm -rf "$dir"
+    done < <(find . -type d -path "./$dir_pattern" -prune -print0 2>/dev/null)
+
+    # files
+    while IFS= read -r -d '' file; do
+      rm -f "$file"
+    done < <(find . -type f -path "./$pattern" -print0 2>/dev/null)
+
   done
 
-  echo "Cleaning completed."
+  print_line "Cleaning completed ${CHECK_SUCCESS}"
 }

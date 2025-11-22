@@ -158,7 +158,7 @@ commit() {
 
 # COMMAND: clean: Clean temporary files
 clean() {
-    aoc_clean
+    pb_clean
 }
 
 # Parse the command and run the corresponding function
