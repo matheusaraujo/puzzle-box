@@ -20,5 +20,5 @@ if [ $? -ne 0 ]; then
     echo "$output"
     exit 1
 else
-    echo -e "go vet $year/day$day/ \033[32m✔\033[0m"
+    echo -e "go vet $year/day$day/ ${CHECK_SUCCESS}"
 fi

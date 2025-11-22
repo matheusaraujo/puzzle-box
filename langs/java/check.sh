@@ -13,7 +13,7 @@ for file in "${files[@]}"; do
         if [ $? -ne 0 ]; then
             exit 1
         else
-            print_success "pmd check $year/day$day/$file \033[32m✔\033[0m"
+            print_success "pmd check $year/day$day/$file ${CHECK_SUCCESS}"
         fi
     fi
 done

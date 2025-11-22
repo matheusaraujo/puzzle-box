@@ -13,7 +13,7 @@ for file in "${files[@]}"; do
             echo -e "$output"
             exit 1
         else
-            echo -e "clang --analyze $year/day$day/$file \033[32m✔\033[0m"
+            echo -e "clang --analyze $year/day$day/$file ${CHECK_SUCCESS}"
         fi
 
         tidy_output=$(clang-tidy "$year/day$day/$file" -extra-arg=-w --quiet --use-color --config-file=lib/c/.clang-tidy -- -Ilib/c -std=c11 2>&1)
@@ -22,7 +22,7 @@ for file in "${files[@]}"; do
             echo -e "$tidy_output"
             exit 1
         else
-            echo -e "clang-tidy $year/day$day/$file \033[32m✔\033[0m"
+            echo -e "clang-tidy $year/day$day/$file ${CHECK_SUCCESS}"
         fi
     fi
 done

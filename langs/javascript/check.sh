@@ -19,6 +19,6 @@ for file in "${files[@]}"; do
             exit 1
         fi
 
-        print_success "format $year/day$day/$file \033[32m✔\033[0m"
+        print_success "format $year/day$day/$file ${CHECK_SUCCESS}"
     fi
 done

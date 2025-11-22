@@ -12,10 +12,7 @@ npm --silent --prefix $ROOT/langs/javascript/ install $ROOT/langs/javascript/
 
 for file in "${files[@]}"; do
     if [ -f "$dir/$file" ]; then
-        if prettier "$dir/$file" --write --log-level silent; then
-            print_success "prettier $dir/$file \033[32m✔\033[0m"
-        else
-            exit 1
-        fi
+        prettier "$dir/$file" --write --log-level silent \
+        && print_success "${PURPLE}prettier${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
     fi
 done

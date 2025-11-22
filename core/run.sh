@@ -33,9 +33,13 @@ run_full_puzzle() {
     if [[ -n "$lang" ]]; then
         process_language_puzzle "$lang"
     else
-        for l in "${available_languages[@]}"; do
+        for ((i=0; i<${#available_languages[@]}; i++)); do
+            l="${available_languages[$i]}"
             process_language_puzzle "$l"
-            print_empty_line
+
+            if (( i < ${#available_languages[@]} - 1 )); then
+                print_empty_line
+            fi
         done
     fi
 }
@@ -144,16 +148,16 @@ execute_lang_run_sh() {
         local expected_output=$(cat "$output_file")
 
         if [ "$script_output" != "$expected_output" ]; then
-            print_error "\033[35m$part$input_label: \033[0m\033[32m$script_output\033[3;90m (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage})\033[91m ✘ Expected: $expected_output \033[0m"
+            print_error "${PURPLE}$part$input_label: \033[0m\033[32m$script_output${GRAY_ITALIC} (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage})\033[91m ✘ Expected: $expected_output \033[0m"
             if [ $(wc -l < /tmp/script_output.txt) -gt 1 ]; then
                 echo -e "$(head -n -1 /tmp/script_output.txt)"
             fi
             exit 1
         fi
-        result_symbol="\033[32m✔\033[0m"
+        result_symbol="${CHECK_SUCCESS}"
     fi
 
-    print_success "\033[35m$part$input_label: \033[0m\033[32m$script_output\033[3;90m (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage}) $result_symbol\033[0m"
+    print_success "${PURPLE}$part$input_label: \033[0m\033[32m$script_output${GRAY_ITALIC} (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage}) $result_symbol\033[0m"
 
     if [ $(wc -l < /tmp/script_output.txt) -gt 1 ]; then
         echo -e "$(head -n -1 /tmp/script_output.txt)"

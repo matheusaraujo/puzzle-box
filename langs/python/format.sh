@@ -1,19 +1,21 @@
 #!/bin/bash
 
-source lib/aoc/utils.sh
+source $ROOT/core/_utils.sh
 
-year=$1
-day=$2
+dir=$1
+year=$2
+day=$3
 
-if [ -f "$year/day$day/requirements.txt" ]; then
-    pip install -q -r "$year/day$day/requirements.txt"
+if [ -f "$dir/requirements.txt" ]; then
+    pip install -q -r "$dir/requirements.txt"
 fi
 
-files=("part1.py" "part2.py" "helpers.py")
+files=("part1.py" "part2.py" "part3.py" "helpers.py")
 
 for file in "${files[@]}"; do
-    if [ -f "$year/day$day/$file" ]; then
-        isort $year/day$day/$file && print_success "isort $year/day$day/$file \033[32m✔\033[0m"
-        black $year/day$day/$file -l 88 -q && print_success "black $year/day$day/$file \033[32m✔\033[0m"
+    if [ -f "$dir/$file" ]; then
+        isort $dir/$file \
+        && black $dir/$file -l 88 -q \
+        && print_success "${PURPLE}isort/black${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
     fi
 done

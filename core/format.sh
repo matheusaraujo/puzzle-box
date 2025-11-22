@@ -11,9 +11,13 @@ pb_format() {
     if [[ -n "$lang" ]]; then
         execute_lang_format_sh "$dir" "$year" "$day" "$lang" "$title"
     else
-        for l in "${available_languages[@]}"; do
+        for ((i=0; i<${#available_languages[@]}; i++)); do
+            l="${available_languages[$i]}"
             execute_lang_format_sh "$dir" "$year" "$day" "$l" "$title"
-            print_empty_line
+
+            if (( i < ${#available_languages[@]} - 1 )); then
+                print_empty_line
+            fi
         done
     fi
 }

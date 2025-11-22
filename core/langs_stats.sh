@@ -35,5 +35,5 @@ aoc_lang_stats() {
 
     sed -i -e "/<!-- langs-stats-begin -->/,/<!-- langs-stats-end -->/c\\$lang_stats_content" "$README_FILE"
 
-    print_success "language statistics updated! \033[32m✔\033[0m"
+    print_success "language statistics updated! ${CHECK_SUCCESS}"
 }

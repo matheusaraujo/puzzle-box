@@ -33,6 +33,6 @@ aoc_commit() {
     git add "$puzzle_folder"
     git commit -m "feat($year): $puzzle_title"
 
-    print_success "code committed! \033[32m✔\033[0m"
+    print_success "code committed! ${CHECK_SUCCESS}"
 
 }
