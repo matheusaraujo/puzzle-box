@@ -46,7 +46,7 @@ process_language_puzzle() {
     local title="$(${challenge}_title)"
 
     if [ -f "$dir/part1.$ext" ]; then
-        print_success "$title [$lang]"
+        print_success "run($lang): $title"
 
         if [ -f "$ROOT/langs/$lang/build.sh" ]; then
             $ROOT/langs/$lang/build.sh "$dir"

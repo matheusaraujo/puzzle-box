@@ -83,7 +83,7 @@ run_year() {
 
 # COMMAND: format: Format for given year and day
 format() {
-    aoc_format
+    pb_format
 }
 
 # COMMAND: check: Run checks for given year and day
