@@ -19,6 +19,7 @@ languages_aliases=(
     ["c"]="c"
     ["clang"]="c"
     ["csharp"]="csharp"
+    ["cs"]="csharp"
     ["c#"]="csharp"
     ["go"]="go"
     ["golang"]="go"
