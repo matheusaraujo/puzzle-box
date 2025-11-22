@@ -16,6 +16,7 @@ pb_setup_git() {
     chmod +x "$GIT_HOOKS_DIR/$COMMIT_MSG_HOOK_NAME"
     print_success "${GREEN}Git hooks installed successfully.${NC}"
 
+    # TODO: create a ignore_files based on langs
     for file in "${ignore_files[@]}"; do
         [ ! -f "$file" ] && touch "$file"
     done

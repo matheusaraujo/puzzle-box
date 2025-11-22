@@ -1,8 +1,9 @@
 #/bin/bash
 
-year=$1
-day=$2
-part=$3
-input_file=$4
+dir=$1
+year=$2
+day=$3
+part=$4
+input_file=$5
 
-./lib/perl/main.pl $year $day $part < $input_file
+$ROOT/langs/perl/main.pl $dir $year $day $part < $input_file
