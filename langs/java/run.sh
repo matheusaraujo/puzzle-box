@@ -6,4 +6,4 @@ day=$3
 part=$4
 input_file=$5
 
-java -cp "$dir:$ROOT/langs/java" main $year $day $part < "$input_file"
+java -cp "$dir:$ROOT/langs/java" main $dir $year $day $part < "$input_file"

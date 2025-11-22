@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
 
-        String part = args[2];
+        String part = args[3];
         StringBuilder puzzleInput = new StringBuilder();
 
         Scanner scanner = new Scanner(System.in);

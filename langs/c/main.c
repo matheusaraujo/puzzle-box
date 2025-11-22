@@ -35,11 +35,11 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    if (strcmp("part1", argv[3]) == 0) {
+    if (strcmp("part1", argv[4]) == 0) {
         printf("%s\n", part1(puzzle_input, line_count));
-    } else if (strcmp("part2", argv[3]) == 0) {
+    } else if (strcmp("part2", argv[4]) == 0) {
         printf("%s\n", part2(puzzle_input, line_count));
-    } else if (strcmp("part3", argv[3]) == 0) {
+    } else if (strcmp("part3", argv[4]) == 0) {
         printf("%s\n", part3(puzzle_input, line_count));
     }
 

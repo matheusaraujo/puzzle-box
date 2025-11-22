@@ -1,8 +1,13 @@
 #/bin/bash
 
-year=$1
-day=$2
-part=$3
-input_file=$4
+dir=$1
+year=$2
+day=$3
+part=$4
+input_file=$5
 
-node lib/javascript/main.js $year $day $part < $input_file
+target_path="$(realpath "$dir")"
+base_path="$(realpath "$ROOT/langs/javascript")"
+relative_dir="$(realpath --relative-to="$base_path" "$target_path")"
+
+node $ROOT/langs/javascript/main.js $relative_dir $year $day $part < $input_file

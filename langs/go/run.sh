@@ -42,4 +42,4 @@ go run \
   $part3_arg \
   $helpers_arg \
   $go_dir/main.go \
-  $year $day $part < "$input_file"
+  $dir $year $day $part < "$input_file"

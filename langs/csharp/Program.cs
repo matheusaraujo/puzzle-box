@@ -4,7 +4,7 @@ public class Program
 {
     static void Main(string[] args)
     {
-        string part = args[2];
+        string part = args[3];
         string input, puzzleInput = "";
 
         while ((input = Console.ReadLine()) != null)

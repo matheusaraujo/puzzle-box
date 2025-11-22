@@ -1,8 +1,8 @@
 const fs = require('fs');
 
-const [,, year, day, part] = process.argv;
+const [,, dir, , , part] = process.argv;
 
-let func = require(`../../${year}/day${day}/${part}.js`);
+let func = require(`${dir}/${part}.js`);
 
 function main() {
   const input_data = fs.readFileSync(0, 'utf-8')
