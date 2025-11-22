@@ -6,13 +6,13 @@ aoc_puzzle_text() {
   curl -s -b session=$(cat session.cookie) https://adventofcode.com/$year/day/$(echo $day | sed 's/^0*//') -o $year/day$day/_readme1.html
 
   if ! grep -q '<p class="day-success">Both parts of this puzzle are complete!' $year/day$day/_readme1.html; then
-    print_error "puzzle is not complete yet"
+    print_line "puzzle is not complete yet"
     exit 1
   fi
 
   answers=($(grep -oP '<p>Your puzzle answer was <code>\K[^<]+' $year/day$day/_readme1.html))
   if [ ${#answers[@]} -eq 0 ]; then
-    print_error "Error: Unable to extract any answers"
+    print_line "Error: Unable to extract any answers"
     exit 1
   fi
   mkdir -p $year/day$day/data
@@ -32,13 +32,13 @@ aoc_puzzle_text() {
     sed -i 's/::: {role="main"}//g' $year/day$day/README.md
     sed -i 's/{#part2}//g' $year/day$day/README.md
     sed -i '${/^:::$/d}' $year/day$day/README.md
-    print_success "readme $year/day$day generated ${CHECK_SUCCESS}"
+    print_line "readme $year/day$day generated ${CHECK_SUCCESS}"
   else
     sed -n '/<main>/,/<\/main>/p' $year/day$day/_readme1.html > $year/day$day/_readme2.html
     extracted_title=$(sed -n 's/.*<h2>\(.*\)<\/h2>.*/\1/p' $year/day$day/_readme2.html)
     readme_content="# Advent of Code - ${year} Day ${day}\n\n${extracted_title}\n\nhttps://adventofcode.com/${year}/day/$(echo $day | sed 's/^0*//')"
     echo -e "$readme_content" > $year/day$day/README.md
-    print_success "readme $year/day$day generated ${CHECK_SUCCESS}"
+    print_line "readme $year/day$day generated ${CHECK_SUCCESS}"
   fi
 
   rm $year/day$day/_readme*.html

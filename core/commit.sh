@@ -8,7 +8,7 @@ aoc_commit() {
     puzzle_folder="$year/day$day/"
 
     if [ ! -f "$readme_path" ]; then
-        print_error "Error: README.md file does not exist at $readme_path"
+        print_line "Error: README.md file does not exist at $readme_path"
         exit 1
     fi
 
@@ -19,13 +19,13 @@ aoc_commit() {
     fi
 
     if [ -z "$puzzle_title" ]; then
-        print_error "Error: Unable to extract puzzle title from $readme_path"
+        print_line "Error: Unable to extract puzzle title from $readme_path"
         exit 1
     fi
 
     changed_files=($(git status --porcelain | awk '{print $2}'))
     if [[ ${#changed_files[@]} -ne 2 || "${changed_files[0]}" != "$root_readme_path" || ("${changed_files[1]}" != "$puzzle_folder" && "${changed_files[1]}" != "$year/") ]]; then
-        print_error "Error: Unexpected changes detected. Expected only:\n 1. $root_readme_path\n 2. $puzzle_folder"
+        print_line "Error: Unexpected changes detected. Expected only:\n 1. $root_readme_path\n 2. $puzzle_folder"
         exit 1
     fi
 
@@ -33,6 +33,6 @@ aoc_commit() {
     git add "$puzzle_folder"
     git commit -m "feat($year): $puzzle_title"
 
-    print_success "code committed! ${CHECK_SUCCESS}"
+    print_line "code committed! ${CHECK_SUCCESS}"
 
 }

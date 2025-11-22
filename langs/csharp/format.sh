@@ -11,6 +11,6 @@ files=("part1.cs" "part2.cs" "part3.cs" "helpers.cs")
 for file in "${files[@]}"; do
     if [ -f "$dir/$file" ]; then
         csharpier format $dir/$file --log-level none \
-        && print_success "${PURPLE}csharpier format${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
+        && print_line "${PURPLE}csharpier format${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
     fi
 done

@@ -16,6 +16,6 @@ for file in "${files[@]}"; do
     if [ -f "$dir/$file" ]; then
         isort $dir/$file \
         && black $dir/$file -l 88 -q \
-        && print_success "${PURPLE}isort/black${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
+        && print_line "${PURPLE}isort/black${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
     fi
 done

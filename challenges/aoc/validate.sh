@@ -24,13 +24,13 @@ aoc_validate_year_day() {
         fi
     fi
 
-    print_error "${RED}[Advent of Code] Invalid year ($year) or day ($day).${NC}"
+    print_line "${RED}[Advent of Code] Invalid year ($year) or day ($day).${NC}"
     exit 1
 }
 
 aoc_validate_directory() {
     if [ ! -d "advent-of-code/$year/day$day" ]; then
-        print_error "${RED}[Advent of Code] Directory does not exist for $year, day $day.${NC}"
+        print_line "${RED}[Advent of Code] Directory does not exist for $year, day $day.${NC}"
         exit 1
     fi
 }

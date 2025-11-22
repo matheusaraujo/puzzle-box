@@ -18,14 +18,14 @@ pb_run() {
 
 run_watch_mode() {
     local watch_dir="$(${challenge}_directory)"
-    print_error "${GREEN}Running $watch_dir in watch mode...\nPress Ctrl+C to stop.${NC}"
+    print_line "${GREEN}Running $watch_dir in watch mode...\nPress Ctrl+C to stop.${NC}"
     (run_full_puzzle) || true
 
     inotifywait -m -r -e close_write,create,delete "$watch_dir" --exclude '\.pyc(\..*)?$|\.bak$' 2>/dev/null |
     while read -r directory events filename; do
         clear
         (run_full_puzzle) || true
-        print_success "\n${GREEN}Running $watch_dir in watch mode...\nPress Ctrl+C to stop.${NC}"
+        print_line "\n${GREEN}Running $watch_dir in watch mode...\nPress Ctrl+C to stop.${NC}"
     done
 }
 
@@ -51,7 +51,7 @@ process_language_puzzle() {
     local title="$(${challenge}_title)"
 
     if [ -f "$dir/part1.$ext" ]; then
-        print_success "run($lang): $title"
+        print_line "run($lang): $title"
 
         if [ -f "$ROOT/langs/$lang/build.sh" ]; then
             $ROOT/langs/$lang/build.sh "$dir"
@@ -148,7 +148,7 @@ execute_lang_run_sh() {
         local expected_output=$(cat "$output_file")
 
         if [ "$script_output" != "$expected_output" ]; then
-            print_error "${PURPLE}$part$input_label: \033[0m\033[32m$script_output${GRAY_ITALIC} (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage})\033[91m ✘ Expected: $expected_output \033[0m"
+            print_line "${PURPLE}$part$input_label: \033[0m\033[32m$script_output${GRAY_ITALIC} (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage})\033[91m ✘ Expected: $expected_output \033[0m"
             if [ $(wc -l < /tmp/script_output.txt) -gt 1 ]; then
                 echo -e "$(head -n -1 /tmp/script_output.txt)"
             fi
@@ -157,7 +157,7 @@ execute_lang_run_sh() {
         result_symbol="${CHECK_SUCCESS}"
     fi
 
-    print_success "${PURPLE}$part$input_label: \033[0m\033[32m$script_output${GRAY_ITALIC} (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage}) $result_symbol\033[0m"
+    print_line "${PURPLE}$part$input_label: \033[0m\033[32m$script_output${GRAY_ITALIC} (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage}) $result_symbol\033[0m"
 
     if [ $(wc -l < /tmp/script_output.txt) -gt 1 ]; then
         echo -e "$(head -n -1 /tmp/script_output.txt)"
@@ -167,7 +167,7 @@ execute_lang_run_sh() {
 validate_output_file() {
     local output_file=$1
     if [ ! -f "$output_file" ]; then
-        print_success "Error: Output file $output_file does not exist."
+        print_line "Error: Output file $output_file does not exist."
         exit 1
     fi
 }

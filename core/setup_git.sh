@@ -5,16 +5,16 @@ GIT_HOOKS_DIR=".git/hooks"
 COMMIT_MSG_HOOK_NAME="commit-msg"
 
 pb_setup_git() {
-    print_success "Installing Git hooks..."
+    print_line "Installing Git hooks..."
 
     if [ ! -f "$COMMIT_MSG_SCRIPT" ]; then
-        print_error "${RED}[ERROR] Commit-msg script not found.${NC}"
+        print_line "${RED}[ERROR] Commit-msg script not found.${NC}"
         exit 1
     fi
 
     cp "$COMMIT_MSG_SCRIPT" "$GIT_HOOKS_DIR/$COMMIT_MSG_HOOK_NAME"
     chmod +x "$GIT_HOOKS_DIR/$COMMIT_MSG_HOOK_NAME"
-    print_success "${GREEN}Git hooks installed successfully.${NC}"
+    print_line "${GREEN}Git hooks installed successfully.${NC}"
 
     # TODO: create a ignore_files based on langs
     for file in "${ignore_files[@]}"; do
@@ -26,7 +26,7 @@ pb_setup_git() {
     for file in "${ignore_files[@]}"; do
         if ! grep -qxF "$file" ".gitignore"; then
             echo "$file" >> ".gitignore"
-            print_success "${GREEN}Added $file to .gitignore"
+            print_line "${GREEN}Added $file to .gitignore"
         fi
     done
 }

@@ -29,7 +29,7 @@ execute_lang_format_sh() {
     local lang=$4
     local title=$5
 
-    print_success "format($lang): $title"
+    print_line "format($lang): $title"
     $ROOT/langs/$lang/format.sh $dir $year $day
 
     if [ $? -ne 0 ]; then

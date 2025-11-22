@@ -15,13 +15,13 @@ ebc_validate_year_day() {
         fi
     fi
 
-    print_error "${RED}[Everybody.Codes] Invalid year ($year) or day ($day).${NC}"
+    print_line "${RED}[Everybody.Codes] Invalid year ($year) or day ($day).${NC}"
     exit 1
 }
 
 ebc_validate_directory() {
     if [ ! -d "everybody.codes/$year/quest$day" ]; then
-        print_error "${RED}[Everybody.Codes] Directory does not exist for $year, quest $day.${NC}"
+        print_line "${RED}[Everybody.Codes] Directory does not exist for $year, quest $day.${NC}"
         exit 1
     fi
 }

@@ -11,6 +11,6 @@ files=("part1.c" "part2.c" "part3.c" "helpers.c")
 for file in "${files[@]}"; do
     if [ -f "$dir/$file" ]; then
         clang-format -i $dir/$file \
-        && print_success "${PURPLE}clang-format${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
+        && print_line "${PURPLE}clang-format${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
     fi
 done

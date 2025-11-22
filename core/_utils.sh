@@ -7,16 +7,12 @@ RED="\033[0;31m"
 PURPLE="\033[35m"
 GRAY_ITALIC="\033[3;90m"
 CHECK_SUCCESS="\033[32m✔\033[0m"
+CHECK_ERROR="\033[31m✘\033[0m"
 
 START_YEAR=2015
 END_YEAR=2025
 
-print_success() {
-    local message=$1
-    echo -e "$message"
-}
-
-print_error() {
+print_line() {
     local message=$1
     echo -e "$message"
 }

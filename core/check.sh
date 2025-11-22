@@ -1,18 +1,38 @@
 #!/bin/bash
 
-aoc_check() {
-    validate_year_day_directory
+pb_check() {
+    validate_year
+    validate_day
+    ${challenge}_validate_directory
 
-    for lang in "${available_languages[@]}"; do
-        local ext=${languages_extensions[$lang]}
+    local dir="$(${challenge}_directory)"
+    local title="$(${challenge}_title)"
 
-        if [ -f "$year/day$day/part1.$ext" ]; then
-            print_success "check($lang): AoC $year - Day $day"
-            lib/$lang/check.sh $year $day
+    if [[ -n "$lang" ]]; then
+        execute_lang_check_sh "$dir" "$year" "$day" "$lang" "$title"
+    else
+        for ((i=0; i<${#available_languages[@]}; i++)); do
+            l="${available_languages[$i]}"
+            execute_lang_check_sh "$dir" "$year" "$day" "$l" "$title"
 
-            if [ $? -ne 0 ]; then
-                exit 1
+            if (( i < ${#available_languages[@]} - 1 )); then
+                print_empty_line
             fi
-        fi
-    done
+        done
+    fi
+}
+
+execute_lang_check_sh() {
+    local dir=$1
+    local year=$2
+    local day=$3
+    local lang=$4
+    local title=$5
+
+    print_line "check($lang): $title"
+    $ROOT/langs/$lang/check.sh $dir $year $day
+
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
 }

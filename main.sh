@@ -88,7 +88,7 @@ format() {
 
 # COMMAND: check: Run checks for given year and day
 check() {
-    aoc_check
+    pb_check
 }
 
 # COMMAND: version: Show versions of all tools
@@ -191,7 +191,7 @@ main() {
             lang-stats) langs_stats ;;
             version) version ;;
             clean) clean ;;
-            *) print_error "${RED}[ERROR] Unknown command: $cmd${NC}"; help ;;
+            *) print_line "${RED}[ERROR] Unknown command: $cmd${NC}"; help ;;
         esac
     fi
 }
