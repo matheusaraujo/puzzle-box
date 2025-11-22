@@ -5,6 +5,7 @@ source $ROOT/core/_utils.sh
 dir=$1
 year=$2
 day=$3
+debug=0
 
 files=("part1.c" "part2.c" "part3.c" "helpers.c")
 
@@ -15,7 +16,7 @@ for file in "${files[@]}"; do
             print_line "${PURPLE}clang --analyze${GRAY_ITALIC} $dir/$file ${CHECK_ERROR}"
             print_line "$output"
             exit 1
-        else
+        elif [ $debug -eq 1 ]; then
             echo -e "${PURPLE}clang --analyze ${GRAY_ITALIC}$dir/$file ${CHECK_SUCCESS}"
         fi
 
@@ -24,8 +25,10 @@ for file in "${files[@]}"; do
             print_line "${PURPLE}clang-tidy${GRAY_ITALIC} $dir/$file ${CHECK_ERROR}"
             print_line "$tidy_output"
             exit 1
-        else
+        elif [ $debug -eq 1 ]; then
             print_line "${PURPLE}clang-tidy${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
+        else
+            print_line "${PURPLE}clang --analyze/clang-tidy${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
         fi
     fi
 done
