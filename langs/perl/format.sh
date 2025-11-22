@@ -1,12 +1,15 @@
 #!/bin/bash
 
-year=$1
-day=$2
+source $ROOT/core/_utils.sh
 
-files=("part1.pl" "part2.pl" "helpers.pl")
+dir=$1
+year=$2
+day=$3
+
+files=("part1.pl" "part2.pl" "part3.pl" "helpers.pl")
 
 for file in "${files[@]}"; do
-    if [ -f "$year/day$day/$file" ]; then
-        perltidy -b $year/day$day/$file && echo -e "perltidy $year/day$day/$file \033[32m✔\033[0m"
+    if [ -f "$dir/$file" ]; then
+        perltidy -b $dir/$file && echo -e "perltidy $dir/$file \033[32m✔\033[0m"
     fi
 done

@@ -35,6 +35,7 @@ run_full_puzzle() {
     else
         for l in "${available_languages[@]}"; do
             process_language_puzzle "$l"
+            print_empty_line
         done
     fi
 }
