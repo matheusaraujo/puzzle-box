@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) {
-            
+
         String part = args[2];
         StringBuilder puzzleInput = new StringBuilder();
 
@@ -16,6 +16,8 @@ public class main {
             System.out.println(part1.solve(puzzleInput.toString()));
         } else if (part.equals("part2")) {
             System.out.println(part2.solve(puzzleInput.toString()));
+        } else if (part.equals("part3")) {
+            System.out.println(part3.solve(puzzleInput.toString()));
         }
     }
 }

@@ -10,3 +10,6 @@ langs/csharp/obj
 
 # golang
 langs/go/part*.go
+
+# java
+langs/java/*.class
