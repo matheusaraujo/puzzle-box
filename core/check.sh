@@ -36,3 +36,19 @@ execute_lang_check_sh() {
         exit 1
     fi
 }
+
+pb_check_year() {
+    validate_year
+    validate_challenge
+
+    for day in $POTENTIAL_DAYS; do
+        local dir="$(${challenge}_directory)"
+        if [ -d "$dir" ]; then
+            pb_check || {
+                echo -e "${RED}[ERROR] Check failed for $challenge: $year - $day${NC}"
+                exit 1
+            }
+            print_line "----------------------------------------------------------------------"
+        fi
+    done
+}

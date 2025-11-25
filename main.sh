@@ -96,7 +96,7 @@ version() {
     pb_version
 }
 
-# COMMAND: check-all: Run validations for all solutions
+# COMMAND: check-all: Run checks for all solutions
 check_all() {
     for year in $YEARS; do
         for day in $DAYS; do
@@ -112,19 +112,9 @@ check_all() {
     done
 }
 
-# COMMAND: check-year: Run validations for all solutions in given year
+# COMMAND: check-year: Run checks for all solutions in given year
 check_year() {
-    validate_year
-    for day in $DAYS; do
-        if [ -d "$year/day$day" ]; then
-            echo "----------------------------------------------------------------------"
-            echo -e "${GREEN}Running validation for $year day $day...${NC}"
-            check || {
-                echo -e "${RED}[ERROR] Validation failed for $year day $day.${NC}"
-                exit 1
-            }
-        fi
-    done
+    pb_check_year
 }
 
 # COMMAND: extract-answers: Fetch puzzle text for given year and day
