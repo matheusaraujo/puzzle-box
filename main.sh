@@ -91,30 +91,24 @@ check() {
     pb_check
 }
 
-# COMMAND: version: Show versions of all tools
-version() {
-    pb_version
+# COMMAND: check-year: Run checks for all solutions in given year
+check_year() {
+    pb_check_year
+}
+
+# COMMAND: check-challenge: Run checks for all solutions in the current challenge
+check_challenge() {
+    pb_check_challenge
 }
 
 # COMMAND: check-all: Run checks for all solutions
 check_all() {
-    for year in $YEARS; do
-        for day in $DAYS; do
-            if [ -d "$year/day$day" ]; then
-                echo "----------------------------------------------------------------------"
-                echo -e "${GREEN}Running validation for $year day $day...${NC}"
-                check || {
-                    echo -e "${RED}[ERROR] Validation failed for $year day $day.${NC}"
-                    exit 1
-                }
-            fi
-        done
-    done
+    pb_check_all
 }
 
-# COMMAND: check-year: Run checks for all solutions in given year
-check_year() {
-    pb_check_year
+# COMMAND: version: Show versions of all tools
+version() {
+    pb_version
 }
 
 # COMMAND: extract-answers: Fetch puzzle text for given year and day
@@ -171,8 +165,9 @@ main() {
             run-year) run_year ;;
             format) format ;;
             check) check ;;
-            check-all) check_all ;;
             check-year) check_year ;;
+            check-challenge) check_challenge ;;
+            check-all) check_all ;;
             commit) commit ;;
             generate-input) generate_input ;;
             tree) lib/tree.sh ;;

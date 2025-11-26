@@ -1,6 +1,7 @@
 #!/bin/bash
 
 pb_check() {
+    validate_challenge
     validate_year
     validate_day
     ${challenge}_validate_directory
@@ -38,8 +39,8 @@ execute_lang_check_sh() {
 }
 
 pb_check_year() {
-    validate_year
     validate_challenge
+    validate_year
 
     for day in $POTENTIAL_DAYS; do
         local dir="$(${challenge}_directory)"
@@ -50,5 +51,19 @@ pb_check_year() {
             }
             print_line "----------------------------------------------------------------------"
         fi
+    done
+}
+
+pb_check_challenge() {
+    validate_challenge
+
+    for year in $POTENTIAL_YEARS; do
+        pb_check_year
+    done
+}
+
+pb_check_all() {
+    for challenge in $available_challenges; do
+        pb_check_challenge
     done
 }
