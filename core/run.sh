@@ -1,5 +1,35 @@
 #!/bin/bash
 
+pb_run_year() {
+    validate_challenge
+    validate_year
+
+    for day in $POTENTIAL_DAYS; do
+        local dir="$(${challenge}_directory)"
+        if [ -d "$dir" ]; then
+            pb_run || {
+                echo -e "${RED}[ERROR] Run failed for $challenge: $year - $day${NC}"
+                exit 1
+            }
+            print_line "----------------------------------------------------------------------"
+        fi
+    done
+}
+
+pb_run_challenge() {
+    validate_challenge
+
+    for year in $POTENTIAL_YEARS; do
+        pb_run_year
+    done
+}
+
+pb_run_all() {
+    for challenge in $available_challenges; do
+        pb_run_challenge
+    done
+}
+
 pb_run() {
     validate_challenge
     validate_year
@@ -32,6 +62,7 @@ run_watch_mode() {
 run_full_puzzle() {
     if [[ -n "$lang" ]]; then
         process_language_puzzle "$lang"
+        exit 0
     else
         for ((i=0; i<${#available_languages[@]}; i++)); do
             l="${available_languages[$i]}"

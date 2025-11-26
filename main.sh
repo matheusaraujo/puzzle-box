@@ -1,7 +1,5 @@
 #!/bin/bash
 
-YEARS=$(seq -w 2015 2025)
-DAYS=$(seq -w 1 25)
 export ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source $ROOT/core/_utils.sh
@@ -40,58 +38,57 @@ create() {
     pb_create
 }
 
-# COMMAND: run: Execute the solution for given year and day
-run() {
-    pb_run
-}
-
 # COMMAND: generate-input: Generate sample input for given year, day, and part
 generate_input() {
     aoc_generate_input
 }
 
-# COMMAND: run-all: Execute all solutions for all years and days
-run_all() {
-    for year in $YEARS; do
-        for day in $DAYS; do
-            if [ -d "$year/day$day" ]; then
-                echo "----------------------------------------------------------------------"
-                echo -e "${GREEN}Running $year day $day...${NC}"
-                run || {
-                    echo -e "${RED}[ERROR] Test failed for $year day $day.${NC}"
-                    exit 1
-                }
-            fi
-        done
-    done
+# COMMAND: run: Execute the solution for given challenge, year and day
+run() {
+    pb_run
 }
 
-# COMMAND: run-year: Execute all solutions for given year
+# COMMAND: run-year: Execute all solutions for given challenge/year
 run_year() {
-    validate_year
-    for day in $DAYS; do
-        if [ -d "$year/day$day" ]; then
-            echo "----------------------------------------------------------------------"
-            echo -e "${GREEN}Running $year day $day...${NC}"
-            run || {
-                echo -e "${RED}[ERROR] Test failed for $year day $day.${NC}"
-                exit 1
-            }
-        fi
-    done
+    pb_run_year
 }
 
-# COMMAND: format: Format for given year and day
+# COMMAND: run-challenge: Execute all solutions for given challenge
+run_challenge() {
+    pb_run_challenge
+}
+
+# COMMAND: run-all: Execute all solutions in all challenge
+run_all() {
+    pb_run_all
+}
+
+# COMMAND: format: Format for given challenge, year and day
 format() {
     pb_format
 }
 
-# COMMAND: check: Run checks for given year and day
+# COMMAND: format-year: Run format for all solutions in given challenge/year
+format_year() {
+    pb_format_year
+}
+
+# COMMAND: format-challenge: Run format for all solutions in the current challenge
+format_challenge() {
+    pb_format_challenge
+}
+
+# COMMAND: format-all: Run format for all solutions in all challenges
+format_all() {
+    pb_format_all
+}
+
+# COMMAND: check: Run checks for given challenge, year and day
 check() {
     pb_check
 }
 
-# COMMAND: check-year: Run checks for all solutions in given year
+# COMMAND: check-year: Run checks for all solutions in given challenge/year
 check_year() {
     pb_check_year
 }
@@ -101,7 +98,7 @@ check_challenge() {
     pb_check_challenge
 }
 
-# COMMAND: check-all: Run checks for all solutions
+# COMMAND: check-all: Run checks for all solutions in all challenge
 check_all() {
     pb_check_all
 }
@@ -161,9 +158,13 @@ main() {
             setup_git) setup_git ;;
             create) create ;;
             run) run ;;
-            run-all) run_all ;;
             run-year) run_year ;;
+            run-challenge) run_challenge ;;
+            run-all) run_all ;;
             format) format ;;
+            format-year) format_year ;;
+            format-challenge) format_challenge ;;
+            format-all) format_all ;;
             check) check ;;
             check-year) check_year ;;
             check-challenge) check_challenge ;;

@@ -1,5 +1,20 @@
 #!/bin/bash
 
+execute_lang_format_sh() {
+    local dir=$1
+    local year=$2
+    local day=$3
+    local lang=$4
+    local title=$5
+
+    print_line "format($lang): $title"
+    $ROOT/langs/$lang/format.sh $dir $year $day
+
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+}
+
 pb_format() {
     validate_year
     validate_day
@@ -22,17 +37,33 @@ pb_format() {
     fi
 }
 
-execute_lang_format_sh() {
-    local dir=$1
-    local year=$2
-    local day=$3
-    local lang=$4
-    local title=$5
+pb_format_year() {
+    validate_challenge
+    validate_year
 
-    print_line "format($lang): $title"
-    $ROOT/langs/$lang/format.sh $dir $year $day
-
-    if [ $? -ne 0 ]; then
-        exit 1
-    fi
+    for day in $POTENTIAL_DAYS; do
+        local dir="$(${challenge}_directory)"
+        if [ -d "$dir" ]; then
+            pb_format || {
+                echo -e "${RED}[ERROR] Format failed for $challenge: $year - $day${NC}"
+                exit 1
+            }
+            print_line "----------------------------------------------------------------------"
+        fi
+    done
 }
+
+pb_format_challenge() {
+    validate_challenge
+
+    for year in $POTENTIAL_YEARS; do
+        pb_format_year
+    done
+}
+
+pb_format_all() {
+    for challenge in $available_challenges; do
+        pb_format_challenge
+    done
+}
+

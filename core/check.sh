@@ -1,5 +1,20 @@
 #!/bin/bash
 
+execute_lang_check_sh() {
+    local dir=$1
+    local year=$2
+    local day=$3
+    local lang=$4
+    local title=$5
+
+    print_line "check($lang): $title"
+    $ROOT/langs/$lang/check.sh $dir $year $day
+
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+}
+
 pb_check() {
     validate_challenge
     validate_year
@@ -20,21 +35,6 @@ pb_check() {
                 print_empty_line
             fi
         done
-    fi
-}
-
-execute_lang_check_sh() {
-    local dir=$1
-    local year=$2
-    local day=$3
-    local lang=$4
-    local title=$5
-
-    print_line "check($lang): $title"
-    $ROOT/langs/$lang/check.sh $dir $year $day
-
-    if [ $? -ne 0 ]; then
-        exit 1
     fi
 }
 
