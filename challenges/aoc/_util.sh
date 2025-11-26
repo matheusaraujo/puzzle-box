@@ -5,5 +5,15 @@ aoc_directory() {
 }
 
 aoc_title() {
-    echo "Advent of Code $year - Day $day"
+    local dir
+    dir=$(aoc_directory)
+    local title_file="$dir/data/title.txt"
+
+    if [ -f "$title_file" ] && [ -s "$title_file" ]; then
+        local title
+        title=$(cat "$title_file")
+        echo "Advent of Code $year - Day $day: $title"
+    else
+        echo "Advent of Code $year - Day $day"
+    fi
 }

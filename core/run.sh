@@ -37,7 +37,7 @@ pb_run() {
 
     ${challenge}_validate_directory
     ${challenge}_ensure_input_file_exists
-    ${challenge}_try_to_extract_answers_from_website
+    ${challenge}_try_to_extract_data_from_website
 
     if [ "$watch_mode" == "true" ]; then
         run_watch_mode
