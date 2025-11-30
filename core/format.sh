@@ -21,7 +21,7 @@ pb_format() {
     ${challenge}_validate_directory
 
     local dir="$(${challenge}_directory)"
-    local title="$(${challenge}_title)"
+    local title="$(${challenge}_problem_title)"
 
     if [[ -n "$lang" ]]; then
         execute_lang_format_sh "$dir" "$year" "$day" "$lang" "$title"

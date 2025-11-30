@@ -7,4 +7,4 @@ languages_extensions["perl"]="pl"
 languages_aliases["perl"]="perl"
 languages_aliases["pl"]="perl"
 
-# ignore_files+=()
+ignore_files+=("*.pl.bak")

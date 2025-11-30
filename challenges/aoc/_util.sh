@@ -2,6 +2,7 @@
 
 available_challenges+=("aoc")
 
+challenges_titles["aoc"]="Advent of Code"
 challenges_aliases["aoc"]="aoc"
 challenges_aliases["advent-of-code"]="aoc"
 challenges_aliases["advent"]="aoc"
@@ -28,7 +29,7 @@ aoc_directory() {
     echo "advent-of-code/$year/day$day_str"
 }
 
-aoc_title() {
+aoc_problem_title() {
     local dir
     dir=$(aoc_directory)
     local title_file="$dir/data/title.txt"
@@ -41,3 +42,4 @@ aoc_title() {
         echo "Advent of Code $year - Day $day"
     fi
 }
+

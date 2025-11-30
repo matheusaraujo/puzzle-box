@@ -16,7 +16,7 @@ source $ROOT/core/finish.sh
 source $ROOT/core/format.sh
 source $ROOT/core/generate_input.sh
 source $ROOT/core/help.sh
-source $ROOT/core/langs_stats.sh
+source $ROOT/core/lang_stats.sh
 source $ROOT/core/parse_args.sh
 source $ROOT/core/progress.sh
 source $ROOT/core/run.sh
@@ -126,16 +126,7 @@ langs_stats() {
 
 # COMMAND: commit: Validate and commit for given year and day
 commit() {
-    if ! validate_year_day; then
-        return 1
-    fi
-    format
-    check
-    run
-    extract_answers
-    progress
-    langs_stats
-    aoc_commit
+    pb_commit
 }
 
 # COMMAND: clean: Clean temporary files

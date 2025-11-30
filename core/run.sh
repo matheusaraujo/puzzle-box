@@ -79,7 +79,7 @@ process_language_puzzle() {
     local lang=$1
     local ext=${languages_extensions[$lang]}
     local dir="$(${challenge}_directory)"
-    local title="$(${challenge}_title)"
+    local title="$(${challenge}_problem_title)"
 
     if [ -f "$dir/part1.$ext" ]; then
         print_line "run($lang): $title"

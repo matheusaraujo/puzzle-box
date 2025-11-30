@@ -9,8 +9,9 @@ pb_progress() {
     for challenge in "${available_challenges[@]}"; do
         events_map="${challenge}_events"
         declare -n events="$events_map"
+        local challenge_title=${challenges_titles[$challenge]}
 
-        progress_content+="\n### $challenge\n"
+        progress_content+="\n## $challenge_title\n"
 
         for year in $(printf '%s\n' "${!events[@]}" | sort -nr); do
             local max_day=${events[$year]}
@@ -27,7 +28,7 @@ pb_progress() {
                 fi
             done
 
-            progress_content+="[$year] $done_count / $max_day  $day_line\n"
+            progress_content+="[$year] $done_count / $max_day  $day_line <br>\n"
         done
     done
 

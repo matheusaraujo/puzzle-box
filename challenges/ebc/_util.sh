@@ -1,6 +1,12 @@
 #!/bin/bash
 
 available_challenges+=("ebc")
+
+challenges_titles["ebc"]="Everybody Codes"
+challenges_aliases["ebc"]="ebc"
+challenges_aliases["everybody-codes"]="ebc"
+challenges_aliases["everybody.codes"]="ebc"
+
 ignore_files+=(".ebc.session.cookie")
 
 declare -A ebc_events=(
@@ -14,6 +20,6 @@ ebc_directory() {
     echo "everybody.codes/$year/day$day_str"
 }
 
-ebc_title() {
+ebc_problem_title() {
     echo "Everybody.Codes $year - Quest $day"
 }

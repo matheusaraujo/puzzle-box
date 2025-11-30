@@ -32,9 +32,9 @@ pb_lang_stats() {
         echo "$lang ${lang_count[$lang]}"
     done | sort -k2 -nr)
 
-    lang_stats_content="<!-- langs-stats-begin -->"
+    lang_stats_content="<!-- langs-stats-begin -->\n## Language stats"
     while IFS=' ' read -r lang count; do
-        lang_stats_content+="\n- $lang: $count"
+        lang_stats_content+="\n- \`$lang\`: $count"
     done <<< "$sorted_langs"
     lang_stats_content+="\n<!-- langs-stats-end -->"
 
