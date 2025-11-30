@@ -7,3 +7,4 @@ part=$4
 input_file=$5
 
 java -cp "$dir:$ROOT/langs/java" main $dir $year $day $part < "$input_file"
+rm -rf "$dir"/"$part".class

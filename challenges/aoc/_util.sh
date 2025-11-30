@@ -1,5 +1,8 @@
 #!/bin/bash
 
+available_challenges+=("aoc")
+ignore_files+=(".aoc.session.cookie")
+
 aoc_directory() {
     echo "advent-of-code/$year/day$day"
 }

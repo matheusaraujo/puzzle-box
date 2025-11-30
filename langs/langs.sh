@@ -1,33 +1,9 @@
 #!/bin/bash
 
-# Languages
-available_languages=(c csharp go java javascript python perl)
-
-declare -A languages_extensions
-languages_extensions=(
-    ["c"]="c"
-    ["csharp"]="cs"
-    ["go"]="go"
-    ["java"]="java"
-    ["javascript"]="js"
-    ["perl"]="pl"
-    ["python"]="py"
-)
-
-declare -A languages_aliases
-languages_aliases=(
-    ["c"]="c"
-    ["clang"]="c"
-    ["csharp"]="csharp"
-    ["cs"]="csharp"
-    ["c#"]="csharp"
-    ["go"]="go"
-    ["golang"]="go"
-    ["java"]="java"
-    ["js"]="javascript"
-    ["javascript"]="javascript"
-    ["pl"]="perl"
-    ["perl"]="perl"
-    ["py"]="python"
-    ["python"]="python"
-)
+source $ROOT/langs/c/_util.sh
+source $ROOT/langs/csharp/_util.sh
+source $ROOT/langs/go/_util.sh
+source $ROOT/langs/java/_util.sh
+source $ROOT/langs/javascript/_util.sh
+source $ROOT/langs/perl/_util.sh
+source $ROOT/langs/python/_util.sh

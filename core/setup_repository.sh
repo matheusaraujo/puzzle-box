@@ -4,7 +4,13 @@ COMMIT_MSG_SCRIPT="$ROOT/.githooks/commit-msg.sh"
 GIT_HOOKS_DIR=".git/hooks"
 COMMIT_MSG_HOOK_NAME="commit-msg"
 
-pb_setup_git() {
+pb_setup_repository() {
+    setup_git_hook
+    setup_git_ignore
+    setup_root_readme_file
+}
+
+setup_git_hook() {
     print_line "Installing Git hooks..."
 
     if [ ! -f "$COMMIT_MSG_SCRIPT" ]; then
@@ -15,11 +21,10 @@ pb_setup_git() {
     cp "$COMMIT_MSG_SCRIPT" "$GIT_HOOKS_DIR/$COMMIT_MSG_HOOK_NAME"
     chmod +x "$GIT_HOOKS_DIR/$COMMIT_MSG_HOOK_NAME"
     print_line "${GREEN}Git hooks installed successfully.${NC}"
+}
 
-    # TODO: create a ignore_files based on langs
-    for file in "${ignore_files[@]}"; do
-        [ ! -f "$file" ] && touch "$file"
-    done
+setup_git_ignore() {
+    print_line "Setting up .gitignore ..."
 
     [ ! -f ".gitignore" ] && touch ".gitignore"
 
@@ -29,4 +34,28 @@ pb_setup_git() {
             print_line "${GREEN}Added $file to .gitignore"
         fi
     done
+
+    print_line "${GREEN}.gitignore setup done.${NC}"
+}
+
+setup_root_readme_file() {
+    print_line "Setting up README.md ..."
+
+    local README_FILE="README.md"
+    local MARKERS=(
+        "<!-- progress-begin -->"
+        "<!-- progress-end -->"
+    )
+
+    if [ ! -f "$README_FILE" ]; then
+        touch "$README_FILE"
+    fi
+
+    for MARKER in "${MARKERS[@]}"; do
+        if ! grep -qF "$MARKER" "$README_FILE"; then
+            echo "$MARKER" >> "$README_FILE"
+        fi
+    done
+
+    print_line "${GREEN}README.md setup done.${NC}"
 }

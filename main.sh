@@ -3,6 +3,7 @@
 export ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source $ROOT/core/_utils.sh
+source $ROOT/core/_variables.sh
 
 source $ROOT/challenges/challenges.sh
 source $ROOT/langs/langs.sh
@@ -17,9 +18,10 @@ source $ROOT/core/help.sh
 source $ROOT/core/langs_stats.sh
 source $ROOT/core/parse_args.sh
 source $ROOT/core/progress.sh
+source $ROOT/core/readme.sh
 source $ROOT/core/extract_answers.sh
 source $ROOT/core/run.sh
-source $ROOT/core/setup_git.sh
+source $ROOT/core/setup_repository.sh
 source $ROOT/core/validate.sh
 source $ROOT/core/version.sh
 
@@ -28,9 +30,9 @@ help() {
     aoc_help
 }
 
-# COMMAND: setup_git: Configure git hooks and .gitignore
-setup_git() {
-    pb_setup_git
+# COMMAND: setup-repository: Configure git hooks, .gitignore and README
+setup_repository() {
+    pb_setup_repository
 }
 
 # COMMAND: create: Create a new solution for the given challenge, year, day, and lang
@@ -115,7 +117,7 @@ extract_answers() {
 
 # COMMAND: progress: Update progress in README
 progress() {
-    aoc_progress
+    pb_progress
 }
 
 # COMMAND: lang-stats: Update the language stats session in README
@@ -155,7 +157,7 @@ main() {
         parse_args "$@"
         case "$cmd" in
             help) help ;;
-            setup_git) setup_git ;;
+            setup-repository) setup_repository ;;
             create) create ;;
             run) run ;;
             run-year) run_year ;;

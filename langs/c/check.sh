@@ -27,8 +27,10 @@ for file in "${files[@]}"; do
             exit 1
         elif [ $debug -eq 1 ]; then
             print_line "${PURPLE}clang-tidy${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
+            rm -rf *.plist
         else
             print_line "${PURPLE}clang --analyze/clang-tidy${GRAY_ITALIC} $dir/$file ${CHECK_SUCCESS}"
+            rm -rf *.plist
         fi
     fi
 done

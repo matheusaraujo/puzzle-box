@@ -38,5 +38,11 @@ if [ $? -ne 0 ]; then
     print_line "$build_output"
     exit 1
 else
+    rm -rf "$dir/check.csproj"
+    rm -rf "$dir/bin/"
+    rm -rf "$dir/obj/"
+    rm -rf "$dir/Program.cs"
     print_line "${PURPLE}dotnet build${GRAY_ITALIC} $dir/check.csproj ${CHECK_SUCCESS}"
 fi
+
+
