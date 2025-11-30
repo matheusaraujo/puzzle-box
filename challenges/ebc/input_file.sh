@@ -31,8 +31,6 @@ fetch_input_notes() {
         -H "Cookie: everybody-codes=$(cat .ebc.session.cookie)" \
         "$input_notes_url")
 
-    echo $response
-
     if ! echo "$response" | jq -e . &> /dev/null; then
         echo "❌ Error: Failed to fetch valid notes. URL might be incorrect or event/quest does not exist."
         echo "Response was: $response"
@@ -71,18 +69,21 @@ try_to_extract_answer_from_aes_keys_result() {
 
     local answer1=$(echo "$response" | jq -r '.answer1 // empty')
     if [ -n "$answer1" ]; then
+        touch "$dir/data/output.part1.txt"
         echo "$answer1" > "$dir/data/output.part1.txt"
         answers_found=1
     fi
 
     local answer2=$(echo "$response" | jq -r '.answer2 // empty')
     if [ -n "$answer2" ]; then
+        touch "$dir/data/output.part2.txt"
         echo "$answer2" > "$dir/data/output.part2.txt"
         answers_found=1
     fi
 
     local answer3=$(echo "$response" | jq -r '.answer3 // empty')
     if [ -n "$answer3" ]; then
+        touch "$dir/data/output.part3.txt"
         echo "$answer3" > "$dir/data/output.part3.txt"
         answers_found=1
     fi
@@ -122,15 +123,21 @@ decrypt_note() {
 
 decode_notes() {
     local dir=$(ebc_directory)
+    touch $dir/data/input.part1.txt
     if ! decrypt_note "$encoded_note_1" "$aes_key_1" "1" > "$dir/data/input.part1.txt"; then
         echo "⚠️ Part 1 failed to decrypt or save."
+        rm $dir/data/input.part1.txt
     fi
 
+    touch $dir/data/input.part2.txt
     if ! decrypt_note "$encoded_note_2" "$aes_key_2" "2" > "$dir/data/input.part2.txt"; then
         echo "⚠️ Part 2 failed to decrypt or save."
+        rm $dir/data/input.part2.txt
     fi
 
+    touch $dir/data/input.part3.txt
     if ! decrypt_note "$encoded_note_3" "$aes_key_3" "3" > "$dir/data/input.part3.txt"; then
         echo "⚠️ Part 3 failed to decrypt or save."
+        rm $dir/data/input.part3.txt
     fi
 }

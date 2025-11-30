@@ -21,7 +21,17 @@ ebc_directory() {
 }
 
 ebc_problem_title() {
-    echo "Everybody.Codes $year - Quest $day"
+    local dir
+    dir=$(ebc_directory)
+    local title_file="$dir/data/title.txt"
+
+    if [ -f "$title_file" ] && [ -s "$title_file" ]; then
+        local title
+        title=$(cat "$title_file")
+        echo "Everybody.Codes $year - Quest $day: $title"
+    else
+        echo "Everybody.Codes $year - Quest $day"
+    fi
 }
 
 ebc_input_file() {
