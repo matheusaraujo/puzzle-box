@@ -10,7 +10,7 @@ if part == "part1":
 elif part == "part2":
     from part2 import part2 as func
 elif part == "part3":
-    from part3 import part2 as func
+    from part3 import part3 as func
 
 
 def main():

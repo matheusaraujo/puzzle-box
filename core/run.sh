@@ -108,11 +108,13 @@ process_language_part() {
     done
 
     local input_file="$(${challenge}_input_file $part)"
-    local output_file="$dir/data/output.$part.txt"
-    if [ -f "$output_file" ]; then
-        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" $input_file $output_file
-    else
-        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" $input_file
+    if [ -f "$input_file" ]; then
+        local output_file="$dir/data/output.$part.txt"
+        if [ -f "$output_file" ]; then
+            execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" $input_file $output_file
+        else
+            execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" $input_file
+        fi
     fi
 }
 

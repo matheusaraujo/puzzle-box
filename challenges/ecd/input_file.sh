@@ -10,10 +10,12 @@ ecd_ensure_input_file_exists() {
         exit 1
     fi
 
-    # Proceed only if *any* required part is missing
     if [ ! -f "$dir/data/input.part1.txt" ] ||
        [ ! -f "$dir/data/input.part2.txt" ] ||
-       [ ! -f "$dir/data/input.part3.txt" ]; then
+       [ ! -f "$dir/data/input.part3.txt" ] ||
+       [ ! -f "$dir/data/output.part1.txt" ] ||
+       [ ! -f "$dir/data/output.part2.txt" ] ||
+       [ ! -f "$dir/data/output.part3.txt" ]; then
         retrieve_seed
         fetch_input_notes
         retrieve_aes_keys
@@ -125,9 +127,13 @@ decode_notes() {
         key_var="aes_key_$part"
         note_var="encoded_note_$part"
 
-        decrypt_note "${!note_var}" "${!key_var}" "$part" > "$dir/data/input.part${part}.txt"
-        if [ $? -ne 0 ]; then
-            echo "⚠️ Part $part failed to decrypt."
+        if [[ -n "${!key_var}" ]]; then
+            decrypt_note "${!note_var}" "${!key_var}" "$part" > "$dir/data/input.part${part}.txt"
+            if [ $? -ne 0 ]; then
+                echo "⚠️ Part $part failed to decrypt."
+                rm -f "$dir/data/input.part${part}.txt"
+            fi
+        else
             rm -f "$dir/data/input.part${part}.txt"
         fi
     done
