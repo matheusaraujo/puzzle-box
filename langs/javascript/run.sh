@@ -1,0 +1,13 @@
+#/bin/bash
+
+dir=$1
+year=$2
+day=$3
+part=$4
+input_file=$5
+
+target_path="$(realpath "$dir")"
+base_path="$(realpath "$ROOT/langs/javascript")"
+relative_dir="$(realpath --relative-to="$base_path" "$target_path")"
+
+node $ROOT/langs/javascript/main.js $relative_dir $year $day $part < $input_file

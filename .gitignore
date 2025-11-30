@@ -1,0 +1,19 @@
+# os
+.DS_Store
+
+# c
+langs/c/run
+
+# csharp
+langs/csharp/bin
+langs/csharp/obj
+
+# golang
+langs/go/part*.go
+langs/go/helpers.go
+
+# java
+langs/java/*.class
+
+# javascript
+langs/javascript/node_modules/
