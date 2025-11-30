@@ -23,7 +23,9 @@ declare -A aoc_events=(
 )
 
 aoc_directory() {
-    echo "advent-of-code/$year/day$day"
+    local day_str
+    printf -v day_str "%02d" "$day"
+    echo "advent-of-code/$year/day$day_str"
 }
 
 aoc_title() {

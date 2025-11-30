@@ -1,39 +1,44 @@
-aoc_lang_stats() {
-    README_FILE="README.md"
+#!/bin/bash
+
+pb_lang_stats() {
+    local readme_file="README.md"
     declare -A lang_count
 
-    for lang in "${!languages_extensions[@]}"; do
+    for lang in "${available_languages[@]}"; do
         lang_count[$lang]=0
     done
 
-    for ((y=START_YEAR; y<=END_YEAR; y++)); do
-        for d in $(seq -f "%02g" 1 25); do
-            if [ -d "$y/day$d" ]; then
-                for lang in "${!languages_extensions[@]}"; do
-                    ext="${languages_extensions[$lang]}"
-                    if ls "$y/day$d"/*.$ext &>/dev/null; then
-                        lang_count[$lang]=$((lang_count[$lang] + 1))
-                    fi
-                done
-            fi
+    for challenge in "${available_challenges[@]}"; do
+        events_map="${challenge}_events"
+        declare -n events="$events_map"
+
+        for year in $(printf '%s\n' "${!events[@]}" | sort -nr); do
+            local max_day=${events[$year]}
+            for ((day=1; day<=max_day; day++)); do
+                local dir="$(${challenge}_directory)"
+                if [[ -d "$dir" ]]; then
+                    for lang in "${available_languages[@]}"; do
+                        ext="${languages_extensions[$lang]}"
+                        if [[ -f "$dir/part1.$ext" ]]; then
+                            lang_count[$lang]=$((lang_count[$lang] + 1))
+                        fi
+                    done
+                fi
+            done
         done
     done
 
-    sorted_langs=$(for lang in "${!lang_count[@]}"; do
+    sorted_langs=$(for lang in "${available_languages[@]}"; do
         echo "$lang ${lang_count[$lang]}"
     done | sort -k2 -nr)
 
-    lang_stats_content="<!-- langs-stats-begin -->\\
-| LANGUAGE   | SOLVED PROBLEMS |\\
-|------------|----------------|"
-
+    lang_stats_content="<!-- langs-stats-begin -->"
     while IFS=' ' read -r lang count; do
-        lang_stats_content+="\n| $lang | $count |"
+        lang_stats_content+="\n- $lang: $count"
     done <<< "$sorted_langs"
-
     lang_stats_content+="\n<!-- langs-stats-end -->"
 
-    sed -i -e "/<!-- langs-stats-begin -->/,/<!-- langs-stats-end -->/c\\$lang_stats_content" "$README_FILE"
+    sed -i -e "/<!-- langs-stats-begin -->/,/<!-- langs-stats-end -->/c\\$lang_stats_content" "$readme_file"
 
-    print_line "language statistics updated! ${CHECK_SUCCESS}"
+    print_line "Language statistics list in README updated! ${CHECK_SUCCESS}"
 }

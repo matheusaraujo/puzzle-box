@@ -9,7 +9,9 @@ declare -A ebc_events=(
 )
 
 ebc_directory() {
-    echo "everybody.codes/$year/quest$day"
+    local day_str
+    printf -v day_str "%02d" "$day"
+    echo "everybody.codes/$year/day$day_str"
 }
 
 ebc_title() {

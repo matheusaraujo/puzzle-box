@@ -46,23 +46,40 @@ setup_root_readme_file() {
     fi
 
     local README_FILE="README.md"
-    local MARKERS=(
-        "<!-- progress-begin -->"
-        "<!-- progress-end -->"
-    )
+
+    local repo_name
+    repo_name=$(basename "$(git rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null)
+    [[ -z "$repo_name" ]] && repo_name="Project"
 
     if [[ ! -f "$README_FILE" ]]; then
-        touch "$README_FILE"
-    fi
+        cat > "$README_FILE" <<EOF
+# $repo_name
 
-    for MARKER in "${MARKERS[@]}"; do
-        if ! grep -qF "$MARKER" "$README_FILE"; then
-            echo "$MARKER" >> "$README_FILE"
-        fi
-    done
+<!-- progress-begin -->
+<!-- progress-end -->
+
+<!-- langs-stats-begin -->
+<!-- langs-stats-end -->
+EOF
+    else
+
+        local MARKERS=(
+            "<!-- progress-begin -->"
+            "<!-- progress-end -->"
+            "<!-- langs-stats-begin -->"
+            "<!-- langs-stats-end -->"
+        )
+
+        for MARKER in "${MARKERS[@]}"; do
+            if ! grep -qF "$MARKER" "$README_FILE"; then
+                echo "$MARKER" >> "$README_FILE"
+            fi
+        done
+    fi
 
     if [[ "$debug" == true ]]; then
         print_line "${GREEN}README.md setup done.${NC}"
     fi
 }
+
 

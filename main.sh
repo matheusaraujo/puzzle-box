@@ -121,7 +121,7 @@ progress() {
 
 # COMMAND: lang-stats: Update the language stats session in README
 langs_stats() {
-    aoc_lang_stats
+    pb_lang_stats
 }
 
 # COMMAND: commit: Validate and commit for given year and day
