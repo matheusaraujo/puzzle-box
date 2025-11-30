@@ -26,7 +26,7 @@ source $ROOT/core/version.sh
 
 # COMMAND: help: Show help message
 help() {
-    aoc_help
+    pb_help
 }
 
 # COMMAND: setup-repository: Configure git hooks, .gitignore and README

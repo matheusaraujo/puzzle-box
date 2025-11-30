@@ -15,15 +15,16 @@ update_pb_env() {
     fi
 }
 
-infer_year_day(){
-    rm -rf .aoc-env
-    if [ "$(date +%m%d)" -ge "1201" ] && [ "$(date +%m%d)" -le "1225" ]; then
-        year=$(date +%Y)
-        day=$(date +%d)
-        update_aoc_env "year" "$year"
-        update_aoc_env "day" "$day"
-    fi
-}
+# TODO: review this, should be used only for aoc
+# infer_year_day(){
+#     rm -rf .aoc-env
+#     if [ "$(date +%m%d)" -ge "1201" ] && [ "$(date +%m%d)" -le "1225" ]; then
+#         year=$(date +%Y)
+#         day=$(date +%d)
+#         update_aoc_env "year" "$year"
+#         update_aoc_env "day" "$day"
+#     fi
+# }
 
 parse_args() {
     while [[ $# -gt 0 ]]; do
