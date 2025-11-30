@@ -1,28 +1,28 @@
 #!/bin/bash
 
-available_challenges+=("ebc")
+available_challenges+=("ecd")
 
-challenges_titles["ebc"]="Everybody Codes"
-challenges_aliases["ebc"]="ebc"
-challenges_aliases["everybody-codes"]="ebc"
-challenges_aliases["everybody.codes"]="ebc"
+challenges_titles["ecd"]="Everybody Codes"
+challenges_aliases["ecd"]="ecd"
+challenges_aliases["everybody-codes"]="ecd"
+challenges_aliases["everybody.codes"]="ecd"
 
-ignore_files+=(".ebc.session.cookie")
+ignore_files+=(".ecd.session.cookie")
 
-declare -A ebc_events=(
+declare -A ecd_events=(
     [2024]=20
     [2025]=20
 )
 
-ebc_directory() {
+ecd_directory() {
     local day_str
     printf -v day_str "%02d" "$((10#$day))"
     echo "everybody.codes/$year/quest$day_str"
 }
 
-ebc_problem_title() {
+ecd_problem_title() {
     local dir
-    dir=$(ebc_directory)
+    dir=$(ecd_directory)
     local title_file="$dir/data/title.txt"
 
     if [ -f "$title_file" ] && [ -s "$title_file" ]; then
@@ -34,8 +34,8 @@ ebc_problem_title() {
     fi
 }
 
-ebc_input_file() {
-    local dir=$(ebc_directory)
+ecd_input_file() {
+    local dir=$(ecd_directory)
     local part=$1
 
     echo "$dir/data/input.$part.txt"

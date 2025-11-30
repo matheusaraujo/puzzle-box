@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ebc_validate_year_day() {
+ecd_validate_year_day() {
     day_num=$((10#$day))
 
     declare -A days=(
@@ -19,7 +19,7 @@ ebc_validate_year_day() {
     exit 1
 }
 
-ebc_validate_directory() {
+ecd_validate_directory() {
     if [ ! -d "everybody.codes/$year/quest$day" ]; then
         print_line "${RED}[Everybody.Codes] Directory does not exist for $year, quest $day.${NC}"
         exit 1

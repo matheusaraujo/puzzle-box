@@ -7,9 +7,9 @@ source $ROOT/challenges/aoc/finish.sh
 source $ROOT/challenges/aoc/input_file.sh
 source $ROOT/challenges/aoc/validate.sh
 
-source $ROOT/challenges/ebc/_util.sh
-source $ROOT/challenges/ebc/create.sh
-source $ROOT/challenges/ebc/data.sh
-source $ROOT/challenges/ebc/finish.sh
-source $ROOT/challenges/ebc/input_file.sh
-source $ROOT/challenges/ebc/validate.sh
+source $ROOT/challenges/ecd/_util.sh
+source $ROOT/challenges/ecd/create.sh
+source $ROOT/challenges/ecd/data.sh
+source $ROOT/challenges/ecd/finish.sh
+source $ROOT/challenges/ecd/input_file.sh
+source $ROOT/challenges/ecd/validate.sh

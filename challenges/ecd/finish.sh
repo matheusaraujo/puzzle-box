@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ebc_finish() {
-    local dir=$(ebc_directory)
+ecd_finish() {
+    local dir=$(ecd_directory)
 
     if ! ( [ -e "$dir/data/output.part1.txt" ] || [ -e "$dir/output.part2.txt" ] || [ -e "$dir/output.part3.txt" ] ); then
         print_line "puzzle is not complete yet"

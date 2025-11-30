@@ -1,8 +1,8 @@
 #!/bin/bash
 
-ebc_ensure_input_file_exists() {
+ecd_ensure_input_file_exists() {
     local dir
-    dir=$(ebc_directory)
+    dir=$(ecd_directory)
 
     # Verify year/day are set
     if [ -z "$year" ] || [ -z "$day" ]; then
@@ -23,7 +23,7 @@ ebc_ensure_input_file_exists() {
 
 retrieve_seed() {
     response=$(curl -s -X GET \
-        -H "Cookie: everybody-codes=$(cat .ebc.session.cookie)" \
+        -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
         "https://everybody.codes/api/user/me")
 
     seed=$(echo "$response" | jq -r '.seed // empty')
@@ -39,7 +39,7 @@ fetch_input_notes() {
     input_notes_url="https://everybody.codes/assets/$year/$((10#$day))/input/$seed.json"
 
     response=$(curl -s -X GET \
-        -H "Cookie: everybody-codes=$(cat .ebc.session.cookie)" \
+        -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
         "$input_notes_url")
 
     if ! echo "$response" | jq -e . &> /dev/null; then
@@ -57,7 +57,7 @@ retrieve_aes_keys() {
     aes_keys_url="https://everybody.codes/api/event/$year/quest/$((10#$day))"
 
     response=$(curl -s -X GET \
-        -H "Cookie: everybody-codes=$(cat .ebc.session.cookie)" \
+        -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
         "$aes_keys_url")
 
     if ! echo "$response" | jq -e . &> /dev/null; then
@@ -74,7 +74,7 @@ retrieve_aes_keys() {
 
 try_to_extract_answer_from_aes_keys_result() {
     local dir
-    dir=$(ebc_directory)
+    dir=$(ecd_directory)
     mkdir -p "$dir/data"
 
     local response="$1"
@@ -117,7 +117,7 @@ decrypt_note() {
 
 decode_notes() {
     local dir
-    dir=$(ebc_directory)
+    dir=$(ecd_directory)
     mkdir -p "$dir/data"
 
     for part in 1 2 3; do
