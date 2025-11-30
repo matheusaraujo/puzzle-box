@@ -1,16 +1,20 @@
 #!/bin/bash
 
 pb_progress() {
-    pb_ensure_readme_file_exists
+    setup_root_readme_file false
 
     print_line "hello, world"
 
-    # local README_FILE="README.md"
-    # local progress_content="\n"
+    for challenge in "${available_challenges[@]}"; do
+        events_map="${challenge}_events"
+        declare -n events="$events_map"
 
-    # if [ ! -f "$README_FILE" ]; then
-    #     touch "$README_FILE"
-    # fi
+        echo "Challenge: $challenge"
+
+        for year in $(printf '%s\n' "${!events[@]}" | sort -n); do
+            echo "  Year: $year → Events: ${events[$year]}"
+        done
+    done
 }
 
 # create_readme_file() {

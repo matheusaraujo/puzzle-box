@@ -12,14 +12,13 @@ source $ROOT/core/check.sh
 source $ROOT/core/clean.sh
 source $ROOT/core/commit.sh
 source $ROOT/core/create.sh
+source $ROOT/core/finish.sh
 source $ROOT/core/format.sh
 source $ROOT/core/generate_input.sh
 source $ROOT/core/help.sh
 source $ROOT/core/langs_stats.sh
 source $ROOT/core/parse_args.sh
 source $ROOT/core/progress.sh
-source $ROOT/core/readme.sh
-source $ROOT/core/extract_answers.sh
 source $ROOT/core/run.sh
 source $ROOT/core/setup_repository.sh
 source $ROOT/core/validate.sh
@@ -110,9 +109,9 @@ version() {
     pb_version
 }
 
-# COMMAND: extract-answers: Fetch puzzle text for given year and day
-extract_answers() {
-    aoc_puzzle_text
+# COMMAND: finish: Check if problem is solved and create a README file on respective directory
+finish() {
+    pb_finish
 }
 
 # COMMAND: progress: Update progress in README
@@ -173,8 +172,7 @@ main() {
             check-all) check_all ;;
             commit) commit ;;
             generate-input) generate_input ;;
-            tree) lib/tree.sh ;;
-            extract-answers) extract_answers ;;
+            finish) finish ;;
             progress) progress ;;
             lang-stats) langs_stats ;;
             version) version ;;

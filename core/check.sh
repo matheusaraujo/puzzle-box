@@ -63,7 +63,7 @@ pb_check_challenge() {
 }
 
 pb_check_all() {
-    for challenge in $available_challenges; do
+    for challenge in "${available_challenges[@]}"; do
         pb_check_challenge
     done
 }

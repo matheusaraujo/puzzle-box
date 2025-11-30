@@ -7,7 +7,7 @@ COMMIT_MSG_HOOK_NAME="commit-msg"
 pb_setup_repository() {
     setup_git_hook
     setup_git_ignore
-    setup_root_readme_file
+    setup_root_readme_file true
 }
 
 setup_git_hook() {
@@ -39,7 +39,11 @@ setup_git_ignore() {
 }
 
 setup_root_readme_file() {
-    print_line "Setting up README.md ..."
+    local debug="$1"
+
+    if [[ "$debug" == true ]]; then
+        print_line "Setting up README.md ..."
+    fi
 
     local README_FILE="README.md"
     local MARKERS=(
@@ -47,7 +51,7 @@ setup_root_readme_file() {
         "<!-- progress-end -->"
     )
 
-    if [ ! -f "$README_FILE" ]; then
+    if [[ ! -f "$README_FILE" ]]; then
         touch "$README_FILE"
     fi
 
@@ -57,5 +61,8 @@ setup_root_readme_file() {
         fi
     done
 
-    print_line "${GREEN}README.md setup done.${NC}"
+    if [[ "$debug" == true ]]; then
+        print_line "${GREEN}README.md setup done.${NC}"
+    fi
 }
+

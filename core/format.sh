@@ -62,7 +62,7 @@ pb_format_challenge() {
 }
 
 pb_format_all() {
-    for challenge in $available_challenges; do
+    for challenge in "${available_challenges[@]}"; do
         pb_format_challenge
     done
 }

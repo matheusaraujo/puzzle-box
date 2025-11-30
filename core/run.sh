@@ -25,7 +25,7 @@ pb_run_challenge() {
 }
 
 pb_run_all() {
-    for challenge in $available_challenges; do
+    for challenge in "${available_challenges[@]}"; do
         pb_run_challenge
     done
 }

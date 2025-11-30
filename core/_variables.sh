@@ -1,6 +1,7 @@
 #/bin/bash
 
 declare -a available_challenges=()
+declare -A challenges_aliases=()
 declare -a ignore_files=(".pb-env" "**/data/")
 
 declare -a available_languages=()
