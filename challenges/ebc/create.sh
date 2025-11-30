@@ -5,7 +5,7 @@ ebc_create() {
     local dir=$(ebc_directory)
     mkdir -p $dir/data
     if [ -e $dir/part1.$ext ] || [ -e $dir/part2.$ext ] || [ -e $dir/part3.$ext ]; then
-        print_line "[Everybody.Codes] Error: part1.$ext, part2.$ext or part3.$ext already exists in $aoc/$year/day$day"
+        print_line "[Everybody.Codes] Error: part1.$ext, part2.$ext or part3.$ext already exists in $dir"
         exit 1
     fi
     cp -r $ROOT/langs/$lang/template/part1.$ext $dir

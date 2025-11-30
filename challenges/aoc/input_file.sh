@@ -1,7 +1,8 @@
 #!/bin/bash
 
 aoc_ensure_input_file_exists() {
-    input_file="advent-of-code/$year/day$day/data/input.txt"
+    local dir=$(aoc_directory)
+    input_file="$dir/data/input.txt"
 
     if [ ! -f "$input_file" ] || [ ! -s "$input_file" ]; then
         mkdir -p "$(dirname "$input_file")"
@@ -14,7 +15,7 @@ aoc_ensure_input_file_exists() {
             return 1
         fi
 
-        if grep -q "Puzzle inputs differ by user.  Please log in to get your puzzle input." "$input_file"; then
+        if grep -q "Puzzle inputs differ by user. Please log in to get your puzzle input." "$input_file"; then
             print_line "${RED}[Advent of Code] You need to define a valid session cookie in the file '.aoc.session.cookie'.${NC}"
             rm -rf $input_file
             return 1

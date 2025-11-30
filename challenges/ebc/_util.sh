@@ -17,9 +17,16 @@ declare -A ebc_events=(
 ebc_directory() {
     local day_str
     printf -v day_str "%02d" "$((10#$day))"
-    echo "everybody.codes/$year/day$day_str"
+    echo "everybody.codes/$year/quest$day_str"
 }
 
 ebc_problem_title() {
     echo "Everybody.Codes $year - Quest $day"
+}
+
+ebc_input_file() {
+    local dir=$(ebc_directory)
+    local part=$1
+
+    echo "$dir/data/input.$part.txt"
 }

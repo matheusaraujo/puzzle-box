@@ -99,7 +99,7 @@ process_language_part() {
     local lang=$2
     local part=$3
 
-    for input_file in "$dir/data/input.$part"*; do
+    for input_file in "$dir/data/input.$part".*.txt; do
         [ -f "$input_file" ] || continue
 
         local output_file="${input_file/input/output}"
@@ -107,12 +107,12 @@ process_language_part() {
         execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" "$input_file" "$output_file"
     done
 
-    local input_file="$dir/data/input.txt"
+    local input_file="$(${challenge}_input_file $part)"
     local output_file="$dir/data/output.$part.txt"
     if [ -f "$output_file" ]; then
-        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" "$dir/data/input.txt" $output_file
+        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" $input_file $output_file
     else
-        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" "$dir/data/input.txt"
+        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" $input_file
     fi
 }
 
@@ -200,11 +200,15 @@ validate_output_file() {
 }
 
 generate_input_label() {
-    local file_name=$(basename "$1")
-    if [ "$file_name" == "input.txt" ]; then
+    local file_name
+    file_name=$(basename "$1")
+
+    if [[ "$file_name" == "input.txt" ]] || [[ "$file_name" =~ ^input\.part[0-9]+\.txt$ ]]; then
         echo ""
-    else
-        IFS='.' read -ra parts <<< "$file_name"
-        echo "(${parts[-2]})"
+        return
     fi
+
+    IFS='.' read -ra parts <<< "$file_name"
+
+    echo "(${parts[-2]})"
 }

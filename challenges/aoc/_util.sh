@@ -43,3 +43,9 @@ aoc_problem_title() {
     fi
 }
 
+aoc_input_file() {
+    local dir=$(aoc_directory)
+    # local part=$1
+
+    echo "$dir/data/input.txt"
+}

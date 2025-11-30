@@ -8,23 +8,27 @@ import (
 
 func main() {
 	part := os.Args[4]
-	var input, puzzleInput string
+	var puzzleInput []string
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
-		input = scanner.Text()
-		puzzleInput += input + "\n"
+		line := scanner.Text()
+		puzzleInput = append(puzzleInput, line)
 	}
 
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error reading input:", err)
+		return
 	}
 
-	if part == "part1" {
+	switch part {
+	case "part1":
 		fmt.Println(part1(puzzleInput))
-	} else if part == "part2" {
+	case "part2":
 		fmt.Println(part2(puzzleInput))
-	} else if part == "part3" {
+	case "part3":
 		fmt.Println(part3(puzzleInput))
+	default:
+		fmt.Println("Unknown part:", part)
 	}
 }
