@@ -32,11 +32,13 @@ pb_lang_stats() {
         echo "$lang ${lang_count[$lang]}"
     done | sort -k2 -nr)
 
-    lang_stats_content="<!-- langs-stats-begin -->\n## Language stats"
+    lang_stats_content="<!-- langs-stats-begin -->\n## Language stats\n"
+    lang_stats_content+="| Language | Problems solved |\n"
+    lang_stats_content+="|----------|-----------------|\n"
     while IFS=' ' read -r lang count; do
-        lang_stats_content+="\n- \`$lang\`: $count"
+        lang_stats_content+="| \`$lang\` | $count |\n"
     done <<< "$sorted_langs"
-    lang_stats_content+="\n<!-- langs-stats-end -->"
+    lang_stats_content+="<!-- langs-stats-end -->"
 
     sed -i -e "/<!-- langs-stats-begin -->/,/<!-- langs-stats-end -->/c\\$lang_stats_content" "$readme_file"
 

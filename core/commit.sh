@@ -13,6 +13,8 @@ pb_commit() {
     pb_progress
     pb_lang_stats
 
+    load_env_from_file
+
     local problem_folder="$(${challenge}_directory)"
     local problem_title="$(${challenge}_problem_title)"
     local challenge_title=${challenges_titles[$challenge]}
@@ -26,7 +28,15 @@ pb_commit() {
     fi
 
     changed_files=($(git status --porcelain | awk '{print $2}'))
-    if [[ ${#changed_files[@]} -ne 2 || "${changed_files[0]}" != "$root_readme_path" || ("${changed_files[1]}" != "$problem_folder" && "${changed_files[1]}" != "${problem_folder%%/*}/" ) ]]; then
+
+    if [[ ${#changed_files[@]} -ne 2 || \
+        "${changed_files[0]}" != "$root_readme_path" || \
+        ! ("$problem_folder" == "${changed_files[1]}"* || "$problem_folder/" == "${changed_files[1]}") ]]; then
+
+        echo "Detected changed files:"
+        for f in "${changed_files[@]}"; do
+            echo "  $f"
+        done
         print_line "Error: Unexpected changes detected. Expected only:\n 1. $root_readme_path\n 2. $problem_folder"
         exit 1
     fi
@@ -35,5 +45,5 @@ pb_commit() {
     git add "$problem_folder"
     git commit -m "$problem_title"
 
-    print_line "code committed! ${CHECK_SUCCESS}"
+    print_line "code committed!\n$problem_title ${CHECK_SUCCESS}"
 }

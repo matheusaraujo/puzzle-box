@@ -6,12 +6,16 @@ execute_lang_check_sh() {
     local day=$3
     local lang=$4
     local title=$5
+    local ext=${languages_extensions[$lang]}
 
-    print_line "check($lang): $title"
-    $ROOT/langs/$lang/check.sh $dir $year $day
+    if [[ -f "$dir/part1.$ext" ]]; then
 
-    if [ $? -ne 0 ]; then
-        exit 1
+        print_line "check($lang): $title"
+        $ROOT/langs/$lang/check.sh $dir $year $day
+
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
     fi
 }
 
@@ -30,10 +34,6 @@ pb_check() {
         for ((i=0; i<${#available_languages[@]}; i++)); do
             l="${available_languages[$i]}"
             execute_lang_check_sh "$dir" "$year" "$day" "$l" "$title"
-
-            if (( i < ${#available_languages[@]} - 1 )); then
-                print_empty_line
-            fi
         done
     fi
 }

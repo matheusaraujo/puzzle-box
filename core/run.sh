@@ -67,10 +67,6 @@ run_full_puzzle() {
         for ((i=0; i<${#available_languages[@]}; i++)); do
             l="${available_languages[$i]}"
             process_language_puzzle "$l"
-
-            if (( i < ${#available_languages[@]} - 1 )); then
-                print_empty_line
-            fi
         done
     fi
 }

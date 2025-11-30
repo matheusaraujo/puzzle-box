@@ -41,7 +41,7 @@ create() {
 
 # COMMAND: generate-input: Generate sample input for given year, day, and part
 generate_input() {
-    aoc_generate_input
+    pb_generate_input
 }
 
 # COMMAND: run: Execute the solution for given challenge, year and day
@@ -141,9 +141,9 @@ main() {
     else
         cmd="$1"
         shift
-        if [ "$cmd" == "create" ]; then
-            infer_year_day
-        fi
+        # if [ "$cmd" == "create" ]; then
+        #     infer_year_day
+        # fi
         parse_args "$@"
         case "$cmd" in
             help) help ;;

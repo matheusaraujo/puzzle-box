@@ -1,19 +1,26 @@
 #/bin/bash
 
-aoc_generate_input() {
-    validate_year_day_directory_part
+pb_generate_input() {
+    # validate_year_day_directory_part
+    validate_challenge
+    validate_year
+    ${challenge}_validate_directory
+    validate_part
 
-    letter=$(ls $year/day$day/data/input.$part.*.txt 2>/dev/null | wc -l | awk '{printf "%c", 97 + $1}')
+    local dir="$(${challenge}_directory)"
+    local title="$(${challenge}_problem_title)"
+
+    letter=$(ls $dir/data/input.$part.*.txt 2>/dev/null | wc -l | awk '{printf "%c", 97 + $1}')
 
     print_line "input(Ctrl+D to finish):"
     input=$(cat)
 
-    mkdir -p $year/day$day/data
-    echo "$input" > $year/day$day/data/input.$part.$letter.txt
+    mkdir -p $dir/data
+    echo "$input" > $dir/data/input.$part.$letter.txt
 
     print_line "\noutput:"
     read output
 
-    echo "$output" > $year/day$day/data/output.$part.$letter.txt
+    echo "$output" > $dir/data/output.$part.$letter.txt
 
 }

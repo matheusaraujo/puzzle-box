@@ -16,7 +16,7 @@ declare -A ebc_events=(
 
 ebc_directory() {
     local day_str
-    printf -v day_str "%02d" "$day"
+    printf -v day_str "%02d" "$((10#$day))"
     echo "everybody.codes/$year/day$day_str"
 }
 

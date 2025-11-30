@@ -6,12 +6,15 @@ execute_lang_format_sh() {
     local day=$3
     local lang=$4
     local title=$5
+    local ext=${languages_extensions[$lang]}
 
-    print_line "format($lang): $title"
-    $ROOT/langs/$lang/format.sh $dir $year $day
+    if [[ -f "$dir/part1.$ext" ]]; then
+        print_line "format($lang): $title"
+        $ROOT/langs/$lang/format.sh $dir $year $day
 
-    if [ $? -ne 0 ]; then
-        exit 1
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
     fi
 }
 
@@ -29,10 +32,6 @@ pb_format() {
         for ((i=0; i<${#available_languages[@]}; i++)); do
             l="${available_languages[$i]}"
             execute_lang_format_sh "$dir" "$year" "$day" "$l" "$title"
-
-            if (( i < ${#available_languages[@]} - 1 )); then
-                print_empty_line
-            fi
         done
     fi
 }

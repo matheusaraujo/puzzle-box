@@ -25,7 +25,7 @@ declare -A aoc_events=(
 
 aoc_directory() {
     local day_str
-    printf -v day_str "%02d" "$day"
+    printf -v day_str "%02d" "$((10#$day))"
     echo "advent-of-code/$year/day$day_str"
 }
 

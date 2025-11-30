@@ -54,3 +54,16 @@ parse_args() {
         source .pb-env
     fi
 }
+
+load_env_from_file() {
+    local file="${1:-.pb-env}"
+    if [[ -f "$file" ]]; then
+        while IFS='=' read -r key value; do
+            case "$key" in
+                challenge) challenge="$value" ;;
+                year) year="$value" ;;
+                day) day="$value" ;;
+            esac
+        done < "$file"
+    fi
+}

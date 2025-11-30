@@ -54,6 +54,7 @@ setup_root_readme_file() {
     if [[ ! -f "$README_FILE" ]]; then
         cat > "$README_FILE" <<EOF
 # $repo_name
+> Using https://github.com/matheusaraujo/puzzle-box
 
 <!-- progress-begin -->
 <!-- progress-end -->
