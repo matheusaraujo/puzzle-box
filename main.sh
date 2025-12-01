@@ -8,6 +8,7 @@ source $ROOT/core/_variables.sh
 source $ROOT/challenges/challenges.sh
 source $ROOT/langs/langs.sh
 
+source $ROOT/core/add_session_cookie.sh
 source $ROOT/core/check.sh
 source $ROOT/core/clean.sh
 source $ROOT/core/commit.sh
@@ -32,6 +33,11 @@ help() {
 # COMMAND: setup-repository: Configure git hooks, .gitignore and README
 setup_repository() {
     pb_setup_repository
+}
+
+# COMMAND: add-session-cookie: Add session cookie to files
+add_session_cookie() {
+    pb_add_session_cookie
 }
 
 # COMMAND: create: Create a new solution for the given challenge, year, day, and lang
@@ -148,6 +154,7 @@ main() {
         case "$cmd" in
             help) help ;;
             setup-repository) setup_repository ;;
+            add-session-cookie) add_session_cookie ;;
             create) create ;;
             run) run ;;
             run-year) run_year ;;
