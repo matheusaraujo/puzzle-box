@@ -18,9 +18,8 @@ To work on the project locally, you can use a Dev Container.
 $ docker build -t puzzle-box:local .
 ```
 
-3. Configure another repository (ideally, your solutions repository) to use your local dev container image
+3. Configure another repository (ideally, your solutions repository) to use your local dev container image, in `.devcontainer/devcontainer.json`:
 ```json
-// .devcontainer.json
 {
   "name": "Puzzle-Box",
   "image": "puzzle-box:local",
