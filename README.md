@@ -47,6 +47,9 @@ $ pb add-session-cookie ecd
 # Advent of Code / year 2015 / day 1 / using C
 $ puzzle-box create aoc 2015 1 c
 
+# to add sample input
+$ puzzle-box generate-input part1
+
 # Run your solution in watch mode (auto-rebuild & re-run)
 $ puzzle-box run -w
 
