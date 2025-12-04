@@ -37,8 +37,8 @@ aoc_finish() {
         print_line "readme $year/day$day generated ${CHECK_SUCCESS}"
     else
         sed -n '/<main>/,/<\/main>/p' $dir/data/_readme1.html > $dir/data/_readme2.html
-        extracted_title=$(sed -n 's/.*<h2>\(.*\)<\/h2>.*/\1/p' $dir/data/_readme2.html)
-        readme_content="# Advent of Code - ${year} Day ${day}\n\n${extracted_title}\n\nhttps://adventofcode.com/${year}/day/$(echo $day | sed 's/^0*//')"
+        title=$(cat $dir/data/title.txt)
+        readme_content="# Advent of Code - ${year} Day ${day}\n\n${title}\n\nhttps://adventofcode.com/${year}/day/$(echo $day | sed 's/^0*//')"
         echo -e "$readme_content" > $dir/README.md
         print_line "readme $year/day$day generated ${CHECK_SUCCESS}"
     fi
