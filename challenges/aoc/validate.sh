@@ -34,3 +34,13 @@ aoc_validate_directory() {
         exit 1
     fi
 }
+
+aoc_validate_part() {
+    if [ -z "$part" ]; then
+        print_line "${RED}[ERROR] Part must be defined (part1 or part2).${NC}"
+        exit 1
+    elif [[ "$part" != "part1" && "$part" != "part2" ]]; then
+        print_line "${RED}[ERROR] Part must be either part1 or part2.${NC}"
+        exit 1
+    fi
+}
