@@ -1,5 +1,9 @@
 .dockerignore
+.gitignore
+CONTRIBUTING
 Dockerfile
+LICENSE
+Makefile
 README.md
 
 # os

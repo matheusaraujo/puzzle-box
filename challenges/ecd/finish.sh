@@ -8,7 +8,9 @@ ecd_finish() {
         exit 1
     fi
 
-    readme_content="# Everybody Codes - ${year} Quest ${day}\n\n${extracted_title}\n\nhttps://adventofcode.com/${year}/day/$(echo $day | sed 's/^0*//')"
+    title=$(cat $dir/data/title.txt)
+
+    readme_content="# Everybody Codes - ${year} Quest ${day}\n\n${title}\n\nhttps://everybody.codes/events/${year}/quests/$(echo $day | sed 's/^0*//')"
     echo -e "$readme_content" > $dir/README.md
     print_line "readme $year/day$day generated ${CHECK_SUCCESS}"
 
