@@ -25,3 +25,13 @@ ecd_validate_directory() {
         exit 1
     fi
 }
+
+ecd_validate_part() {
+    if [ -z "$part" ]; then
+        print_line "${RED}[ERROR] Part must be defined (part1, part2, part3).${NC}"
+        exit 1
+    elif [[ "$part" != "part1" && "$part" != "part2" && "$part" != "part3" ]]; then
+        print_line "${RED}[ERROR] Part must be either part1, part2 or part3.${NC}"
+        exit 1
+    fi
+}
