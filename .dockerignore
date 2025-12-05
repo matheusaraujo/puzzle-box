@@ -24,3 +24,8 @@ langs/java/*.class
 
 # javascript
 langs/javascript/node_modules/
+
+# rust
+langs/rust/src/part*.rs
+langs/rust/src/helpers.rs
+langs/rust/target
