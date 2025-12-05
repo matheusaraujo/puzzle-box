@@ -31,6 +31,10 @@ endif
 	sed -i "s/version-.*-blue/version-$(TAG)-blue/g" README.md 2>/dev/null || \
 	sed -i '' "s/version-.*-blue/version-$(TAG)-blue/g" README.md
 
+	# 5. Update version.sh
+	sed -i "s/puzzle-box@.*\"/\"puzzle-box@${TAG}\"/g" core/version.sh 2>/dev/null || \
+	sed -i '' "s/puzzle-box@.*\"/\"puzzle-box@${TAG}\"/g" core/version.sh
+
 	@echo "Published successfully:"
 	@echo "  $(REMOTE_IMAGE):$(TAG)"
 	@echo "  $(REMOTE_IMAGE):latest"
