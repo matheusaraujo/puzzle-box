@@ -1,30 +1,36 @@
-# ---- CONFIG ----
 IMAGE_NAME=puzzle-box
 REGISTRY=maraujo127
-
-ifeq ($(TAG),)
-$(error You must provide a TAG, e.g. 'make publish TAG=0.0.2')
-endif
 
 LOCAL_IMAGE=$(IMAGE_NAME):$(TAG)
 REMOTE_IMAGE=$(REGISTRY)/$(IMAGE_NAME)
 
-# ---- TARGETS ----
+.PHONY: build-local publish
+
+build-local:
+	docker build . -t ${IMAGE_NAME}:local
 
 publish:
-	# Build image with version tag
+ifndef TAG
+	$(error You must provide a TAG, e.g. 'make publish TAG=0.0.2')
+endif
+	@echo "--- Starting Publish for Tag: $(TAG) ---"
+
+	# 1. Build image with version tag
 	docker build . -t $(IMAGE_NAME):$(TAG)
 
-	# Tag as latest
+	# 2. Tag as latest
 	docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):latest
 
-	# Push both tags
+	# 3. Push both tags
 	docker image tag $(IMAGE_NAME):$(TAG) $(REMOTE_IMAGE):$(TAG)
 	docker push $(REMOTE_IMAGE):$(TAG)
-
 	docker image tag $(IMAGE_NAME):latest $(REMOTE_IMAGE):latest
 	docker push $(REMOTE_IMAGE):latest
 
-	@echo "Published:"
+	# 4. Update README.md
+	sed -i "s/version-.*-blue/version-$(TAG)-blue/g" README.md 2>/dev/null || \
+	sed -i '' "s/version-.*-blue/version-$(TAG)-blue/g" README.md
+
+	@echo "Published successfully:"
 	@echo "  $(REMOTE_IMAGE):$(TAG)"
 	@echo "  $(REMOTE_IMAGE):latest"

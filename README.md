@@ -2,7 +2,7 @@
 
 ![logo.png](docs/logo.png)
 
-![Version](https://img.shields.io/badge/version-0.0.5-blue)
+![Version](https://img.shields.io/badge/version-0.0.6-blue)
 ![Languages](https://img.shields.io/badge/supported%20languages-c%20csharp%20go%20java%20js%20perl%20python-success)
 
 Puzzle-Box is a Dev Container environment designed to help you solve programming challenges, such as **Advent of Code** and **Everybody Codes**, in multiple languages with a unified workflow.

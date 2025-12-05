@@ -12,6 +12,7 @@ RUN /usr/local/puzzle-box/langs/java/setup.sh
 RUN /usr/local/puzzle-box/langs/javascript/setup.sh
 RUN /usr/local/puzzle-box/langs/perl/setup.sh
 RUN /usr/local/puzzle-box/langs/python/setup.sh
+RUN /usr/local/puzzle-box/langs/rust/setup.sh
 RUN /usr/local/puzzle-box/core/post_setup.sh
 
 CMD ["/bin/sh", "-c", "source /home/vscode/.bashrc && exec /bin/sh"]
