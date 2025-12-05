@@ -1,5 +1,5 @@
-function part1(puzzleInput) {
+function part3(puzzleInput) {
   return puzzleInput;
 }
 
-module.exports = part1;
+module.exports = part3;
