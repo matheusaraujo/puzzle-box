@@ -6,7 +6,7 @@ pb_version() {
 
     print_empty_line
     echo "[puzzle-box]"
-    echo "puzzle-box@0.0.6"
+    echo "puzzle-box@0.0.7"
 
     for lang in "${available_languages[@]}"; do
         if [ -f "$ROOT/langs/$lang/version.sh" ]; then

@@ -1,6 +1,9 @@
 # os
 .DS_Store
 
+# assembly
+langs/assembly/solve.asm
+
 # c
 langs/c/run
 
