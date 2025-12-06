@@ -31,7 +31,7 @@ $ docker build -t puzzle-box:local .
 
 ## Adding Support for a New Language
 
-> Check this example: https://github.com/matheusaraujo/puzzle-box/pull/6
+> Check these examples: https://github.com/matheusaraujo/puzzle-box/pull/6, https://github.com/matheusaraujo/puzzle-box/pull/7, https://github.com/matheusaraujo/puzzle-box/pull/8
 
 Follow these steps to add support for a new language.
 It's always good to use other languages code as reference to double check your code.

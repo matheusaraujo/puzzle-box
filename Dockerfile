@@ -11,6 +11,7 @@ RUN /usr/local/puzzle-box/langs/csharp/setup.sh
 RUN /usr/local/puzzle-box/langs/go/setup.sh
 RUN /usr/local/puzzle-box/langs/java/setup.sh
 RUN /usr/local/puzzle-box/langs/javascript/setup.sh
+RUN /usr/local/puzzle-box/langs/lisp/setup.sh
 RUN /usr/local/puzzle-box/langs/perl/setup.sh
 RUN /usr/local/puzzle-box/langs/python/setup.sh
 RUN /usr/local/puzzle-box/langs/rust/setup.sh
