@@ -30,3 +30,6 @@ langs/rust/src/part*.rs
 langs/rust/src/helpers.rs
 langs/rust/target
 langs/rust/Cargo.lock
+
+# typescript
+langs/typescript/node_modules/

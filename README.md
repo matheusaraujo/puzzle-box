@@ -2,8 +2,19 @@
 
 ![logo.png](docs/logo.png)
 
-![Version](https://img.shields.io/badge/version-0.0.8-blue)
-![Languages](https://img.shields.io/badge/supported%20languages-assembly%20c%20csharp%20go%20java%20js%20lisp%20perl%20python%20rust-success)
+![Version](https://img.shields.io/badge/version-0.0.10-blue)
+### Supported Languages
+![Assembly](https://img.shields.io/badge/Assembly-000000?style=for-the-badge&logo=assemblyai&logoColor=white)
+![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
+![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Lisp](https://img.shields.io/badge/Lisp-BC0000?style=for-the-badge&logo=common-lisp&logoColor=white)
+![Perl](https://img.shields.io/badge/Perl-39457E?style=for-the-badge&logo=perl&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 
 Puzzle-Box is a Dev Container environment designed to help you solve programming challenges, such as **Advent of Code** and **Everybody Codes**, in multiple languages with a unified workflow.
 
