@@ -1,21 +1,16 @@
 {
-  "name": "puzzlebox-ts",
-  "version": "0.0.1",
-  "main": "main.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "name": "typescript-runner",
+  "module": "main.ts",
+  "type": "module",
   "devDependencies": {
-    "@eslint/js": "^9.16.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "eslint": "^9.16.0",
-    "globals": "^15.12.0",
-    "typescript": "^5.3.3",
+    "@eslint/js": "^9.39.1",
     "@types/node": "^20.11.24",
-    "typescript-eslint": "^8.0.0"
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.7.4",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.49.0"
   }
 }

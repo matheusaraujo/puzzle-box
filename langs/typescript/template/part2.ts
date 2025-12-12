@@ -1,5 +1,3 @@
-const part2: object = (puzzleInput: string[]) => {
+export function part2(puzzleInput: string[]): any {
   return puzzleInput;
 };
-
-export default part2;

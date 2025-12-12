@@ -5,6 +5,7 @@ COPY . /usr/local/puzzle-box
 RUN chown -R vscode:vscode /usr/local/puzzle-box
 
 RUN /usr/local/puzzle-box/core/setup.sh
+
 RUN /usr/local/puzzle-box/langs/assembly/setup.sh
 RUN /usr/local/puzzle-box/langs/c/setup.sh
 RUN /usr/local/puzzle-box/langs/csharp/setup.sh
@@ -16,6 +17,7 @@ RUN /usr/local/puzzle-box/langs/perl/setup.sh
 RUN /usr/local/puzzle-box/langs/python/setup.sh
 RUN /usr/local/puzzle-box/langs/rust/setup.sh
 RUN /usr/local/puzzle-box/langs/typescript/setup.sh
+
 RUN /usr/local/puzzle-box/core/post_setup.sh
 
 CMD ["/bin/sh", "-c", "source /home/vscode/.bashrc && exec /bin/sh"]
