@@ -1,7 +1,6 @@
 #!/bin/bash
 
 available_languages+=("typescript")
-available_languages+=("ts")
 
 languages_extensions["typescript"]="ts"
 
