@@ -1,4 +1,4 @@
-name: publish
+name: '🐳 Publish Docker Image'
 
 on:
   release:
@@ -8,26 +8,32 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    # Give the workflow necessary permissions if using OIDC or other secure methods.
+    # If only using secrets for Docker Hub, this is optional, but good practice.
+    permissions:
+      contents: read
+
     steps:
-      - name: Checkout repository
+      - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
+      - name: 🔑 Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Extract Docker metadata
+      - name: 🏷️ Extract Docker Metadata (Tags/Labels)
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: maraujo127/puzzle-box
+          # Uses the tag from the release (e.g., v0.0.11 -> 0.0.11)
           tags: |
             type=semver,pattern={{version}}
-            type=raw,value=latest
+            type=raw,value=latest # Always tag the latest build as 'latest'
 
-      - name: Build and push Docker image
+      - name: 🏗️ Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
           context: .
