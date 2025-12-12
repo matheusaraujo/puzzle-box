@@ -1,14 +1,25 @@
-const fs = require('fs');
+const [dir, , , part] = Deno.args;
 
-const [,, dir, , , part] = process.argv;
+function readPipedInput() {
+  const text = new TextDecoder().decode(Deno.readFileSync("/dev/stdin"));
+  return text.trim();
+}
 
-let func = require(`${dir}/${part}.js`);
+async function main() {
+  const modulePath = `${dir}/${part}.js`;
+  const moduleUrl = new URL(modulePath, `file://${Deno.cwd()}/`).href;
 
-function main() {
-  const input_data = fs.readFileSync(0, 'utf-8')
-    .trim()
-    .split("\n");
-  console.log(func(input_data));
+  const funcModule = await import(moduleUrl);
+
+  const exportedFunction = funcModule.default;
+
+  const inputData = readPipedInput().split("\n");
+
+  if (typeof exportedFunction === 'function') {
+    console.log(exportedFunction(inputData));
+  } else {
+    console.error(`The imported file ${modulePath} does not export a default function.`);
+  }
 }
 
 main();

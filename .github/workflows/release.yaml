@@ -1,0 +1,119 @@
+name: 'release'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🏷️ Get Latest Version
+        id: get_version
+        run: |
+          # Fetch the latest tag that looks like a semantic version (e.g., 1.2.3)
+          # 'sort -V' ensures correct version sorting (e.g., 0.9.0 < 0.10.0)
+          LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
+
+          # If no tags exist, start at 0.0.1
+          if [ -z "$LATEST_TAG" ]; then
+            NEW_VERSION="0.0.1"
+            echo "No existing tags found. Starting at $NEW_VERSION."
+          else
+            echo "Latest existing tag is $LATEST_TAG."
+
+            # Remove any leading 'v' for consistent parsing
+            BARE_VERSION=$(echo "$LATEST_TAG" | sed 's/^v//')
+
+            # Split version into major, minor, patch parts
+            MAJOR=$(echo "$BARE_VERSION" | cut -d. -f1)
+            MINOR=$(echo "$BARE_VERSION" | cut -d. -f2)
+            PATCH=$(echo "$BARE_VERSION" | cut -d. -f3)
+
+            # Increment the patch version
+            NEW_PATCH=$((PATCH + 1))
+
+            # Construct the new version string
+            NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+            echo "Calculated new version: $NEW_VERSION."
+          fi
+
+          # Output the new version to be used in subsequent steps
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: 📝 Create Tag and Release Body
+        id: create_body
+        run: |
+          # Get the new version from the previous step's output
+          NEW_VERSION=${{ steps.get_version.outputs.new_version }}
+
+          # Get the commit history since the last tag (if one exists)
+          LAST_TAG=$(git tag --sort=-v:refname | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
+
+          if [ -z "$LAST_TAG" ]; then
+             # If no previous tag, use all commits
+             CHANGELOG_COMMITS=$(git log --pretty=format:'* %s - (%h)' --abbrev-commit)
+             RELEASE_TITLE="Initial Release $NEW_VERSION"
+          else
+             # Get commits between the last tag and the current commit
+             CHANGELOG_COMMITS=$(git log $LAST_TAG..HEAD --pretty=format:'* %s - (%h)' --abbrev-commit)
+             RELEASE_TITLE="Patch Release $NEW_VERSION"
+          fi
+
+          # Create a basic release body
+          RELEASE_BODY=$(cat <<-EOF
+          ## Changelog for $NEW_VERSION
+
+          This patch release includes the following changes:
+
+          $CHANGELOG_COMMITS
+
+          ---
+
+          **Full commit log:** https://github.com/${{ github.repository }}/compare/$LAST_TAG...HEAD
+          EOF
+          )
+
+          # Output the release title and body for the next step
+          echo "release_title=$RELEASE_TITLE" >> $GITHUB_OUTPUT
+          echo "release_body<<EOF" >> $GITHUB_OUTPUT
+          echo "$RELEASE_BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: 🏷️ Create New Git Tag
+        id: create_tag
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const new_version = process.env.NEW_VERSION;
+            const tag_name = `v${new_version}`;
+
+            console.log(`Creating tag: ${tag_name}`);
+
+            // Create the Git tag and push it
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/${tag_name}`,
+              sha: context.sha
+            });
+
+            // Output the full tag name for the release step
+            core.setOutput('tag_name', tag_name);
+        env:
+          NEW_VERSION: ${{ steps.get_version.outputs.new_version }}
+
+      - name: 📦 Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          name: ${{ steps.create_body.outputs.release_title }}
+          body: ${{ steps.create_body.outputs.release_body }}
+          prerelease: false
