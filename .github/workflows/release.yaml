@@ -1,0 +1,120 @@
+name: '🚀 Patch Release Generator'
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+
+    # Permission required to read tags and create new releases
+    # Note: We still require 'write' permission, even though we use a PAT later,
+    # as the job initially uses the GITHUB_TOKEN for actions like `checkout`.
+    permissions:
+      contents: write
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch all history and tags
+          fetch-depth: 0
+
+      - name: 🏷️ Get Next Patch Version
+        id: get_version
+        run: |
+          # Fetch the latest tag (e.g., v0.0.9)
+          LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            NEW_VERSION="0.0.1"
+            echo "No existing tags found. Starting at $NEW_VERSION."
+          else
+            echo "Latest existing tag is $LATEST_TAG."
+
+            # Remove 'v' and split version
+            BARE_VERSION=$(echo "$LATEST_TAG" | sed 's/^v//')
+            MAJOR=$(echo "$BARE_VERSION" | cut -d. -f1)
+            MINOR=$(echo "$BARE_VERSION" | cut -d. -f2)
+            PATCH=$(echo "$BARE_VERSION" | cut -d. -f3)
+
+            # Increment the patch version
+            NEW_PATCH=$((PATCH + 1))
+            NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+            echo "Calculated new version: $NEW_VERSION."
+          fi
+
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: 📝 Prepare Release Notes & Link
+        id: create_body
+        run: |
+          NEW_VERSION=${{ steps.get_version.outputs.new_version }}
+          NEW_TAG="v$NEW_VERSION"
+          REPO_URL="https://github.com/${{ github.repository }}"
+
+          LAST_TAG=$(git tag --sort=-v:refname | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
+
+          if [ -z "$LAST_TAG" ]; then
+             CHANGELOG_COMMITS=$(git log --pretty=format:'* %s - (%h)' --abbrev-commit)
+             RELEASE_TITLE="Initial Release $NEW_VERSION"
+             # Comparison link for initial release (all commits from the start)
+             COMPARE_LINK="$REPO_URL/commits/$NEW_TAG"
+          else
+             CHANGELOG_COMMITS=$(git log $LAST_TAG..HEAD --pretty=format:'* %s - (%h)' --abbrev-commit)
+             RELEASE_TITLE="Patch Release $NEW_VERSION"
+             # CORRECT COMPARISON: New Tag vs. Old Tag
+             COMPARE_LINK="$REPO_URL/compare/$LAST_TAG...$NEW_TAG"
+          fi
+
+          RELEASE_BODY=$(cat <<-EOF
+          ## Changelog for $NEW_VERSION
+
+          This patch release includes the following changes:
+
+          $CHANGELOG_COMMITS
+
+          ---
+
+          **Full commit log:** $COMPARE_LINK
+          EOF
+          )
+
+          echo "release_title=$RELEASE_TITLE" >> $GITHUB_OUTPUT
+          echo "release_body<<EOF" >> $GITHUB_OUTPUT
+          echo "$RELEASE_BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: 🏷️ Create New Git Tag (vX.Y.Z)
+        id: create_tag
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const new_version = process.env.NEW_VERSION;
+            const tag_name = `v${new_version}`;
+
+            console.log(`Creating tag: ${tag_name}`);
+
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/${tag_name}`,
+              sha: context.sha
+            });
+
+            core.setOutput('tag_name', tag_name);
+        env:
+          NEW_VERSION: ${{ steps.get_version.outputs.new_version }}
+
+      - name: 📦 Create GitHub Release & Trigger Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          name: ${{ steps.create_body.outputs.release_title }}
+          body: ${{ steps.create_body.outputs.release_body }}
+          prerelease: false
+        env:
+          # IMPORTANT: Use PAT_TOKEN to ensure the 'release:published' event
+          # triggers the next workflow (`publish.yml`).
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}

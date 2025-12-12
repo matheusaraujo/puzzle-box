@@ -2,7 +2,6 @@
 
 ![logo.png](docs/logo.png)
 
-![Version](https://img.shields.io/badge/version-0.0.10-blue)
 ### Supported Languages
 ![Assembly](https://img.shields.io/badge/Assembly-000000?style=for-the-badge&logo=assemblyai&logoColor=white)
 ![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)

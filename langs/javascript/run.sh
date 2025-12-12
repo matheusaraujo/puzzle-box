@@ -10,4 +10,4 @@ target_path="$(realpath "$dir")"
 base_path="$(realpath "$ROOT/langs/javascript")"
 relative_dir="$(realpath --relative-to="$base_path" "$target_path")"
 
-node $ROOT/langs/javascript/main.js $relative_dir $year $day $part < $input_file
+deno run --allow-all $ROOT/langs/javascript/main.js $relative_dir $year $day $part < $input_file
