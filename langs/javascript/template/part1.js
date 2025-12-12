@@ -1,5 +1,5 @@
-function part1(puzzleInput) {
+const part1 = (puzzleInput) => {
   return puzzleInput;
 }
 
-module.exports = part1;
+export default part1;
