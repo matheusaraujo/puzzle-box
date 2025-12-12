@@ -73,8 +73,6 @@ jobs:
           RELEASE_BODY=$(cat <<-EOF
           ## Changelog for $NEW_VERSION
 
-          This patch release includes the following changes:
-
           $CHANGELOG_COMMITS
 
           ---
