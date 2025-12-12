@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 dir=$1
 year=$2
@@ -7,7 +7,7 @@ part=$4
 input_file=$5
 
 target_path="$(realpath "$dir")"
-base_path="$(realpath "$ROOT/langs/typescript")"
+base_path="$(realpath "$ROOT/langs/typescript")" # New language base path
 relative_dir="$(realpath --relative-to="$base_path" "$target_path")"
 
-ts-node $ROOT/langs/typescript/main.ts $relative_dir $year $day $part < $input_file
+bun run "$ROOT/langs/typescript/main.ts" $relative_dir $year $day $part < "$input_file"
