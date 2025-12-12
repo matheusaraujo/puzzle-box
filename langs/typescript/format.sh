@@ -14,6 +14,6 @@ for file in "${files[@]}"; do
     FILE_PATH="$dir/$file"
     if [ -f "$FILE_PATH" ]; then
         bun x prettier "$FILE_PATH" --write --log-level silent \
-        && print_line "${PURPLE}bun x prettier${GRAY_ITALIC} $FILE_PATH ${CHECK_SUCCESS}"
+        && print_line "${PURPLE}bunx prettier${GRAY_ITALIC} $FILE_PATH ${CHECK_SUCCESS}"
     fi
 done

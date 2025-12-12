@@ -19,14 +19,14 @@ for file in "${files[@]}"; do
         status=$?
 
         if [ $status -ne 0 ]; then
-            print_line "${PURPLE}bun lint${GRAY_ITALIC} $path ${CHECK_ERROR}"
+            print_line "${PURPLE}bunx eslint${GRAY_ITALIC} $path ${CHECK_ERROR}"
             print_line "$lint_output"
             exit 1
         else
             if [ $debug -eq 1 ]; then
-                print_line "${PURPLE}bun lint${GRAY_ITALIC} $path ${CHECK_SUCCESS}"
+                print_line "${PURPLE}bunx eslint${GRAY_ITALIC} $path ${CHECK_SUCCESS}"
             else
-                print_line "${PURPLE}eslint/prettier (bun lint)${GRAY_ITALIC} $path ${CHECK_SUCCESS}"
+                print_line "${PURPLE}bunx eslint${GRAY_ITALIC} $path ${CHECK_SUCCESS}"
             fi
         fi
     fi
