@@ -7,11 +7,15 @@ challenges_aliases["ecd"]="ecd"
 challenges_aliases["everybody-codes"]="ecd"
 challenges_aliases["everybody.codes"]="ecd"
 
+challenge_year_regex["ecd"]="^(2024|2025|story1|story2)$"
+
 ignore_files+=(".ecd.session.cookie")
 
 declare -A ecd_events=(
     [2024]=20
     [2025]=20
+    [story1]=3
+    [story2]=3
 )
 
 ecd_directory() {

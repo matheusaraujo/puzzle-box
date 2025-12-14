@@ -3,22 +3,8 @@
 aoc_validate_year_day() {
     day_num=$((10#$day))
 
-    declare -A days=(
-        [2015]=25
-        [2016]=25
-        [2017]=25
-        [2018]=25
-        [2019]=25
-        [2020]=25
-        [2021]=25
-        [2022]=25
-        [2023]=25
-        [2024]=25
-        [2025]=12
-    )
-
-    if [[ -n "${days[$year]}" ]]; then
-        max_day=${days[$year]}
+    if [[ -n "${aoc_events[$year]}" ]]; then
+        max_day=${aoc_events[$year]}
         if [ "$day_num" -ge 1 ] && [ "$day_num" -le "$max_day" ]; then
             return 0
         fi

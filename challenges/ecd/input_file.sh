@@ -38,7 +38,8 @@ retrieve_seed() {
 }
 
 fetch_input_notes() {
-    input_notes_url="https://everybody.codes/assets/$year/$((10#$day))/input/$seed.json"
+    local normalized_year="${year#story}"
+    input_notes_url="https://everybody.codes/assets/$normalized_year/$((10#$day))/input/$seed.json"
 
     response=$(curl -s -X GET \
         -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
@@ -56,7 +57,8 @@ fetch_input_notes() {
 }
 
 retrieve_aes_keys() {
-    aes_keys_url="https://everybody.codes/api/event/$year/quest/$((10#$day))"
+    local normalized_year="${year#story}"
+    aes_keys_url="https://everybody.codes/api/event/$normalized_year/quest/$((10#$day))"
 
     response=$(curl -s -X GET \
         -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
