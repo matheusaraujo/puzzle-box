@@ -3,13 +3,8 @@
 ecd_validate_year_day() {
     day_num=$((10#$day))
 
-    declare -A days=(
-        [2024]=20
-        [2025]=20
-    )
-
-    if [[ -n "${days[$year]}" ]]; then
-        max_day=${days[$year]}
+    if [[ -n "${ecd_events[$year]}" ]]; then
+        max_day=${ecd_events[$year]}
         if [ "$day_num" -ge 1 ] && [ "$day_num" -le "$max_day" ]; then
             return 0
         fi

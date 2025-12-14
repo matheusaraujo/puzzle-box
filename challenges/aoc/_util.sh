@@ -7,6 +7,8 @@ challenges_aliases["aoc"]="aoc"
 challenges_aliases["advent-of-code"]="aoc"
 challenges_aliases["advent"]="aoc"
 
+challenge_year_regex["aoc"]="^(2015|2016|2017|2018|2019|2020|2021|2022|2023|2024|2025)$"
+
 ignore_files+=(".aoc.session.cookie")
 
 declare -A aoc_events=(

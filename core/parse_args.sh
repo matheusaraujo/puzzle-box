@@ -31,7 +31,8 @@ parse_args() {
         if [[ " ${!challenges_aliases[@]} " =~ " $1 " ]]; then
             challenge="${challenges_aliases[$1]}"
             update_pb_env "challenge" "$challenge"
-        elif [[ $1 =~ ^[0-9]{4}$ ]]; then
+        # elif [[ $1 =~ ^[0-9]{4}$ ]]; then
+        elif [[ -n "$challenge" && -n "${challenge_year_regex[$challenge]}" && $1 =~ ${challenge_year_regex[$challenge]} ]]; then
             year="$1"
             update_pb_env "year" "$year"
         elif [[ $1 =~ ^([1-9]|0[0-9]|1[0-9]|2[0-5])$  ]]; then
