@@ -30,7 +30,7 @@ pb_progress() {
                 fi
             done
 
-            progress_content+="| $event | $done_count / $max_day | $day_line |\n"
+            progress_content+="| $event | $done_count / $max_day | $puzzle_line |\n"
         done
     done
 

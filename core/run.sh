@@ -10,7 +10,7 @@ pb_run_event() {
         local dir="$(${challenge}_directory)"
         if [ -d "$dir" ]; then
             pb_run || {
-                echo -e "${RED}[ERROR] Run failed for $challenge: $event - $day${NC}"
+                echo -e "${RED}[ERROR] Run failed for $challenge: $event - $puzzle${NC}"
                 exit 1
             }
             print_line "----------------------------------------------------------------------"
@@ -107,16 +107,16 @@ process_language_part() {
 
         local output_file="${input_file/input/output}"
         validate_output_file "$output_file"
-        execute_lang_run_sh "$dir" "$lang" "$event" "$day" "$part" "$input_file" "$output_file"
+        execute_lang_run_sh "$dir" "$lang" "$event" "$puzzle" "$part" "$input_file" "$output_file"
     done
 
     local input_file="$(${challenge}_input_file $part)"
     if [ -f "$input_file" ]; then
         local output_file="$dir/data/output.$part.txt"
         if [ -f "$output_file" ]; then
-            execute_lang_run_sh "$dir" "$lang" "$event" "$day" "$part" $input_file $output_file
+            execute_lang_run_sh "$dir" "$lang" "$event" "$puzzle" "$part" $input_file $output_file
         else
-            execute_lang_run_sh "$dir" "$lang" "$event" "$day" "$part" $input_file
+            execute_lang_run_sh "$dir" "$lang" "$event" "$puzzle" "$part" $input_file
         fi
     fi
 }
@@ -134,7 +134,7 @@ execute_lang_run_sh() {
 
     /usr/bin/time -f "Max Memory: %M KB\nCPU Usage: %P" \
         -o /tmp/resource_usage.txt -- \
-        $ROOT/langs/$lang/run.sh "$dir" "$event" "$day" "$part" "$input_file" > /tmp/script_output.txt 2>&1
+        $ROOT/langs/$lang/run.sh "$dir" "$event" "$puzzle" "$part" "$input_file" > /tmp/script_output.txt 2>&1
     local script_exit_code=$?
     local end_time=$(date +%s%N)
 

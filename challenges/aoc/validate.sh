@@ -1,22 +1,22 @@
 #!/bin/bash
 
 aoc_validate_event_day() {
-    day_num=$((10#$day))
+    day_num=$((10#$puzzle))
 
     if [[ -n "${aoc_events[$event]}" ]]; then
         max_day=${aoc_events[$event]}
-        if [ "$day_num" -ge 1 ] && [ "$day_num" -le "$max_day" ]; then
+        if [ "$puzzle_num" -ge 1 ] && [ "$puzzle_num" -le "$max_day" ]; then
             return 0
         fi
     fi
 
-    print_line "${RED}[Advent of Code] Invalid event ($event) or day ($day).${NC}"
+    print_line "${RED}[Advent of Code] Invalid event ($event) or day ($puzzle).${NC}"
     exit 1
 }
 
 aoc_validate_directory() {
-    if [ ! -d "advent-of-code/$event/day$day" ]; then
-        print_line "${RED}[Advent of Code] Directory does not exist for $event, day $day.${NC}"
+    if [ ! -d "advent-of-code/$event/day$puzzle" ]; then
+        print_line "${RED}[Advent of Code] Directory does not exist for $event, day $puzzle.${NC}"
         exit 1
     fi
 }

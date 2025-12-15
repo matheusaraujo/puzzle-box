@@ -42,4 +42,4 @@ go run \
   $part3_arg \
   $helpers_arg \
   $go_dir/main.go \
-  $dir $event $day $part < "$input_file"
+  $dir $event $puzzle $part < "$input_file"

@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-// The shell script passes: $relative_dir $event $day $part
+// The shell script passes: $relative_dir $event $puzzle $part
 // process.argv contains [bun, scriptPath, arg1, arg2, ...]
 const [dir, event, day, part] = process.argv.slice(2);
 

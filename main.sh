@@ -40,17 +40,17 @@ add_session_cookie() {
     pb_add_session_cookie
 }
 
-# COMMAND: create: Create a new solution for the given challenge, event, day, and lang
+# COMMAND: create: Create a new solution for the given challenge, event, puzzle, and lang
 create() {
     pb_create
 }
 
-# COMMAND: generate-input: Generate sample input for given event, day, and part
+# COMMAND: generate-input: Generate sample input for given event, puzzle, and part
 generate_input() {
     pb_generate_input
 }
 
-# COMMAND: run: Execute the solution for given challenge, event and day
+# COMMAND: run: Execute the solution for given challenge, event and puzzle
 run() {
     pb_run
 }
@@ -70,7 +70,7 @@ run_all() {
     pb_run_all
 }
 
-# COMMAND: format: Format for current challenge, event and day
+# COMMAND: format: Format the puzzle
 format() {
     pb_format
 }
@@ -90,7 +90,7 @@ format_all() {
     pb_format_all
 }
 
-# COMMAND: check: Run checks for current challenge, event and day
+# COMMAND: check: Run checks for puzzle
 check() {
     pb_check
 }
@@ -130,7 +130,7 @@ langs_stats() {
     pb_lang_stats
 }
 
-# COMMAND: commit: Validate everything, update README and commit for current challenge, event and day
+# COMMAND: commit: Validate everything, update README and commit for current puzzle
 commit() {
     pb_commit
 }

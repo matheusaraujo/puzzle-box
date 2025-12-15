@@ -6,5 +6,5 @@ day=$3
 part=$4
 input_file=$5
 
-$ROOT/langs/c/run $dir $event $day $part < "$input_file"
+$ROOT/langs/c/run $dir $event $puzzle $part < "$input_file"
 

@@ -19,9 +19,9 @@ declare -A ecd_events=(
 )
 
 ecd_directory() {
-    local day_str
-    printf -v day_str "%02d" "$((10#$day))"
-    echo "everybody.codes/$event/quest$day_str"
+    local puzzle_str
+    printf -v puzzle_str "%02d" "$((10#$puzzle))"
+    echo "everybody.codes/$event/quest$puzzle_str"
 }
 
 ecd_problem_title() {
@@ -32,9 +32,9 @@ ecd_problem_title() {
     if [ -f "$title_file" ] && [ -s "$title_file" ]; then
         local title
         title=$(cat "$title_file")
-        echo "Everybody.Codes $event - Quest $day: $title"
+        echo "Everybody.Codes $event - Quest $puzzle: $title"
     else
-        echo "Everybody.Codes $event - Quest $day"
+        echo "Everybody.Codes $event - Quest $puzzle"
     fi
 }
 

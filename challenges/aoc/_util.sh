@@ -26,9 +26,9 @@ declare -A aoc_events=(
 )
 
 aoc_directory() {
-    local day_str
-    printf -v day_str "%02d" "$((10#$day))"
-    echo "advent-of-code/$event/day$day_str"
+    local puzzle_str
+    printf -v puzzle_str "%02d" "$((10#$puzzle))"
+    echo "advent-of-code/$event/day$puzzle_str"
 }
 
 aoc_problem_title() {
@@ -39,9 +39,9 @@ aoc_problem_title() {
     if [ -f "$title_file" ] && [ -s "$title_file" ]; then
         local title
         title=$(cat "$title_file")
-        echo "Advent of Code $event - Day $day: $title"
+        echo "Advent of Code $event - Day $puzzle: $title"
     else
-        echo "Advent of Code $event - Day $day"
+        echo "Advent of Code $event - Day $puzzle"
     fi
 }
 

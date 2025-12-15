@@ -31,4 +31,4 @@ else
     ln -sf "$rust_dir/template/helpers.rs" "$rust_dir/src/helpers.rs"
 fi
 
-cargo run --manifest-path "$rust_dir/Cargo.toml" --quiet -- "$dir" "$event" "$day" "$part" < "$input_file"
+cargo run --manifest-path "$rust_dir/Cargo.toml" --quiet -- "$dir" "$event" "$puzzle" "$part" < "$input_file"

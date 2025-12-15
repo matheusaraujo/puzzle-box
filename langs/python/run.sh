@@ -14,4 +14,4 @@ if [ -f "$dir/requirements.txt" ]; then
     pip install -q -r "$dir/requirements.txt"
 fi
 
-python3 $ROOT/langs/python/main.py $relative_dir $event $day $part < $input_file
+python3 $ROOT/langs/python/main.py $relative_dir $event $puzzle $part < $input_file

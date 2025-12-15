@@ -10,4 +10,4 @@ target_path="$(realpath "$dir")"
 base_path="$(realpath "$ROOT/langs/typescript")" # New language base path
 relative_dir="$(realpath --relative-to="$base_path" "$target_path")"
 
-bun run "$ROOT/langs/typescript/main.ts" $relative_dir $event $day $part < "$input_file"
+bun run "$ROOT/langs/typescript/main.ts" $relative_dir $event $puzzle $part < "$input_file"

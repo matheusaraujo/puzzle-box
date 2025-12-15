@@ -8,4 +8,4 @@ input_file=$5
 
 csproj="$ROOT/langs/csharp/pb.csproj"
 
-dotnet run --project $csproj --no-restore --no-build $dir $event $day $part < "$input_file"
+dotnet run --project $csproj --no-restore --no-build $dir $event $puzzle $part < "$input_file"

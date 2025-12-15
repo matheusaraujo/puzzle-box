@@ -10,7 +10,7 @@ execute_lang_format_sh() {
 
     if [[ -f "$dir/part1.$ext" ]]; then
         print_line "format($lang): $title"
-        $ROOT/langs/$lang/format.sh $dir $event $day
+        $ROOT/langs/$lang/format.sh $dir $event $puzzle
 
         if [ $? -ne 0 ]; then
             exit 1
@@ -27,11 +27,11 @@ pb_format() {
     local title="$(${challenge}_problem_title)"
 
     if [[ -n "$lang" ]]; then
-        execute_lang_format_sh "$dir" "$event" "$day" "$lang" "$title"
+        execute_lang_format_sh "$dir" "$event" "$puzzle" "$lang" "$title"
     else
         for ((i=0; i<${#available_languages[@]}; i++)); do
             l="${available_languages[$i]}"
-            execute_lang_format_sh "$dir" "$event" "$day" "$l" "$title"
+            execute_lang_format_sh "$dir" "$event" "$puzzle" "$l" "$title"
         done
     fi
 }
@@ -46,7 +46,7 @@ pb_format_event() {
         local dir="$(${challenge}_directory)"
         if [ -d "$dir" ]; then
             pb_format || {
-                echo -e "${RED}[ERROR] Format failed for $challenge: $event - $day${NC}"
+                echo -e "${RED}[ERROR] Format failed for $challenge: $event - $puzzle${NC}"
                 exit 1
             }
             print_line "----------------------------------------------------------------------"

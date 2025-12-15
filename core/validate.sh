@@ -28,7 +28,7 @@ validate_event() {
 }
 
 validate_day() {
-    if [ -z "$day" ]; then
+    if [ -z "$puzzle" ]; then
         print_line "${RED}[ERROR] Day must be defined.${NC}"
         exit 1
     fi

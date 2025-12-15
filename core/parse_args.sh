@@ -27,7 +27,7 @@ parse_args() {
         elif [[ $1 =~ ^([1-9]|0[0-9]|1[0-9]|2[0-5])$  ]]; then
             arg=$(echo "$1" | sed 's/^0*//')
             day=$(printf "%02d" "$arg")
-            update_pb_env "day" "$day"
+            update_pb_env "day" "$puzzle"
         elif [[ $1 == "part1" || $1 == "part2" || $1 == "part3" ]]; then
             part="$1"
         elif [[ " ${!languages_aliases[@]} " =~ " $1 " ]]; then
@@ -41,7 +41,7 @@ parse_args() {
         shift
     done
 
-    if [[ -z "$challenge" && -z "$event" && -z "$day" && -f ".pb-env" ]]; then
+    if [[ -z "$challenge" && -z "$event" && -z "$puzzle" && -f ".pb-env" ]]; then
         source .pb-env
     fi
 }

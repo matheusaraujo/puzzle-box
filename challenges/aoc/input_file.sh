@@ -7,7 +7,7 @@ aoc_ensure_input_file_exists() {
     if [ ! -f "$input_file" ] || [ ! -s "$input_file" ]; then
         mkdir -p "$(dirname "$input_file")"
         curl -s -b session=$(cat .aoc.session.cookie) \
-            https://adventofcode.com/$event/day/$(echo $day | sed 's/^0*//')/input -o "$input_file"
+            https://adventofcode.com/$event/day/$(echo $puzzle | sed 's/^0*//')/input -o "$input_file"
 
         if [ ! -s "$input_file" ]; then
             print_line "${RED}[Advent of Code] Failed to fetch input file or file is empty.${NC}"

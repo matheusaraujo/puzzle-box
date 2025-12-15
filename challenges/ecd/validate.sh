@@ -1,22 +1,22 @@
 #!/bin/bash
 
 ecd_validate_event_day() {
-    day_num=$((10#$day))
+    day_num=$((10#$puzzle))
 
     if [[ -n "${ecd_events[$event]}" ]]; then
         max_day=${ecd_events[$event]}
-        if [ "$day_num" -ge 1 ] && [ "$day_num" -le "$max_day" ]; then
+        if [ "$puzzle_num" -ge 1 ] && [ "$puzzle_num" -le "$max_day" ]; then
             return 0
         fi
     fi
 
-    print_line "${RED}[Everybody.Codes] Invalid event ($event) or day ($day).${NC}"
+    print_line "${RED}[Everybody.Codes] Invalid event ($event) or day ($puzzle).${NC}"
     exit 1
 }
 
 ecd_validate_directory() {
-    if [ ! -d "everybody.codes/$event/quest$day" ]; then
-        print_line "${RED}[Everybody.Codes] Directory does not exist for $event, quest $day.${NC}"
+    if [ ! -d "everybody.codes/$event/quest$puzzle" ]; then
+        print_line "${RED}[Everybody.Codes] Directory does not exist for $event, quest $puzzle.${NC}"
         exit 1
     fi
 }

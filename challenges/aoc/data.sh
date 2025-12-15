@@ -7,7 +7,7 @@ aoc_try_to_extract_data_from_website() {
     file_path="$dir/data/_readme1.html"
 
     curl -s -b session=$(cat .aoc.session.cookie) \
-        "https://adventofcode.com/$event/day/$(echo $day | sed 's/^0*//')" \
+        "https://adventofcode.com/$event/day/$(echo $puzzle | sed 's/^0*//')" \
         -o "$file_path"
 
     if [ -f "$file_path" ]; then
