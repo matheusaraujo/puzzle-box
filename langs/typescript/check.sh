@@ -5,7 +5,7 @@ source $ROOT/core/_utils.sh
 ESLINT_CONFIG_PATH="/usr/local/puzzle-box/langs/typescript/eslint.config.ts"
 
 dir="$1"
-year="$2"
+event="$2"
 day="$3"
 debug=0
 

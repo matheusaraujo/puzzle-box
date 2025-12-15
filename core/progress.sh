@@ -15,8 +15,8 @@ pb_progress() {
         progress_content+="| Event | Completed | Progress |\n"
         progress_content+="|------|-----------|----------|\n"
 
-        for year in $(printf '%s\n' "${!events[@]}" | sort -nr); do
-            local max_day=${events[$year]}
+        for event in $(printf '%s\n' "${!events[@]}" | sort -nr); do
+            local max_day=${events[$event]}
             local done_count=0
             local day_line=""
 
@@ -30,7 +30,7 @@ pb_progress() {
                 fi
             done
 
-            progress_content+="| $year | $done_count / $max_day | $day_line |\n"
+            progress_content+="| $event | $done_count / $max_day | $day_line |\n"
         done
     done
 

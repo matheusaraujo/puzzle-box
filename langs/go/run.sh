@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dir=$1
-year=$2
+event=$2
 day=$3
 part=$4
 input_file=$5
@@ -42,4 +42,4 @@ go run \
   $part3_arg \
   $helpers_arg \
   $go_dir/main.go \
-  $dir $year $day $part < "$input_file"
+  $dir $event $day $part < "$input_file"

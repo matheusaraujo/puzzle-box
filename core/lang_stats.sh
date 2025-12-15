@@ -12,8 +12,8 @@ pb_lang_stats() {
         events_map="${challenge}_events"
         declare -n events="$events_map"
 
-        for year in $(printf '%s\n' "${!events[@]}" | sort -nr); do
-            local max_day=${events[$year]}
+        for event in $(printf '%s\n' "${!events[@]}" | sort -nr); do
+            local max_day=${events[$event]}
             for ((day=1; day<=max_day; day++)); do
                 local dir="$(${challenge}_directory)"
                 if [[ -d "$dir" ]]; then

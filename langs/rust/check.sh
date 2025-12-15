@@ -2,7 +2,7 @@
 source $ROOT/core/_utils.sh
 
 dir=$1
-year=$2
+event=$2
 day=$3
 
 workspace_dir="$(pwd)/$dir"

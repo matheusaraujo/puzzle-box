@@ -7,7 +7,7 @@ challenges_aliases["ecd"]="ecd"
 challenges_aliases["everybody-codes"]="ecd"
 challenges_aliases["everybody.codes"]="ecd"
 
-challenge_year_regex["ecd"]="^(2024|2025|story1|story2)$"
+challenge_event_regex["ecd"]="^(2024|2025|story1|story2)$"
 
 ignore_files+=(".ecd.session.cookie")
 
@@ -21,7 +21,7 @@ declare -A ecd_events=(
 ecd_directory() {
     local day_str
     printf -v day_str "%02d" "$((10#$day))"
-    echo "everybody.codes/$year/quest$day_str"
+    echo "everybody.codes/$event/quest$day_str"
 }
 
 ecd_problem_title() {
@@ -32,9 +32,9 @@ ecd_problem_title() {
     if [ -f "$title_file" ] && [ -s "$title_file" ]; then
         local title
         title=$(cat "$title_file")
-        echo "Everybody.Codes $year - Quest $day: $title"
+        echo "Everybody.Codes $event - Quest $day: $title"
     else
-        echo "Everybody.Codes $year - Quest $day"
+        echo "Everybody.Codes $event - Quest $day"
     fi
 }
 

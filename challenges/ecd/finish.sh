@@ -10,8 +10,8 @@ ecd_finish() {
 
     title=$(cat $dir/data/title.txt)
 
-    readme_content="# Everybody Codes - ${year} Quest ${day}\n\n${title}\n\nhttps://everybody.codes/events/${year}/quests/$(echo $day | sed 's/^0*//')"
+    readme_content="# Everybody Codes - ${event} Quest ${day}\n\n${title}\n\nhttps://everybody.codes/events/${event}/quests/$(echo $day | sed 's/^0*//')"
     echo -e "$readme_content" > $dir/README.md
-    print_line "readme $year/day$day generated ${CHECK_SUCCESS}"
+    print_line "readme $event/day$day generated ${CHECK_SUCCESS}"
 
 }

@@ -3,7 +3,7 @@
 source $ROOT/core/_utils.sh
 
 dir=$1
-year=$2
+event=$2
 day=$3
 
 files=("part1.pl" "part2.pl" "part3.pl" "helpers.pl")

@@ -4,9 +4,9 @@ ecd_ensure_input_file_exists() {
     local dir
     dir=$(ecd_directory)
 
-    # Verify year/day are set
-    if [ -z "$year" ] || [ -z "$day" ]; then
-        echo "❌ Error: year/day variables are not set before calling API."
+    # Verify event/day are set
+    if [ -z "$event" ] || [ -z "$day" ]; then
+        echo "❌ Error: event/day variables are not set before calling API."
         exit 1
     fi
 
@@ -38,8 +38,8 @@ retrieve_seed() {
 }
 
 fetch_input_notes() {
-    local normalized_year="${year#story}"
-    input_notes_url="https://everybody.codes/assets/$normalized_year/$((10#$day))/input/$seed.json"
+    local normalized_event="${event#story}"
+    input_notes_url="https://everybody.codes/assets/$normalized_event/$((10#$day))/input/$seed.json"
 
     response=$(curl -s -X GET \
         -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
@@ -57,8 +57,8 @@ fetch_input_notes() {
 }
 
 retrieve_aes_keys() {
-    local normalized_year="${year#story}"
-    aes_keys_url="https://everybody.codes/api/event/$normalized_year/quest/$((10#$day))"
+    local normalized_event="${event#story}"
+    aes_keys_url="https://everybody.codes/api/event/$normalized_event/quest/$((10#$day))"
 
     response=$(curl -s -X GET \
         -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \

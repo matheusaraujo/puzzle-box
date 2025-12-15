@@ -54,7 +54,7 @@ $ pb add-session-cookie ecd
 
 ```bash
 # Create boilerplate solution files for:
-# Advent of Code / year 2015 / day 1 / using C
+# Advent of Code / event 2015 / day 1 / using C
 $ puzzle-box create aoc 2015 1 c
 
 # to add sample input

@@ -40,24 +40,24 @@ add_session_cookie() {
     pb_add_session_cookie
 }
 
-# COMMAND: create: Create a new solution for the given challenge, year, day, and lang
+# COMMAND: create: Create a new solution for the given challenge, event, day, and lang
 create() {
     pb_create
 }
 
-# COMMAND: generate-input: Generate sample input for given year, day, and part
+# COMMAND: generate-input: Generate sample input for given event, day, and part
 generate_input() {
     pb_generate_input
 }
 
-# COMMAND: run: Execute the solution for given challenge, year and day
+# COMMAND: run: Execute the solution for given challenge, event and day
 run() {
     pb_run
 }
 
-# COMMAND: run-year: Execute all solutions for given challenge/year
-run_year() {
-    pb_run_year
+# COMMAND: run-event: Execute all solutions for given challenge/event
+run_event() {
+    pb_run_event
 }
 
 # COMMAND: run-challenge: Execute all solutions for given challenge
@@ -70,14 +70,14 @@ run_all() {
     pb_run_all
 }
 
-# COMMAND: format: Format for given challenge, year and day
+# COMMAND: format: Format for current challenge, event and day
 format() {
     pb_format
 }
 
-# COMMAND: format-year: Run format for all solutions in given challenge/year
-format_year() {
-    pb_format_year
+# COMMAND: format-event: Run format for all solutions in given challenge/event
+format_event() {
+    pb_format_event
 }
 
 # COMMAND: format-challenge: Run format for all solutions in the current challenge
@@ -90,14 +90,14 @@ format_all() {
     pb_format_all
 }
 
-# COMMAND: check: Run checks for given challenge, year and day
+# COMMAND: check: Run checks for current challenge, event and day
 check() {
     pb_check
 }
 
-# COMMAND: check-year: Run checks for all solutions in given challenge/year
-check_year() {
-    pb_check_year
+# COMMAND: check-event: Run checks for all solutions in given challenge/event
+check_event() {
+    pb_check_event
 }
 
 # COMMAND: check-challenge: Run checks for all solutions in the current challenge
@@ -130,7 +130,7 @@ langs_stats() {
     pb_lang_stats
 }
 
-# COMMAND: commit: Validate and commit for given year and day
+# COMMAND: commit: Validate everything, update README and commit for current challenge, event and day
 commit() {
     pb_commit
 }
@@ -147,9 +147,6 @@ main() {
     else
         cmd="$1"
         shift
-        # if [ "$cmd" == "create" ]; then
-        #     infer_year_day
-        # fi
         parse_args "$@"
         case "$cmd" in
             help) help ;;
@@ -157,15 +154,15 @@ main() {
             add-session-cookie) add_session_cookie ;;
             create) create ;;
             run) run ;;
-            run-year) run_year ;;
+            run-event) run_event ;;
             run-challenge) run_challenge ;;
             run-all) run_all ;;
             format) format ;;
-            format-year) format_year ;;
+            format-event) format_event ;;
             format-challenge) format_challenge ;;
             format-all) format_all ;;
             check) check ;;
-            check-year) check_year ;;
+            check-event) check_event ;;
             check-challenge) check_challenge ;;
             check-all) check_all ;;
             commit) commit ;;

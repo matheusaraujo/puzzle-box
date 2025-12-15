@@ -15,26 +15,15 @@ update_pb_env() {
     fi
 }
 
-# TODO: review this, should be used only for aoc
-# infer_year_day(){
-#     rm -rf .aoc-env
-#     if [ "$(date +%m%d)" -ge "1201" ] && [ "$(date +%m%d)" -le "1225" ]; then
-#         year=$(date +%Y)
-#         day=$(date +%d)
-#         update_aoc_env "year" "$year"
-#         update_aoc_env "day" "$day"
-#     fi
-# }
-
 parse_args() {
     while [[ $# -gt 0 ]]; do
         if [[ " ${!challenges_aliases[@]} " =~ " $1 " ]]; then
             challenge="${challenges_aliases[$1]}"
             update_pb_env "challenge" "$challenge"
         # elif [[ $1 =~ ^[0-9]{4}$ ]]; then
-        elif [[ -n "$challenge" && -n "${challenge_year_regex[$challenge]}" && $1 =~ ${challenge_year_regex[$challenge]} ]]; then
-            year="$1"
-            update_pb_env "year" "$year"
+        elif [[ -n "$challenge" && -n "${challenge_event_regex[$challenge]}" && $1 =~ ${challenge_event_regex[$challenge]} ]]; then
+            event="$1"
+            update_pb_env "event" "$event"
         elif [[ $1 =~ ^([1-9]|0[0-9]|1[0-9]|2[0-5])$  ]]; then
             arg=$(echo "$1" | sed 's/^0*//')
             day=$(printf "%02d" "$arg")
@@ -52,7 +41,7 @@ parse_args() {
         shift
     done
 
-    if [[ -z "$challenge" && -z "$year" && -z "$day" && -f ".pb-env" ]]; then
+    if [[ -z "$challenge" && -z "$event" && -z "$day" && -f ".pb-env" ]]; then
         source .pb-env
     fi
 }
@@ -63,7 +52,7 @@ load_env_from_file() {
         while IFS='=' read -r key value; do
             case "$key" in
                 challenge) challenge="$value" ;;
-                year) year="$value" ;;
+                event) event="$value" ;;
                 day) day="$value" ;;
             esac
         done < "$file"

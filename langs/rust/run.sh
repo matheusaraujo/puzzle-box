@@ -3,7 +3,7 @@
 set -euo pipefail
 
 dir=$1
-year=$2
+event=$2
 day=$3
 part=$4
 input_file=$5
@@ -31,4 +31,4 @@ else
     ln -sf "$rust_dir/template/helpers.rs" "$rust_dir/src/helpers.rs"
 fi
 
-cargo run --manifest-path "$rust_dir/Cargo.toml" --quiet -- "$dir" "$year" "$day" "$part" < "$input_file"
+cargo run --manifest-path "$rust_dir/Cargo.toml" --quiet -- "$dir" "$event" "$day" "$part" < "$input_file"

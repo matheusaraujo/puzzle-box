@@ -2,7 +2,7 @@
 
 pb_commit() {
     validate_challenge
-    validate_year
+    validate_event
     validate_day
     ${challenge}_validate_directory
 

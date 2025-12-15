@@ -1,9 +1,8 @@
 #/bin/bash
 
 pb_generate_input() {
-    # validate_year_day_directory_part
     validate_challenge
-    validate_year
+    validate_event
     ${challenge}_validate_directory
     validate_part
 

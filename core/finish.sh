@@ -2,7 +2,7 @@
 
 pb_finish() {
   validate_challenge
-  validate_year
+  validate_event
   validate_day
 
   ${challenge}_finish

@@ -1,8 +1,8 @@
 import sys
 
-solution_path, year, day, part = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+solution_path, event, day, part = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
 
-# solution_path = f"./{year}/day{day}"
+# solution_path = f"./{event}/day{day}"
 sys.path.append(solution_path)
 
 if part == "part1":

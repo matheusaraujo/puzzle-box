@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-// The shell script passes: $relative_dir $year $day $part
+// The shell script passes: $relative_dir $event $day $part
 // process.argv contains [bun, scriptPath, arg1, arg2, ...]
-const [dir, year, day, part] = process.argv.slice(2);
+const [dir, event, day, part] = process.argv.slice(2);
 
 /**
  * Reads all piped input from STDIN (file descriptor 0).
@@ -22,7 +22,7 @@ function readPipedInput(): string {
 
 async function main() {
   if (!dir || !part) {
-    console.error("Usage: bun run main.ts <dir> <year> <day> <part>");
+    console.error("Usage: bun run main.ts <dir> <event> <day> <part>");
     process.exit(1);
   }
 

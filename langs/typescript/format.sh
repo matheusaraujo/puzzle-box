@@ -5,7 +5,7 @@ source $ROOT/core/_utils.sh
 BUNX_EXEC="/usr/local/bin/bun x"
 
 dir=$1
-year=$2
+event=$2
 day=$3
 
 files=("part1.ts" "part2.ts" "part3.ts" "helpers.ts")

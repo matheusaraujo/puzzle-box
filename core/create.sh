@@ -2,10 +2,10 @@
 
 pb_create() {
     validate_challenge
-    validate_year
+    validate_event
     validate_day
     validate_lang
-    "${challenge}_validate_year_day"
+    "${challenge}_validate_event_day"
 
     "${challenge}_create"
 }
