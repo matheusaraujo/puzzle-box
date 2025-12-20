@@ -10,6 +10,7 @@ langs/c/run
 # cpp
 langs/cpp/part*.cpp
 langs/cpp/helpers.cpp
+langs/cpp/solution
 
 # csharp
 langs/csharp/bin
