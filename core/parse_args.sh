@@ -34,6 +34,12 @@ parse_args() {
             lang="${languages_aliases[$1]}"
         elif [[ $1 == "--watch" || $1 == "-w" ]]; then
             watch_mode="true"
+        elif [[ $1 == "--all" ]]; then
+            exec_all="true"
+        elif [[ $1 == "--challenge"  ]]; then
+            exec_challenge="true"
+        elif [[ $1 == "--event" ]]; then
+            exec_event="true"
         else
             print_line "Unknown option: $1"
             exit 1

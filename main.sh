@@ -52,62 +52,41 @@ generate_input() {
 
 # COMMAND: run: Execute the solution for given challenge, event and puzzle
 run() {
-    pb_run
-}
-
-# COMMAND: run-event: Execute all solutions for given challenge/event
-run_event() {
-    pb_run_event
-}
-
-# COMMAND: run-challenge: Execute all solutions for given challenge
-run_challenge() {
-    pb_run_challenge
-}
-
-# COMMAND: run-all: Execute all solutions in all challenge
-run_all() {
-    pb_run_all
+    if [[ "$exec_all" == "true" ]]; then
+        pb_run_all
+    elif [[ "$exec_challenge" == "true" ]]; then
+        pb_run_challenge
+    elif [[ "$exec_event" == "true" ]]; then
+        pb_run_event
+    else
+        pb_run
+    fi
 }
 
 # COMMAND: format: Format the puzzle
 format() {
-    pb_format
-}
-
-# COMMAND: format-event: Run format for all solutions in given challenge/event
-format_event() {
-    pb_format_event
-}
-
-# COMMAND: format-challenge: Run format for all solutions in the current challenge
-format_challenge() {
-    pb_format_challenge
-}
-
-# COMMAND: format-all: Run format for all solutions in all challenges
-format_all() {
-    pb_format_all
+    if [[ "$exec_all" == "true" ]]; then
+        pb_format_all
+    elif [[ "$exec_challenge" == "true" ]]; then
+        pb_format_challenge
+    elif [[ "$exec_event" == "true" ]]; then
+        pb_format_event
+    else
+        pb_format
+    fi
 }
 
 # COMMAND: check: Run checks for puzzle
 check() {
-    pb_check
-}
-
-# COMMAND: check-event: Run checks for all solutions in given challenge/event
-check_event() {
-    pb_check_event
-}
-
-# COMMAND: check-challenge: Run checks for all solutions in the current challenge
-check_challenge() {
-    pb_check_challenge
-}
-
-# COMMAND: check-all: Run checks for all solutions in all challenge
-check_all() {
-    pb_check_all
+    if [[ "$exec_all" == "true" ]]; then
+        pb_check_all
+    elif [[ "$exec_challenge" == "true" ]]; then
+        pb_check_challenge
+    elif [[ "$exec_event" == "true" ]]; then
+        pb_check_event
+    else
+        pb_check
+    fi
 }
 
 # COMMAND: version: Show versions of all tools
@@ -154,17 +133,8 @@ main() {
             add-session-cookie) add_session_cookie ;;
             create) create ;;
             run) run ;;
-            run-event) run_event ;;
-            run-challenge) run_challenge ;;
-            run-all) run_all ;;
             format) format ;;
-            format-event) format_event ;;
-            format-challenge) format_challenge ;;
-            format-all) format_all ;;
             check) check ;;
-            check-event) check_event ;;
-            check-challenge) check_challenge ;;
-            check-all) check_all ;;
             commit) commit ;;
             generate-input) generate_input ;;
             finish) finish ;;
