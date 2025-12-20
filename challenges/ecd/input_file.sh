@@ -4,12 +4,12 @@ ecd_ensure_input_file_exists() {
     local dir
     dir=$(ecd_directory)
 
-    # Verify year/day are set
-    if [ -z "$year" ] || [ -z "$day" ]; then
-        echo "❌ Error: year/day variables are not set before calling API."
+    if [ -z "$event" ] || [ -z "$puzzle" ]; then
+        echo "❌ Error: event/puzzle variables are not set before calling API."
         exit 1
     fi
 
+    # TODO: Optimize to avoid redundant fetches if only some files are missing
     if [ ! -f "$dir/data/input.part1.txt" ] ||
        [ ! -f "$dir/data/input.part2.txt" ] ||
        [ ! -f "$dir/data/input.part3.txt" ] ||
@@ -38,8 +38,8 @@ retrieve_seed() {
 }
 
 fetch_input_notes() {
-    local normalized_year="${year#story}"
-    input_notes_url="https://everybody.codes/assets/$normalized_year/$((10#$day))/input/$seed.json"
+    local normalized_event="${event#story}"
+    input_notes_url="https://everybody.codes/assets/$normalized_event/$((10#$puzzle))/input/$seed.json"
 
     response=$(curl -s -X GET \
         -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
@@ -57,8 +57,8 @@ fetch_input_notes() {
 }
 
 retrieve_aes_keys() {
-    local normalized_year="${year#story}"
-    aes_keys_url="https://everybody.codes/api/event/$normalized_year/quest/$((10#$day))"
+    local normalized_event="${event#story}"
+    aes_keys_url="https://everybody.codes/api/event/$normalized_event/quest/$((10#$puzzle))"
 
     response=$(curl -s -X GET \
         -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \

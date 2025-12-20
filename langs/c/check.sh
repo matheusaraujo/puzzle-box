@@ -3,8 +3,8 @@
 source $ROOT/core/_utils.sh
 
 dir=$1
-year=$2
-day=$3
+event=$2
+puzzle=$3
 debug=0
 
 files=("part1.c" "part2.c" "part3.c" "helpers.c")

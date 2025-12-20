@@ -20,16 +20,16 @@ validate_challenge() {
     fi
 }
 
-validate_year() {
-    if [ -z "$year" ]; then
-        print_line "${RED}[ERROR] Year must be defined.${NC}"
+validate_event() {
+    if [ -z "$event" ]; then
+        print_line "${RED}[ERROR] Event must be defined.${NC}"
         exit 1
     fi
 }
 
-validate_day() {
-    if [ -z "$day" ]; then
-        print_line "${RED}[ERROR] Day must be defined.${NC}"
+validate_puzzle() {
+    if [ -z "$puzzle" ]; then
+        print_line "${RED}[ERROR] Puzzle must be defined.${NC}"
         exit 1
     fi
 }

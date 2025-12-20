@@ -1,14 +1,16 @@
 #!/bin/bash
 
-pb_run_year() {
+pb_run_event() {
     validate_challenge
-    validate_year
+    validate_event
 
-    for day in $POTENTIAL_DAYS; do
+    declare -n events="${challenge}_events"
+    local max_puzzles="${events[$event]}"
+    for puzzle in $(seq -w 1 "$max_puzzles"); do
         local dir="$(${challenge}_directory)"
         if [ -d "$dir" ]; then
             pb_run || {
-                echo -e "${RED}[ERROR] Run failed for $challenge: $year - $day${NC}"
+                echo -e "${RED}[ERROR] Run failed for $challenge: $event - $puzzle${NC}"
                 exit 1
             }
             print_line "----------------------------------------------------------------------"
@@ -19,8 +21,9 @@ pb_run_year() {
 pb_run_challenge() {
     validate_challenge
 
-    for year in $POTENTIAL_YEARS; do
-        pb_run_year
+    declare -n events="${challenge}_events"
+    for event in "${!events[@]}"; do
+        pb_run_event
     done
 }
 
@@ -32,8 +35,8 @@ pb_run_all() {
 
 pb_run() {
     validate_challenge
-    validate_year
-    validate_day
+    validate_event
+    validate_puzzle
 
     ${challenge}_validate_directory
     ${challenge}_ensure_input_file_exists
@@ -104,16 +107,16 @@ process_language_part() {
 
         local output_file="${input_file/input/output}"
         validate_output_file "$output_file"
-        execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" "$input_file" "$output_file"
+        execute_lang_run_sh "$dir" "$lang" "$event" "$puzzle" "$part" "$input_file" "$output_file"
     done
 
     local input_file="$(${challenge}_input_file $part)"
     if [ -f "$input_file" ]; then
         local output_file="$dir/data/output.$part.txt"
         if [ -f "$output_file" ]; then
-            execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" $input_file $output_file
+            execute_lang_run_sh "$dir" "$lang" "$event" "$puzzle" "$part" $input_file $output_file
         else
-            execute_lang_run_sh "$dir" "$lang" "$year" "$day" "$part" $input_file
+            execute_lang_run_sh "$dir" "$lang" "$event" "$puzzle" "$part" $input_file
         fi
     fi
 }
@@ -121,8 +124,8 @@ process_language_part() {
 execute_lang_run_sh() {
     local dir=$1
     local lang=$2
-    local year=$3
-    local day=$4
+    local event=$3
+    local puzzle=$4
     local part=$5
     local input_file=$6
     local output_file=$7
@@ -131,7 +134,7 @@ execute_lang_run_sh() {
 
     /usr/bin/time -f "Max Memory: %M KB\nCPU Usage: %P" \
         -o /tmp/resource_usage.txt -- \
-        $ROOT/langs/$lang/run.sh "$dir" "$year" "$day" "$part" "$input_file" > /tmp/script_output.txt 2>&1
+        $ROOT/langs/$lang/run.sh "$dir" "$event" "$puzzle" "$part" "$input_file" > /tmp/script_output.txt 2>&1
     local script_exit_code=$?
     local end_time=$(date +%s%N)
 

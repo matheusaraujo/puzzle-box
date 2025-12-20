@@ -3,8 +3,8 @@
 source $ROOT/core/_utils.sh
 
 dir=$1
-year=$2
-day=$3
+event=$2
+puzzle=$3
 
 files=("$dir/part1.go")
 

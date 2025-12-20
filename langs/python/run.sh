@@ -1,8 +1,8 @@
 #/bin/bash
 
 dir=$1
-year=$2
-day=$3
+event=$2
+puzzle=$3
 part=$4
 input_file=$5
 
@@ -14,4 +14,4 @@ if [ -f "$dir/requirements.txt" ]; then
     pip install -q -r "$dir/requirements.txt"
 fi
 
-python3 $ROOT/langs/python/main.py $relative_dir $year $day $part < $input_file
+python3 $ROOT/langs/python/main.py $relative_dir $event $puzzle $part < $input_file

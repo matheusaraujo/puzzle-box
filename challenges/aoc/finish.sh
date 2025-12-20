@@ -5,7 +5,7 @@ aoc_finish() {
 
     mkdir -p $dir/data
 
-    curl -s -b session=$(cat .aoc.session.cookie) https://adventofcode.com/$year/day/$(echo $day | sed 's/^0*//') -o $dir/data/_readme1.html
+    curl -s -b session=$(cat .aoc.session.cookie) https://adventofcode.com/$event/day/$(echo $puzzle | sed 's/^0*//') -o $dir/data/_readme1.html
 
     if ! grep -q '<p class="day-success">Both parts of this puzzle are complete!' $dir/data/_readme1.html; then
         print_line "puzzle is not complete yet"
@@ -34,13 +34,13 @@ aoc_finish() {
         sed -i 's/::: {role="main"}//g' $dir/README.md
         sed -i 's/{#part2}//g' $dir/README.md
         sed -i '${/^:::$/d}' $dir/README.md
-        print_line "readme $year/day$day generated ${CHECK_SUCCESS}"
+        print_line "$dir/README.md generated ${CHECK_SUCCESS}"
     else
         sed -n '/<main>/,/<\/main>/p' $dir/data/_readme1.html > $dir/data/_readme2.html
         title=$(cat $dir/data/title.txt)
-        readme_content="# Advent of Code - ${year} Day ${day}\n\n${title}\n\nhttps://adventofcode.com/${year}/day/$(echo $day | sed 's/^0*//')"
+        readme_content="# Advent of Code - ${event} Day ${puzzle}\n\n${title}\n\nhttps://adventofcode.com/${event}/day/$(echo $puzzle | sed 's/^0*//')"
         echo -e "$readme_content" > $dir/README.md
-        print_line "readme $year/day$day generated ${CHECK_SUCCESS}"
+        print_line "$dir/README.md generated ${CHECK_SUCCESS}"
     fi
 
     rm $dir/data/_readme*.html

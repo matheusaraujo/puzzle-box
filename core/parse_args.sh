@@ -15,36 +15,31 @@ update_pb_env() {
     fi
 }
 
-# TODO: review this, should be used only for aoc
-# infer_year_day(){
-#     rm -rf .aoc-env
-#     if [ "$(date +%m%d)" -ge "1201" ] && [ "$(date +%m%d)" -le "1225" ]; then
-#         year=$(date +%Y)
-#         day=$(date +%d)
-#         update_aoc_env "year" "$year"
-#         update_aoc_env "day" "$day"
-#     fi
-# }
-
 parse_args() {
     while [[ $# -gt 0 ]]; do
         if [[ " ${!challenges_aliases[@]} " =~ " $1 " ]]; then
             challenge="${challenges_aliases[$1]}"
             update_pb_env "challenge" "$challenge"
         # elif [[ $1 =~ ^[0-9]{4}$ ]]; then
-        elif [[ -n "$challenge" && -n "${challenge_year_regex[$challenge]}" && $1 =~ ${challenge_year_regex[$challenge]} ]]; then
-            year="$1"
-            update_pb_env "year" "$year"
+        elif [[ -n "$challenge" && -n "${challenge_event_regex[$challenge]}" && $1 =~ ${challenge_event_regex[$challenge]} ]]; then
+            event="$1"
+            update_pb_env "event" "$event"
         elif [[ $1 =~ ^([1-9]|0[0-9]|1[0-9]|2[0-5])$  ]]; then
             arg=$(echo "$1" | sed 's/^0*//')
-            day=$(printf "%02d" "$arg")
-            update_pb_env "day" "$day"
+            puzzle=$(printf "%02d" "$arg")
+            update_pb_env "puzzle" "$puzzle"
         elif [[ $1 == "part1" || $1 == "part2" || $1 == "part3" ]]; then
             part="$1"
         elif [[ " ${!languages_aliases[@]} " =~ " $1 " ]]; then
             lang="${languages_aliases[$1]}"
         elif [[ $1 == "--watch" || $1 == "-w" ]]; then
             watch_mode="true"
+        elif [[ $1 == "--all" ]]; then
+            exec_all="true"
+        elif [[ $1 == "--challenge"  ]]; then
+            exec_challenge="true"
+        elif [[ $1 == "--event" ]]; then
+            exec_event="true"
         else
             print_line "Unknown option: $1"
             exit 1
@@ -52,7 +47,7 @@ parse_args() {
         shift
     done
 
-    if [[ -z "$challenge" && -z "$year" && -z "$day" && -f ".pb-env" ]]; then
+    if [[ -z "$challenge" && -z "$event" && -z "$puzzle" && -f ".pb-env" ]]; then
         source .pb-env
     fi
 }
@@ -63,8 +58,8 @@ load_env_from_file() {
         while IFS='=' read -r key value; do
             case "$key" in
                 challenge) challenge="$value" ;;
-                year) year="$value" ;;
-                day) day="$value" ;;
+                event) event="$value" ;;
+                puzzle) puzzle="$value" ;;
             esac
         done < "$file"
     fi

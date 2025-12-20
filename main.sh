@@ -40,74 +40,53 @@ add_session_cookie() {
     pb_add_session_cookie
 }
 
-# COMMAND: create: Create a new solution for the given challenge, year, day, and lang
+# COMMAND: create: Create a new solution for the given challenge, event, puzzle, and lang
 create() {
     pb_create
 }
 
-# COMMAND: generate-input: Generate sample input for given year, day, and part
+# COMMAND: generate-input: Generate sample input for given event, puzzle, and part
 generate_input() {
     pb_generate_input
 }
 
-# COMMAND: run: Execute the solution for given challenge, year and day
+# COMMAND: run: Execute the solution for given challenge, event and puzzle
 run() {
-    pb_run
+    if [[ "$exec_all" == "true" ]]; then
+        pb_run_all
+    elif [[ "$exec_challenge" == "true" ]]; then
+        pb_run_challenge
+    elif [[ "$exec_event" == "true" ]]; then
+        pb_run_event
+    else
+        pb_run
+    fi
 }
 
-# COMMAND: run-year: Execute all solutions for given challenge/year
-run_year() {
-    pb_run_year
-}
-
-# COMMAND: run-challenge: Execute all solutions for given challenge
-run_challenge() {
-    pb_run_challenge
-}
-
-# COMMAND: run-all: Execute all solutions in all challenge
-run_all() {
-    pb_run_all
-}
-
-# COMMAND: format: Format for given challenge, year and day
+# COMMAND: format: Format the puzzle
 format() {
-    pb_format
+    if [[ "$exec_all" == "true" ]]; then
+        pb_format_all
+    elif [[ "$exec_challenge" == "true" ]]; then
+        pb_format_challenge
+    elif [[ "$exec_event" == "true" ]]; then
+        pb_format_event
+    else
+        pb_format
+    fi
 }
 
-# COMMAND: format-year: Run format for all solutions in given challenge/year
-format_year() {
-    pb_format_year
-}
-
-# COMMAND: format-challenge: Run format for all solutions in the current challenge
-format_challenge() {
-    pb_format_challenge
-}
-
-# COMMAND: format-all: Run format for all solutions in all challenges
-format_all() {
-    pb_format_all
-}
-
-# COMMAND: check: Run checks for given challenge, year and day
+# COMMAND: check: Run checks for puzzle
 check() {
-    pb_check
-}
-
-# COMMAND: check-year: Run checks for all solutions in given challenge/year
-check_year() {
-    pb_check_year
-}
-
-# COMMAND: check-challenge: Run checks for all solutions in the current challenge
-check_challenge() {
-    pb_check_challenge
-}
-
-# COMMAND: check-all: Run checks for all solutions in all challenge
-check_all() {
-    pb_check_all
+    if [[ "$exec_all" == "true" ]]; then
+        pb_check_all
+    elif [[ "$exec_challenge" == "true" ]]; then
+        pb_check_challenge
+    elif [[ "$exec_event" == "true" ]]; then
+        pb_check_event
+    else
+        pb_check
+    fi
 }
 
 # COMMAND: version: Show versions of all tools
@@ -130,7 +109,7 @@ langs_stats() {
     pb_lang_stats
 }
 
-# COMMAND: commit: Validate and commit for given year and day
+# COMMAND: commit: Validate everything, update README and commit for current puzzle
 commit() {
     pb_commit
 }
@@ -147,9 +126,6 @@ main() {
     else
         cmd="$1"
         shift
-        # if [ "$cmd" == "create" ]; then
-        #     infer_year_day
-        # fi
         parse_args "$@"
         case "$cmd" in
             help) help ;;
@@ -157,17 +133,8 @@ main() {
             add-session-cookie) add_session_cookie ;;
             create) create ;;
             run) run ;;
-            run-year) run_year ;;
-            run-challenge) run_challenge ;;
-            run-all) run_all ;;
             format) format ;;
-            format-year) format_year ;;
-            format-challenge) format_challenge ;;
-            format-all) format_all ;;
             check) check ;;
-            check-year) check_year ;;
-            check-challenge) check_challenge ;;
-            check-all) check_all ;;
             commit) commit ;;
             generate-input) generate_input ;;
             finish) finish ;;
