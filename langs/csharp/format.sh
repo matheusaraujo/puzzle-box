@@ -4,7 +4,7 @@ source $ROOT/core/_utils.sh
 
 dir=$1
 event=$2
-day=$3
+puzzle=$3
 
 files=("part1.cs" "part2.cs" "part3.cs" "helpers.cs")
 

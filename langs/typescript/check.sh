@@ -6,7 +6,7 @@ ESLINT_CONFIG_PATH="/usr/local/puzzle-box/langs/typescript/eslint.config.ts"
 
 dir="$1"
 event="$2"
-day="$3"
+puzzle="$3"
 debug=0
 
 files=("part1.ts" "part2.ts" "part3.ts" "helpers.ts")

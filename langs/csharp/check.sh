@@ -4,7 +4,7 @@ source $ROOT/core/_utils.sh
 
 dir=$1
 event=$2
-day=$3
+puzzle=$3
 debug=0
 
 output=$(dotnet new console -n check -o "$dir" --force --verbosity quiet 2>&1)

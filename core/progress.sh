@@ -16,21 +16,21 @@ pb_progress() {
         progress_content+="|------|-----------|----------|\n"
 
         for event in $(printf '%s\n' "${!events[@]}" | sort -nr); do
-            local max_day=${events[$event]}
+            local last_puzzle=${events[$event]}
             local done_count=0
-            local day_line=""
+            local puzzle_line=""
 
-            for ((day=1; day<=max_day; day++)); do
+            for ((puzzle=1; puzzle<=last_puzzle; puzzle++)); do
                 local dir="$(${challenge}_directory)"
                 if [[ -f "$dir/README.md" ]]; then
                     ((done_count++))
-                    day_line+="✅"
+                    puzzle_line+="✅"
                 else
-                    day_line+="⬜"
+                    puzzle_line+="⬜"
                 fi
             done
 
-            progress_content+="| $event | $done_count / $max_day | $puzzle_line |\n"
+            progress_content+="| $event | $done_count / $last_puzzle | $puzzle_line |\n"
         done
     done
 

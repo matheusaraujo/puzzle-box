@@ -4,7 +4,7 @@ set -euo pipefail
 
 dir=$1
 event=$2
-day=$3
+puzzle=$3
 part=$4
 input_file=$5
 

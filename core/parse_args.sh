@@ -26,8 +26,8 @@ parse_args() {
             update_pb_env "event" "$event"
         elif [[ $1 =~ ^([1-9]|0[0-9]|1[0-9]|2[0-5])$  ]]; then
             arg=$(echo "$1" | sed 's/^0*//')
-            day=$(printf "%02d" "$arg")
-            update_pb_env "day" "$puzzle"
+            puzzle=$(printf "%02d" "$arg")
+            update_pb_env "puzzle" "$puzzle"
         elif [[ $1 == "part1" || $1 == "part2" || $1 == "part3" ]]; then
             part="$1"
         elif [[ " ${!languages_aliases[@]} " =~ " $1 " ]]; then
@@ -53,7 +53,7 @@ load_env_from_file() {
             case "$key" in
                 challenge) challenge="$value" ;;
                 event) event="$value" ;;
-                day) day="$value" ;;
+                puzzle) puzzle="$value" ;;
             esac
         done < "$file"
     fi

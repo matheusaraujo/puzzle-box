@@ -3,7 +3,7 @@
 pb_commit() {
     validate_challenge
     validate_event
-    validate_day
+    validate_puzzle
     ${challenge}_validate_directory
 
     pb_format

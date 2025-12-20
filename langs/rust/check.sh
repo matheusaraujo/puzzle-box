@@ -3,7 +3,7 @@ source $ROOT/core/_utils.sh
 
 dir=$1
 event=$2
-day=$3
+puzzle=$3
 
 workspace_dir="$(pwd)/$dir"
 rust_dir="$ROOT/langs/rust"

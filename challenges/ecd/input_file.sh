@@ -4,12 +4,12 @@ ecd_ensure_input_file_exists() {
     local dir
     dir=$(ecd_directory)
 
-    # Verify event/day are set
     if [ -z "$event" ] || [ -z "$puzzle" ]; then
-        echo "❌ Error: event/day variables are not set before calling API."
+        echo "❌ Error: event/puzzle variables are not set before calling API."
         exit 1
     fi
 
+    # TODO: Optimize to avoid redundant fetches if only some files are missing
     if [ ! -f "$dir/data/input.part1.txt" ] ||
        [ ! -f "$dir/data/input.part2.txt" ] ||
        [ ! -f "$dir/data/input.part3.txt" ] ||

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-aoc_validate_event_day() {
-    day_num=$((10#$puzzle))
+aoc_validate_event_puzzle() {
+    puzzle_num=$((10#$puzzle))
 
     if [[ -n "${aoc_events[$event]}" ]]; then
-        max_day=${aoc_events[$event]}
-        if [ "$puzzle_num" -ge 1 ] && [ "$puzzle_num" -le "$max_day" ]; then
+        last_puzzle=${aoc_events[$event]}
+        if [ "$puzzle_num" -ge 1 ] && [ "$puzzle_num" -le "$last_puzzle" ]; then
             return 0
         fi
     fi

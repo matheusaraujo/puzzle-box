@@ -12,6 +12,6 @@ ecd_finish() {
 
     readme_content="# Everybody Codes - ${event} Quest ${puzzle}\n\n${title}\n\nhttps://everybody.codes/events/${event}/quests/$(echo $puzzle | sed 's/^0*//')"
     echo -e "$readme_content" > $dir/README.md
-    print_line "readme $event/day$puzzle generated ${CHECK_SUCCESS}"
+    print_line "$dir/README.md generated ${CHECK_SUCCESS}"
 
 }

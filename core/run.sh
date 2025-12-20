@@ -5,8 +5,8 @@ pb_run_event() {
     validate_event
 
     declare -n events="${challenge}_events"
-    local max_days="${events[$event]}"
-    for day in $(seq -w 1 "$max_days"); do
+    local max_puzzles="${events[$event]}"
+    for puzzle in $(seq -w 1 "$max_puzzles"); do
         local dir="$(${challenge}_directory)"
         if [ -d "$dir" ]; then
             pb_run || {
@@ -36,7 +36,7 @@ pb_run_all() {
 pb_run() {
     validate_challenge
     validate_event
-    validate_day
+    validate_puzzle
 
     ${challenge}_validate_directory
     ${challenge}_ensure_input_file_exists
@@ -125,7 +125,7 @@ execute_lang_run_sh() {
     local dir=$1
     local lang=$2
     local event=$3
-    local day=$4
+    local puzzle=$4
     local part=$5
     local input_file=$6
     local output_file=$7

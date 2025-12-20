@@ -3,7 +3,7 @@
 execute_lang_check_sh() {
     local dir=$1
     local event=$2
-    local day=$3
+    local puzzle=$3
     local lang=$4
     local title=$5
     local ext=${languages_extensions[$lang]}
@@ -22,7 +22,7 @@ execute_lang_check_sh() {
 pb_check() {
     validate_challenge
     validate_event
-    validate_day
+    validate_puzzle
     ${challenge}_validate_directory
 
     local dir="$(${challenge}_directory)"
@@ -43,8 +43,8 @@ pb_check_event() {
     validate_event
 
     declare -n events="${challenge}_events"
-    local max_days="${events[$event]}"
-    for day in $(seq -w 1 "$max_days"); do
+    local last_puzzle="${events[$event]}"
+    for puzzle in $(seq -w 1 "$last_puzzle"); do
         local dir="$(${challenge}_directory)"
         if [ -d "$dir" ]; then
             pb_check || {

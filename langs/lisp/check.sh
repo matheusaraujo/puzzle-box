@@ -6,7 +6,7 @@ source $ROOT/core/_utils.sh
 
 dir=$1
 event=$2
-day=$3
+puzzle=$3
 
 TEMP_LISP_SCRIPT="$dir/temp_check.lisp"
 

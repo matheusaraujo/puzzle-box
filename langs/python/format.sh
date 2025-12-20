@@ -4,7 +4,7 @@ source $ROOT/core/_utils.sh
 
 dir=$1
 event=$2
-day=$3
+puzzle=$3
 
 if [ -f "$dir/requirements.txt" ]; then
     pip install -q -r "$dir/requirements.txt"

@@ -1,16 +1,16 @@
 #!/bin/bash
 
-ecd_validate_event_day() {
-    day_num=$((10#$puzzle))
+ecd_validate_event_puzzle() {
+    puzzle_num=$((10#$puzzle))
 
     if [[ -n "${ecd_events[$event]}" ]]; then
-        max_day=${ecd_events[$event]}
-        if [ "$puzzle_num" -ge 1 ] && [ "$puzzle_num" -le "$max_day" ]; then
+        max_puzzle=${ecd_events[$event]}
+        if [ "$puzzle_num" -ge 1 ] && [ "$puzzle_num" -le "$max_puzzle" ]; then
             return 0
         fi
     fi
 
-    print_line "${RED}[Everybody.Codes] Invalid event ($event) or day ($puzzle).${NC}"
+    print_line "${RED}[Everybody.Codes] Invalid event ($event) or quest ($puzzle).${NC}"
     exit 1
 }
 
