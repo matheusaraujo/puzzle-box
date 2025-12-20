@@ -1,5 +1,7 @@
+import java.util.List;
+
 public class part1 {
-    public static Object solve(final String puzzleInput) {
-        return puzzleInput;
+    public static String solve(final List<String> puzzleInput) {
+        return puzzleInput.get(0);
     }
 }
