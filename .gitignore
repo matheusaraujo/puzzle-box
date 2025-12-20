@@ -7,6 +7,10 @@ langs/assembly/solve.asm
 # c
 langs/c/run
 
+# cpp
+langs/cpp/part*.cpp
+langs/cpp/helpers.cpp
+
 # csharp
 langs/csharp/bin
 langs/csharp/obj

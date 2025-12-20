@@ -8,6 +8,7 @@ RUN /usr/local/puzzle-box/core/setup.sh
 
 RUN /usr/local/puzzle-box/langs/assembly/setup.sh
 RUN /usr/local/puzzle-box/langs/c/setup.sh
+RUN /usr/local/puzzle-box/langs/cpp/setup.sh
 RUN /usr/local/puzzle-box/langs/csharp/setup.sh
 RUN /usr/local/puzzle-box/langs/go/setup.sh
 RUN /usr/local/puzzle-box/langs/java/setup.sh
