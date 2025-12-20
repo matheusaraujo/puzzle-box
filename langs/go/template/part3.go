@@ -1,5 +1,7 @@
 package main
 
-func part3(puzzleInput []string) interface{} {
-	return puzzleInput;
+import "strings"
+
+func part3(puzzleInput []string) string {
+	return strings.Join(puzzleInput, "");
 }

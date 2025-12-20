@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="$(AdditionalFiles)" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="template/**/*.cs" />
     <None Remove="template/**" />
     <Content Remove="template/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="$(AdditionalFiles)" />
   </ItemGroup>
 
 </Project>
