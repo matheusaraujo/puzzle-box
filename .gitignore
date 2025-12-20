@@ -25,6 +25,10 @@ langs/javascript/node_modules/
 langs/lisp/part*.lisp
 langs/lisp/helpers.lisp
 
+# lua
+langs/lua/part*.lua
+langs/lua/helpers.lua
+
 # rust
 langs/rust/src/part*.rs
 langs/rust/src/helpers.rs
