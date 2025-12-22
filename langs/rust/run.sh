@@ -3,10 +3,8 @@
 set -euo pipefail
 
 dir=$1
-event=$2
-puzzle=$3
-part=$4
-input_file=$5
+part=$2
+input_file=$3
 
 workspace_dir="$(pwd)/$dir"
 rust_dir="$ROOT/langs/rust"
@@ -31,4 +29,4 @@ else
     ln -sf "$rust_dir/template/helpers.rs" "$rust_dir/src/helpers.rs"
 fi
 
-cargo run --manifest-path "$rust_dir/Cargo.toml" --quiet -- "$dir" "$event" "$puzzle" "$part" < "$input_file"
+cargo run --manifest-path "$rust_dir/Cargo.toml" --quiet -- "$dir" "$part" < "$input_file"

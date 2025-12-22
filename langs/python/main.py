@@ -1,6 +1,6 @@
 import sys
 
-solution_path, event, puzzle, part = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+solution_path,  part = sys.argv[1], sys.argv[2]
 
 sys.path.append(solution_path)
 

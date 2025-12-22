@@ -1,10 +1,8 @@
 #!/bin/bash
 
 dir=$1
-event=$2
-puzzle=$3
-part=$4
-input_file=$5
+part=$2
+input_file=$3
 
 workspace_dir="$(pwd)/$dir"
 lisp_dir="$ROOT/langs/lisp"

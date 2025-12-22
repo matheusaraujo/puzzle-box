@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
 
-        String part = args[3];
+        String part = args[1];
         List<String> puzzleInput = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);

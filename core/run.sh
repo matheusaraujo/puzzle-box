@@ -134,7 +134,7 @@ execute_lang_run_sh() {
 
     /usr/bin/time -f "Max Memory: %M KB\nCPU Usage: %P" \
         -o /tmp/resource_usage.txt -- \
-        $ROOT/langs/$lang/run.sh "$dir" "$event" "$puzzle" "$part" "$input_file" > /tmp/script_output.txt 2>&1
+        $ROOT/langs/$lang/run.sh "$dir" "$part" "$input_file" > /tmp/script_output.txt 2>&1
     local script_exit_code=$?
     local end_time=$(date +%s%N)
 

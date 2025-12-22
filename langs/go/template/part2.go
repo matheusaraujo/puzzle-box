@@ -1,7 +1,5 @@
 package main
 
-import "strings"
-
-func part2(puzzleInput []string) string {
-	return strings.Join(puzzleInput, "");
+func part2(puzzleInput []string) any {
+	return puzzleInput;
 }

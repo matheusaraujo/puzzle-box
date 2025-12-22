@@ -1,10 +1,8 @@
 #!/bin/bash
 
 dir=$1
-event=$2
-puzzle=$3
-part=$4
-input_file=$5
+part=$2
+input_file=$3
 
 workspace_dir="$(pwd)/$dir"
 go_dir="$ROOT/langs/go"
@@ -42,4 +40,4 @@ go run \
   $part3_arg \
   $helpers_arg \
   $go_dir/main.go \
-  $dir $event $puzzle $part < "$input_file"
+  $dir $part < "$input_file"

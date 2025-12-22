@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	part := os.Args[4]
+	part := os.Args[2]
 	var puzzleInput []string
 
 	scanner := bufio.NewScanner(os.Stdin)

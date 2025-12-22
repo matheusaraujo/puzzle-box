@@ -1,4 +1,5 @@
 use std::env;
+use std::fmt::Display;
 use std::io::{self, BufRead};
 
 mod helpers;
@@ -6,9 +7,14 @@ mod part1;
 mod part2;
 mod part3;
 
+pub type Answer = Box<dyn Display>;
+pub fn answer<T: Display + 'static>(val: T) -> Answer {
+    Box::new(val)
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let part = &args[4];
+    let part = &args[2];
 
     let stdin = io::stdin();
     let reader = stdin.lock();
