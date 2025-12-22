@@ -1,7 +1,6 @@
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
 COPY . /usr/local/puzzle-box
-
 RUN chown -R vscode:vscode /usr/local/puzzle-box
 
 RUN /usr/local/puzzle-box/core/setup.sh
@@ -22,6 +21,7 @@ RUN /usr/local/puzzle-box/langs/typescript/setup.sh
 
 RUN /usr/local/puzzle-box/core/post_setup.sh
 
+RUN chown -R vscode:vscode /home/vscode
 CMD ["/bin/sh", "-c", "source /home/vscode/.bashrc && exec /bin/sh"]
 
 USER vscode
