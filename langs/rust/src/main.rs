@@ -7,9 +7,9 @@ mod part1;
 mod part2;
 mod part3;
 
-pub type Answer = Box<dyn Display>;
-pub fn answer<T: Display + 'static>(val: T) -> Answer {
-    Box::new(val)
+pub type Any = Box<dyn Display>;
+pub fn any<T: Display + 'static>(val: T) -> Any {
+    Box::new(val) as Any
 }
 
 fn main() {

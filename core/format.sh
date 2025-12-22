@@ -43,6 +43,7 @@ pb_format_event() {
     declare -n events="${challenge}_events"
     local last_puzzle="${events[$event]}"
     for puzzle in $(seq -w 1 "$last_puzzle"); do
+        puzzle=$(printf "%02d" "$((10#$puzzle))")
         local dir="$(${challenge}_directory)"
         if [ -d "$dir" ]; then
             pb_format || {

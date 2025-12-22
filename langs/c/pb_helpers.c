@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *answer(int num) {
+char *any(int num) {
   char *result = (char *)malloc(20 * sizeof(char));
   if (result == NULL)
     return NULL;
