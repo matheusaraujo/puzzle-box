@@ -4,7 +4,7 @@ public class Program
 {
     static void Main(string[] args)
     {
-        string part = args[3];
+        string part = args[1];
 
         var puzzleInput = new List<string>();
         string? input;

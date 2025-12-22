@@ -1,30 +1,52 @@
+#include <any>
 #include <iostream>
 #include <vector>
 #include <string>
 
-std::string part1(const std::vector<std::string>& input);
-std::string part2(const std::vector<std::string>& input);
-std::string part3(const std::vector<std::string>& input);
+using namespace std;
+
+any part1(const vector<string>& input);
+any part2(const vector<string>& input);
+any part3(const vector<string>& input);
 
 int main(int argc, char* argv[]) {
-    if (argc < 5) return 1;
-    std::string part = argv[4];
+    string part = argv[2];
 
-    std::vector<std::string> puzzleInput;
-    std::string line;
-    while (std::getline(std::cin, line)) {
+    vector<string> puzzleInput;
+    string line;
+    while (getline(cin, line)) {
         puzzleInput.push_back(line);
     }
 
+    any result;
+
     if (part == "part1") {
-        std::cout << part1(puzzleInput) << std::endl;
+        result = part1(puzzleInput);
     } else if (part == "part2") {
-        std::cout << part2(puzzleInput) << std::endl;
+        result = part2(puzzleInput);
     } else if (part == "part3") {
-        std::cout << part3(puzzleInput) << std::endl;
+        result = part3(puzzleInput);
     } else {
-        std::cerr << "Unknown part: " << part << std::endl;
+        cerr << "Unknown part: " << part << endl;
         return 1;
+    }
+
+    try {
+        if (result.type() == typeid(int)) {
+            cout << any_cast<int>(result) << endl;
+        } else if (result.type() == typeid(size_t)) {
+            cout << any_cast<size_t>(result) << endl;
+        } else if (result.type() == typeid(string)) {
+            cout << any_cast<string>(result) << endl;
+        } else if (result.type() == typeid(long)) {
+            cout << any_cast<long>(result) << endl;
+        } else if (result.type() == typeid(long int)) {
+            cout << any_cast<long int>(result) << endl;
+        } else if (result.type() == typeid(long long)) {
+            cout << any_cast<long long>(result) << endl;
+        }
+    } catch (const bad_any_cast& e) {
+        cerr << "Error: Could not cast result for printing." << endl;
     }
 
     return 0;

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Carp;
 
-my ( $dir, $event, $puzzle, $part ) = @ARGV;
+my ( $dir, $part ) = @ARGV;
 my $solution_path = "./$dir/$part.pl";
 my $helpers_path  = "./$dir/helpers.pl";
 my $func;

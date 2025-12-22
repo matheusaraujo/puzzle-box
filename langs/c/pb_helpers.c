@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *pb_int_to_str(int num) {
+char *answer(int num) {
   char *result = (char *)malloc(20 * sizeof(char));
   if (result == NULL)
     return NULL;

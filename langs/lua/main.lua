@@ -1,5 +1,5 @@
 local function main()
-    local part = arg[4]
+    local part = arg[2]
     local puzzleInput = {}
 
     for line in io.lines() do

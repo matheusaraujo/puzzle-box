@@ -1,4 +1,4 @@
-const [dir, , , part] = Deno.args;
+const [dir, part] = Deno.args;
 
 function readPipedInput() {
   const text = new TextDecoder().decode(Deno.readFileSync("/dev/stdin"));
