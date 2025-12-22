@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
 COPY . /usr/local/puzzle-box
-RUN chown -R vscode:vscode /usr/local/puzzle-box
+RUN chown -R vscode:vscode /usr/local/puzzle-box && \
+    chmod -R 775 /usr/local/puzzle-box
 
 RUN /usr/local/puzzle-box/core/setup.sh
 
