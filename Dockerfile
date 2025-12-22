@@ -26,4 +26,5 @@ RUN chown -R vscode:vscode /home/vscode
 CMD ["/bin/sh", "-c", "source /home/vscode/.bashrc && exec /bin/sh"]
 
 USER vscode
+RUN sudo chown -R vscode:vscode /usr/local/puzzle-box
 RUN /usr/local/puzzle-box/langs/csharp/post_setup_vscode_user.sh
