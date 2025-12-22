@@ -8,6 +8,7 @@ PURPLE="\033[35m"
 GRAY_ITALIC="\033[3;90m"
 CHECK_SUCCESS="\033[32m✔\033[0m"
 CHECK_ERROR="\033[31m✘\033[0m"
+CHECK_SKIPPED="\033[90m↷\033[0m"
 
 print_line() {
     local message=$1

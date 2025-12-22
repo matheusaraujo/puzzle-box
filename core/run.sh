@@ -7,12 +7,10 @@ pb_run_event() {
     declare -n events="${challenge}_events"
     local max_puzzles="${events[$event]}"
     for puzzle in $(seq -w 1 "$max_puzzles"); do
+        puzzle=$(printf "%02d" "$((10#$puzzle))")
         local dir="$(${challenge}_directory)"
         if [ -d "$dir" ]; then
-            pb_run || {
-                echo -e "${RED}[ERROR] Run failed for $challenge: $event - $puzzle${NC}"
-                exit 1
-            }
+            pb_run
             print_line "----------------------------------------------------------------------"
         fi
     done

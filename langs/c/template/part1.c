@@ -2,5 +2,5 @@
 
 void *part1(char *puzzle_input, int size) {
   int result = 0;
-  return answer(result);
+  return any(result);
 }
