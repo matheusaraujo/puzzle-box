@@ -7,7 +7,7 @@ challenges_aliases["ecd"]="ecd"
 challenges_aliases["everybody-codes"]="ecd"
 challenges_aliases["everybody.codes"]="ecd"
 
-challenge_event_regex["ecd"]="^(2024|2025|story1|story2)$"
+challenge_event_regex["ecd"]="^(2024|2025|story1|story2|story3)$"
 
 ignore_files+=(".ecd.session.cookie")
 
