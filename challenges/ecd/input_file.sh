@@ -26,7 +26,7 @@ ecd_ensure_input_file_exists() {
 retrieve_seed() {
     response=$(curl -s -X GET \
         -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
-        "https://everybody.codes/api/user/me")
+        "https://api.everybody.codes/user/me")
 
     seed=$(echo "$response" | jq -r '.seed // empty')
 
@@ -58,7 +58,7 @@ fetch_input_notes() {
 
 retrieve_aes_keys() {
     local normalized_event="${event#story}"
-    aes_keys_url="https://everybody.codes/api/event/$normalized_event/quest/$((10#$puzzle))"
+    aes_keys_url="https://api.everybody.codes/event/$normalized_event/quest/$((10#$puzzle))"
 
     response=$(curl -s -X GET \
         -H "Cookie: everybody-codes=$(cat .ecd.session.cookie)" \
