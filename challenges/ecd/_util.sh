@@ -16,6 +16,7 @@ declare -A ecd_events=(
     [2025]=20
     [story1]=3
     [story2]=3
+    [story3]=3
 )
 
 ecd_directory() {
