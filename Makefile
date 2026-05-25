@@ -4,10 +4,18 @@ REGISTRY=maraujo127
 LOCAL_IMAGE=$(IMAGE_NAME):$(TAG)
 REMOTE_IMAGE=$(REGISTRY)/$(IMAGE_NAME)
 
-.PHONY: build-local publish
+.PHONY: build-local publish test lint
 
 build-local:
 	docker build . -t ${IMAGE_NAME}:local
+
+# Run the bats test suite (requires: bats, /usr/bin/time)
+test:
+	bats tests/
+
+# Static analysis; matches the CI gate (requires: shellcheck)
+lint:
+	find . -name '*.sh' -not -path './.git/*' -print0 | xargs -0 shellcheck -S error
 
 publish:
 ifndef TAG

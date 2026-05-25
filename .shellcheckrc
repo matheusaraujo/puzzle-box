@@ -1,0 +1,7 @@
+# ShellCheck configuration for puzzle-box.
+#
+# CI gates on error-severity findings (see .github/workflows/ci.yaml). The
+# codebase relies heavily on `source` with $ROOT-relative paths that
+# ShellCheck cannot resolve statically, so following sourced files is enabled
+# for local runs but unresolved sources are not treated as failures.
+external-sources=true
