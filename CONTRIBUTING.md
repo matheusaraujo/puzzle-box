@@ -65,8 +65,8 @@ _(Optional)_ If the languages requires a pre build step (like c or go), do it on
 6. **Add a `langs/{lang}/format.sh` Code Format Script**
 - This script should handle code formatting for the language.
 
-7. **Add a `langs/{lang}.check.sh` script**
-- Use this script to perform code linting or static analysis checks”.
+7. **Add a `langs/{lang}/check.sh` script**
+- Use this script to perform code linting or static analysis checks.
 
 8. **Add Puzzle Example Files**
 - Create `part1.{ext}`, `part2.{ext}` and `part3.{ext}` in directory `langs/{lang}/template`.

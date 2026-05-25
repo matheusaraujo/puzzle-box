@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 declare -a available_challenges=()
 declare -A challenges_titles=()

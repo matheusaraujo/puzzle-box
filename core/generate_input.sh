@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 pb_generate_input() {
     validate_challenge
