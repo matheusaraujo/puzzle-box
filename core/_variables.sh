@@ -1,12 +1,16 @@
 #!/bin/bash
 
-declare -a available_challenges=()
-declare -A challenges_titles=()
-declare -A challenges_aliases=()
-declare -a ignore_files=(".pb-env" "**/data/")
+# These registries are populated by the challenge/language _util.sh files and
+# read across the whole tool. Declared with -g so they are global regardless of
+# whether this file is sourced at top level (production) or from within a
+# function (e.g. test harnesses).
+declare -ga available_challenges=()
+declare -gA challenges_titles=()
+declare -gA challenges_aliases=()
+declare -ga ignore_files=(".pb-env" "**/data/")
 
-declare -a available_languages=()
-declare -A languages_extensions=()
-declare -A languages_aliases=()
+declare -ga available_languages=()
+declare -gA languages_extensions=()
+declare -gA languages_aliases=()
 
-declare -A challenge_event_regex=()
+declare -gA challenge_event_regex=()
