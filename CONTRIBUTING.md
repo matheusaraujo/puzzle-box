@@ -29,6 +29,28 @@ $ docker build -t puzzle-box:local .
 }
 ```
 
+## Tests and Linting
+
+The project is covered by a [bats](https://github.com/bats-core/bats-core) test
+suite and a ShellCheck gate, both run in CI on every pull request.
+
+```sh
+# Run the test suite
+$ make test        # or: bats tests/
+
+# Run static analysis (must be clean at error severity)
+$ make lint        # or: shellcheck -S error <files>
+```
+
+Guidelines:
+- Every shell script must pass `shellcheck -S error`.
+- New core logic (argument parsing, validation, path/label helpers, etc.)
+  should come with bats coverage under `tests/`. The suite sources the tool's
+  registries, so adding a language or challenge is automatically reflected.
+- The registries in `core/_variables.sh` are declared with `declare -g` so the
+  tool can be sourced from any scope (including the test harness); keep new
+  registry arrays global the same way.
+
 ## Adding Support for a New Language
 
 > Check these examples: https://github.com/matheusaraujo/puzzle-box/pull/6, https://github.com/matheusaraujo/puzzle-box/pull/7, https://github.com/matheusaraujo/puzzle-box/pull/8
