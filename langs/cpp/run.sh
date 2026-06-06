@@ -31,7 +31,7 @@ if [ -f "$workspace_dir/helpers.cpp" ]; then
   compile_files+=("$cpp_dir/helpers.cpp")
 fi
 
-g++ -O3 "${compile_files[@]}" -o "$cpp_dir/solution"
+g++ -O3 -I"$workspace_dir" "${compile_files[@]}" -o "$cpp_dir/solution"
 "$cpp_dir/solution" "$dir" "$part" < "$input_file"
 
 # echo "xpto"
