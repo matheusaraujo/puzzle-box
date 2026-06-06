@@ -110,11 +110,13 @@ jobs:
       - name: 📦 Create GitHub Release & Trigger Publish
         uses: softprops/action-gh-release@v2
         with:
+          # IMPORTANT: Pass PAT_TOKEN via the `token` input (not the GITHUB_TOKEN
+          # env var). In current action-gh-release@v2 the `token` input wins over
+          # the env var and defaults to the automatic github.token; releases
+          # authored by github.token do NOT trigger the 'release:published' event,
+          # so the publish workflow (publish.yaml) would never run.
+          token: ${{ secrets.PAT_TOKEN }}
           tag_name: ${{ steps.create_tag.outputs.tag_name }}
           name: ${{ steps.create_body.outputs.release_title }}
           body: ${{ steps.create_body.outputs.release_body }}
           prerelease: false
-        env:
-          # IMPORTANT: Use PAT_TOKEN to ensure the 'release:published' event
-          # triggers the next workflow (`publish.yml`).
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
