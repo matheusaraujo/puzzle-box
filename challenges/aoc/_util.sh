@@ -7,7 +7,7 @@ challenges_aliases["aoc"]="aoc"
 challenges_aliases["advent-of-code"]="aoc"
 challenges_aliases["advent"]="aoc"
 
-challenge_event_regex["aoc"]="^(2015|2016|2017|2018|2019|2020|2021|2022|2023|2024|2025)$"
+challenge_event_regex["aoc"]="^(2015|2016|2017|2018|2019|2020|2021|2022|2023|2024|2025|2026)$"
 
 ignore_files+=(".aoc.session.cookie")
 
@@ -23,6 +23,7 @@ declare -A aoc_events=(
     [2023]=25
     [2024]=25
     [2025]=12
+    [2026]=12
 )
 
 aoc_directory() {
