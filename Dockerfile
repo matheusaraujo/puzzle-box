@@ -4,6 +4,13 @@ COPY . /usr/local/puzzle-box
 RUN chown -R vscode:vscode /usr/local/puzzle-box && \
     chmod -R 775 /usr/local/puzzle-box
 
+# Stamp the released version into the image. When PUZZLE_BOX_VERSION is empty
+# (e.g. local builds) the committed VERSION file is kept as the fallback.
+ARG PUZZLE_BOX_VERSION=
+RUN if [ -n "$PUZZLE_BOX_VERSION" ]; then \
+        echo "$PUZZLE_BOX_VERSION" > /usr/local/puzzle-box/VERSION; \
+    fi
+
 RUN /usr/local/puzzle-box/core/setup.sh
 
 RUN /usr/local/puzzle-box/langs/assembly/setup.sh

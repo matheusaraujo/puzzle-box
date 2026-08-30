@@ -1,11 +1,11 @@
-#/bin/bash
+#!/bin/bash
 
 dir=$1
 part=$2
 input_file=$3
 
 target_path="$(realpath "$dir")"
-base_path="$(realpath "$ROOT/langs/javascript")"
+base_path="$(realpath "$ROOT/langs/python")"
 relative_dir="$(realpath --relative-to="$base_path" "$target_path")"
 
 if [ -f "$dir/requirements.txt" ]; then

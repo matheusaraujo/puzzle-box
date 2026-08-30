@@ -1,10 +1,16 @@
 .dockerignore
 .gitignore
-CONTRIBUTING
+CONTRIBUTING.md
 Dockerfile
 LICENSE
 Makefile
 README.md
+
+# dev/CI only, not needed at runtime
+.github/
+.shellcheckrc
+renovate.json
+tests/
 
 # os
 .DS_Store

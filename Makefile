@@ -4,10 +4,18 @@ REGISTRY=maraujo127
 LOCAL_IMAGE=$(IMAGE_NAME):$(TAG)
 REMOTE_IMAGE=$(REGISTRY)/$(IMAGE_NAME)
 
-.PHONY: build-local publish
+.PHONY: build-local publish test lint
 
 build-local:
 	docker build . -t ${IMAGE_NAME}:local
+
+# Run the bats test suite (requires: bats, /usr/bin/time)
+test:
+	bats tests/
+
+# Static analysis; matches the CI gate (requires: shellcheck)
+lint:
+	find . -name '*.sh' -not -path './.git/*' -print0 | xargs -0 shellcheck -S error
 
 publish:
 ifndef TAG
@@ -15,25 +23,20 @@ ifndef TAG
 endif
 	@echo "--- Starting Publish for Tag: $(TAG) ---"
 
-	# 1. Build image with version tag
-	docker build . -t $(IMAGE_NAME):$(TAG)
+	# 1. Record the version (single source of truth, read by core/version.sh)
+	echo "$(TAG)" > VERSION
 
-	# 2. Tag as latest
+	# 2. Build image with version tag, stamping the version into the image
+	docker build . --build-arg PUZZLE_BOX_VERSION=$(TAG) -t $(IMAGE_NAME):$(TAG)
+
+	# 3. Tag as latest
 	docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):latest
 
-	# 3. Push both tags
+	# 4. Push both tags
 	docker image tag $(IMAGE_NAME):$(TAG) $(REMOTE_IMAGE):$(TAG)
 	docker push $(REMOTE_IMAGE):$(TAG)
 	docker image tag $(IMAGE_NAME):latest $(REMOTE_IMAGE):latest
 	docker push $(REMOTE_IMAGE):latest
-
-	# 4. Update README.md
-	sed -i "s/version-.*-blue/version-$(TAG)-blue/g" README.md 2>/dev/null || \
-	sed -i '' "s/version-.*-blue/version-$(TAG)-blue/g" README.md
-
-	# 5. Update version.sh
-	sed -i "s/puzzle-box@.*\"/puzzle-box@${TAG}\"/g" core/version.sh 2>/dev/null || \
-	sed -i '' "s/puzzle-box@.*\"/puzzle-box@${TAG}\"/g" core/version.sh
 
 	@echo "Published successfully:"
 	@echo "  $(REMOTE_IMAGE):$(TAG)"

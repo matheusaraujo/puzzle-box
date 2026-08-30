@@ -1,4 +1,4 @@
-#/usr/bash
+#!/bin/bash
 
 dir=$1
 part=$2

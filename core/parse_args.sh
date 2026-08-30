@@ -17,10 +17,9 @@ update_pb_env() {
 
 parse_args() {
     while [[ $# -gt 0 ]]; do
-        if [[ " ${!challenges_aliases[@]} " =~ " $1 " ]]; then
+        if [[ -n "${challenges_aliases[$1]+x}" ]]; then
             challenge="${challenges_aliases[$1]}"
             update_pb_env "challenge" "$challenge"
-        # elif [[ $1 =~ ^[0-9]{4}$ ]]; then
         elif [[ -n "$challenge" && -n "${challenge_event_regex[$challenge]}" && $1 =~ ${challenge_event_regex[$challenge]} ]]; then
             event="$1"
             update_pb_env "event" "$event"
@@ -30,7 +29,7 @@ parse_args() {
             update_pb_env "puzzle" "$puzzle"
         elif [[ $1 == "part1" || $1 == "part2" || $1 == "part3" ]]; then
             part="$1"
-        elif [[ " ${!languages_aliases[@]} " =~ " $1 " ]]; then
+        elif [[ -n "${languages_aliases[$1]+x}" ]]; then
             lang="${languages_aliases[$1]}"
         elif [[ $1 == "--watch" || $1 == "-w" ]]; then
             watch_mode="true"
@@ -48,7 +47,7 @@ parse_args() {
     done
 
     if [[ -z "$challenge" && -z "$event" && -z "$puzzle" && -f ".pb-env" ]]; then
-        source .pb-env
+        load_env_from_file
     fi
 }
 

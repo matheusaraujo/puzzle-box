@@ -128,11 +128,15 @@ execute_lang_run_sh() {
     local input_file=$6
     local output_file=$7
 
+    local resource_file output_tmp
+    resource_file=$(mktemp)
+    output_tmp=$(mktemp)
+
     local start_time=$(date +%s%N)
 
     /usr/bin/time -f "Max Memory: %M KB\nCPU Usage: %P" \
-        -o /tmp/resource_usage.txt -- \
-        $ROOT/langs/$lang/run.sh "$dir" "$part" "$input_file" > /tmp/script_output.txt 2>&1
+        -o "$resource_file" -- \
+        $ROOT/langs/$lang/run.sh "$dir" "$part" "$input_file" > "$output_tmp" 2>&1
     local script_exit_code=$?
     local end_time=$(date +%s%N)
 
@@ -152,17 +156,20 @@ execute_lang_run_sh() {
 
     if [ $script_exit_code -ne 0 ]; then
         echo "Script failed to execute." >&2
-        cat /tmp/script_output.txt >&2
+        cat "$output_tmp" >&2
+        rm -f "$resource_file" "$output_tmp"
         exit 1
     fi
 
-    local script_output=$(cat /tmp/script_output.txt | tail -1)
-    local resource_usage=$(cat /tmp/resource_usage.txt)
+    local script_output=$(tail -1 "$output_tmp")
+    local resource_usage=$(cat "$resource_file")
     local max_memory_kb=$(echo "$resource_usage" | grep "Max Memory" | awk '{print $3}')
     local cpu_usage=$(echo "$resource_usage" | grep "CPU Usage" | awk '{print $3}')
 
     local max_memory=""
-    if [ "$max_memory_kb" -ge 1048576 ]; then
+    if ! [[ "$max_memory_kb" =~ ^[0-9]+$ ]]; then
+        max_memory="n/a"
+    elif [ "$max_memory_kb" -ge 1048576 ]; then
         max_memory=$(echo "scale=2; $max_memory_kb / 1048576" | bc)GB
     elif [ "$max_memory_kb" -ge 1024 ]; then
         max_memory=$(echo "scale=2; $max_memory_kb / 1024" | bc)MB
@@ -179,9 +186,10 @@ execute_lang_run_sh() {
 
         if [ "$script_output" != "$expected_output" ]; then
             print_line "${PURPLE}$part$input_label: \033[0m\033[32m$script_output${GRAY_ITALIC} (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage})\033[91m ✘ Expected: $expected_output \033[0m"
-            if [ $(wc -l < /tmp/script_output.txt) -gt 1 ]; then
-                echo -e "$(head -n -1 /tmp/script_output.txt)"
+            if [ "$(wc -l < "$output_tmp")" -gt 1 ]; then
+                echo -e "$(head -n -1 "$output_tmp")"
             fi
+            rm -f "$resource_file" "$output_tmp"
             exit 1
         fi
         result_symbol="${CHECK_SUCCESS}"
@@ -189,9 +197,11 @@ execute_lang_run_sh() {
 
     print_line "${PURPLE}$part$input_label: \033[0m\033[32m$script_output${GRAY_ITALIC} (execution time: ${elapsed}, memory: ${max_memory}, cpu: ${cpu_usage}) $result_symbol\033[0m"
 
-    if [ $(wc -l < /tmp/script_output.txt) -gt 1 ]; then
-        echo -e "$(head -n -1 /tmp/script_output.txt)"
+    if [ "$(wc -l < "$output_tmp")" -gt 1 ]; then
+        echo -e "$(head -n -1 "$output_tmp")"
     fi
+
+    rm -f "$resource_file" "$output_tmp"
 }
 
 validate_output_file() {

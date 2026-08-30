@@ -11,7 +11,7 @@ challenge_event_regex["ecd"]="^(2024|2025|2026||story1|story2|story3|story4)$"
 
 ignore_files+=(".ecd.session.cookie")
 
-declare -A ecd_events=(
+declare -gA ecd_events=(
     [2024]=20
     [2025]=20
     [2026]=20

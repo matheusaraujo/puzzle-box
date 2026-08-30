@@ -1,5 +1,9 @@
 # Puzzle-Box
 
+[![version](https://img.shields.io/docker/v/maraujo127/puzzle-box?sort=semver&label=version&color=blue)](https://hub.docker.com/r/maraujo127/puzzle-box)
+[![Docker Pulls](https://img.shields.io/docker/pulls/maraujo127/puzzle-box)](https://hub.docker.com/r/maraujo127/puzzle-box)
+[![CI](https://github.com/matheusaraujo/puzzle-box/actions/workflows/ci.yaml/badge.svg)](https://github.com/matheusaraujo/puzzle-box/actions/workflows/ci.yaml)
+
 ![logo.png](docs/logo.png)
 
 ### Supported Languages
@@ -77,4 +81,18 @@ $ pb check
 
 # Commit your solution
 $ pb commit
+```
+
+## Development 🛠️
+
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for how to
+add a language or challenge and how to develop against a local dev-container
+image.
+
+```bash
+# Run the test suite (requires: bats, /usr/bin/time)
+$ make test
+
+# Run static analysis — the same gate CI enforces (requires: shellcheck)
+$ make lint
 ```
